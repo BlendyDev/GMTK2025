@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://4otsh1wy31kg"]
+
+[ext_resource type="Script" uid="uid://cd8k0h68k4a8g" path="res://Scripts/Player.gd" id="1_tumq0"]
+[ext_resource type="Texture2D" uid="uid://bj30yhx4p3qu0" path="res://Sprites/debugPlayer.png" id="2_k5f4k"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_k5f4k"]
+radius = 2.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k5f4k"]
+size = Vector2(4, 4)
+
+[node name="Level" type="Node2D"]
+
+[node name="Player" type="StaticBody2D" parent="."]
+scale = Vector2(7, 7)
+script = ExtResource("1_tumq0")
+
+[node name="Sprite2D" type="Sprite2D" parent="Player"]
+texture = ExtResource("2_k5f4k")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource("CircleShape2D_k5f4k")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="obstacle" type="StaticBody2D" parent="."]
+position = Vector2(-338, 0)
+scale = Vector2(80, 80)
+
+[node name="Sprite2D" type="Sprite2D" parent="obstacle"]
+texture = ExtResource("2_k5f4k")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="obstacle"]
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_k5f4k")
