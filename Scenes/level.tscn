@@ -11,9 +11,10 @@ size = Vector2(4, 4)
 
 [node name="Level" type="Node2D"]
 
-[node name="Player" type="StaticBody2D" parent="."]
+[node name="Player" type="CharacterBody2D" parent="."]
 scale = Vector2(7, 7)
 script = ExtResource("1_tumq0")
+speed = 100.0
 
 [node name="Sprite2D" type="Sprite2D" parent="Player"]
 texture = ExtResource("2_k5f4k")
@@ -31,5 +32,4 @@ scale = Vector2(80, 80)
 texture = ExtResource("2_k5f4k")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="obstacle"]
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_k5f4k")
