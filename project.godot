@@ -15,6 +15,13 @@ run/main_scene="res://Scenes/level.tscn"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[display]
+
+window/size/viewport_width=448
+window/size/viewport_height=252
+window/stretch/mode="viewport"
+window/stretch/scale_mode="integer"
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0

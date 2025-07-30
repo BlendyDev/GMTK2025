@@ -1,7 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://4otsh1wy31kg"]
+[gd_scene load_steps=8 format=3 uid="uid://4otsh1wy31kg"]
 
 [ext_resource type="Script" uid="uid://cd8k0h68k4a8g" path="res://Scripts/Player.gd" id="1_tumq0"]
+[ext_resource type="Texture2D" uid="uid://d4ld3d7820d0n" path="res://Sprites/mousemc.png" id="2_6phgx"]
 [ext_resource type="Texture2D" uid="uid://bj30yhx4p3qu0" path="res://Sprites/debugPlayer.png" id="2_k5f4k"]
+
+[sub_resource type="Curve" id="Curve_6phgx"]
+_data = [Vector2(0, 0), 0.0, -0.151716, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_6phgx"]
+interpolation_mode = 2
+colors = PackedColorArray(0.75, 0.783333, 1, 0.498039, 1, 0.74902, 1, 1)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_k5f4k"]
 radius = 2.0
@@ -11,13 +20,22 @@ size = Vector2(4, 4)
 
 [node name="Level" type="Node2D"]
 
-[node name="Player" type="CharacterBody2D" parent="."]
-scale = Vector2(7, 7)
+[node name="Trail" type="Line2D" parent="."]
+width = 3.0
+width_curve = SubResource("Curve_6phgx")
+default_color = Color(1, 0.74902, 1, 1)
+gradient = SubResource("Gradient_6phgx")
+antialiased = true
+
+[node name="Player" type="CharacterBody2D" parent="." node_paths=PackedStringArray("trail")]
 script = ExtResource("1_tumq0")
 speed = 100.0
+trail = NodePath("../Trail")
+trail_points_per_second = 120
+max_time_sec = 1.0
 
 [node name="Sprite2D" type="Sprite2D" parent="Player"]
-texture = ExtResource("2_k5f4k")
+texture = ExtResource("2_6phgx")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 shape = SubResource("CircleShape2D_k5f4k")
@@ -25,8 +43,8 @@ shape = SubResource("CircleShape2D_k5f4k")
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="obstacle" type="StaticBody2D" parent="."]
-position = Vector2(-338, 0)
-scale = Vector2(80, 80)
+position = Vector2(-150, -5)
+scale = Vector2(26.7922, 26.7922)
 
 [node name="Sprite2D" type="Sprite2D" parent="obstacle"]
 texture = ExtResource("2_k5f4k")
