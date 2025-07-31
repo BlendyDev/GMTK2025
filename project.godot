@@ -28,6 +28,8 @@ window/stretch/scale_mode="integer"
 2d_physics/layer_2="Wall"
 2d_physics/layer_3="Mob"
 2d_physics/layer_4="Mob (solid)"
+2d_physics/layer_5="Boss"
+2d_physics/layer_6="Boss (solid)"
 2d_physics/layer_9="Trail"
 2d_physics/layer_10="Circle"
 

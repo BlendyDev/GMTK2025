@@ -2,9 +2,9 @@ extends StaticBody2D
 class_name Trail
 
 @export var trail: Line2D
-@export var trail_points_per_second: int
+@export var trail_points_per_second: int = 120
 @onready var last_trail_point_timestamp : int = Time.get_ticks_msec()
-@export var max_time_sec: float
+@export var max_time_sec: float = 1.15
 @export var min_distance_to_oldest_points: float
 var cleared_points = true
 @onready var last_circle_timestamp:= Time.get_ticks_msec()
@@ -13,6 +13,7 @@ var cleared_points = true
 var trail_collisions: Array[CollisionShape2D]
 @export var sfx: SFX
 var can_trail = true
+@export var last_points_tolerance = 0.2
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -105,7 +106,7 @@ func _physics_process(delta: float) -> void:
 	if (!player.playing or !can_trail): return
 	if (Time.get_ticks_msec() - last_trail_point_timestamp > 1000.0/trail_points_per_second):
 		add_point()
-	var closest_point = find_closest_point(0.2)
+	var closest_point = find_closest_point(last_points_tolerance)
 	var distance = player.position.distance_to(closest_point)
 	
 	if (distance < min_distance_to_oldest_points and !cleared_points 

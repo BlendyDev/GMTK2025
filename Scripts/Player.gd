@@ -3,7 +3,7 @@ extends CharacterBody2D
 class_name Player
 
 @onready var offset :Vector2 = (get_viewport().size/2) 
-@export var speed: float
+@export var speed: float = 0.3
 var playing := false
 var mouse_motion:= Vector2.ZERO
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D

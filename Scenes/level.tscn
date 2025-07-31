@@ -1,15 +1,17 @@
-[gd_scene load_steps=22 format=3 uid="uid://4otsh1wy31kg"]
+[gd_scene load_steps=26 format=3 uid="uid://4otsh1wy31kg"]
 
-[ext_resource type="Script" uid="uid://cxjw50s4jeh2y" path="res://Scenes/trail.gd" id="1_0f350"]
+[ext_resource type="Script" uid="uid://cxjw50s4jeh2y" path="res://Scripts/trail.gd" id="1_0f350"]
 [ext_resource type="Script" uid="uid://cd8k0h68k4a8g" path="res://Scripts/Player.gd" id="1_tumq0"]
 [ext_resource type="Texture2D" uid="uid://bj30yhx4p3qu0" path="res://Sprites/debugPlayer.png" id="2_k5f4k"]
 [ext_resource type="SpriteFrames" uid="uid://brjoepnckupck" path="res://Animation/mouseFrames.tres" id="4_0f350"]
 [ext_resource type="AudioStream" uid="uid://dapvn0ocg8s84" path="res://SFX/test_sfx_pickup.wav" id="4_81xng"]
-[ext_resource type="Script" uid="uid://cqcu4jcux40sh" path="res://Scenes/mob.gd" id="5_wqkje"]
+[ext_resource type="Script" uid="uid://cqcu4jcux40sh" path="res://Scripts/mob.gd" id="5_wqkje"]
 [ext_resource type="Texture2D" uid="uid://c1yfhu6mq1mop" path="res://Sprites/fondo.png" id="7_8c0lf"]
 [ext_resource type="Texture2D" uid="uid://cyeifbyapar62" path="res://Sprites/trueborder.png" id="8_754fn"]
-[ext_resource type="Script" uid="uid://cjjsuev7gaqao" path="res://Scenes/sfx.gd" id="8_bvt00"]
+[ext_resource type="Script" uid="uid://cjjsuev7gaqao" path="res://Scripts/sfx.gd" id="8_bvt00"]
 [ext_resource type="AudioStream" uid="uid://cf12dn028v1r5" path="res://SFX/test_reset_sfx.wav" id="10_oqgf2"]
+[ext_resource type="Script" uid="uid://dl360of7mit5t" path="res://Scripts/boss.gd" id="11_ha31o"]
+[ext_resource type="Texture2D" uid="uid://bvyirt0g771gn" path="res://Sprites/catmaligno.png" id="12_pa6b8"]
 
 [sub_resource type="Curve" id="Curve_6phgx"]
 _data = [Vector2(0, 0.235955), 0.0, -0.151716, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -17,7 +19,8 @@ point_count = 2
 
 [sub_resource type="Gradient" id="Gradient_6phgx"]
 interpolation_mode = 2
-colors = PackedColorArray(0.75, 0.783333, 1, 0.498039, 1, 0.74902, 1, 1)
+offsets = PackedFloat32Array(0.00890208, 0.2, 0.2, 1)
+colors = PackedColorArray(0.55, 0.8425, 1, 0.258824, 0.552941, 0.843137, 1, 0.768627, 0.75, 0.783333, 1, 0.498039, 1, 0.74902, 1, 1)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_k5f4k"]
 radius = 2.0
@@ -48,6 +51,12 @@ stream_0/stream = ExtResource("4_81xng")
 streams_count = 1
 stream_0/stream = ExtResource("10_oqgf2")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ha31o"]
+size = Vector2(12, 11)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pa6b8"]
+size = Vector2(12, 12)
+
 [node name="Level" type="Node2D"]
 
 [node name="Trail" type="StaticBody2D" parent="." node_paths=PackedStringArray("trail", "player", "sfx")]
@@ -55,8 +64,7 @@ collision_layer = 256
 collision_mask = 4
 script = ExtResource("1_0f350")
 trail = NodePath("Trail")
-trail_points_per_second = 120
-max_time_sec = 1.15
+max_time_sec = 1.0
 min_distance_to_oldest_points = 12.5
 circle_min_timeout_sec = 0.5
 player = NodePath("../Player")
@@ -70,10 +78,11 @@ gradient = SubResource("Gradient_6phgx")
 antialiased = true
 
 [node name="Player" type="CharacterBody2D" parent="."]
-collision_mask = 7
+z_index = 500
+collision_mask = 23
 input_pickable = true
 script = ExtResource("1_tumq0")
-speed = 0.6
+speed = 0.2
 stored_velocity_frames = 10
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
@@ -166,8 +175,39 @@ pitch_scale = 1.3
 stream = SubResource("AudioStreamRandomizer_bvt00")
 pitch_scale = 1.3
 
+[node name="Boss" type="CharacterBody2D" parent="." node_paths=PackedStringArray("player", "trail", "sfx")]
+z_index = 200
+position = Vector2(-200, 97)
+collision_layer = 32
+collision_mask = 0
+script = ExtResource("11_ha31o")
+player = NodePath("../Player")
+trail = NodePath("../Trail")
+sfx = NodePath("../SFX")
+
+[node name="Sprite2D" type="Sprite2D" parent="Boss"]
+texture = ExtResource("12_pa6b8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boss"]
+position = Vector2(0, 9.5)
+shape = SubResource("RectangleShape2D_ha31o")
+
+[node name="PlayerDetect" type="Area2D" parent="Boss"]
+collision_layer = 16
+collision_mask = 769
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boss/PlayerDetect"]
+position = Vector2(0, 10)
+shape = SubResource("RectangleShape2D_pa6b8")
+
+[node name="SwitchAction" type="Timer" parent="Boss"]
+one_shot = true
+
 [connection signal="mouse_entered" from="Player" to="Player" method="_on_mouse_entered"]
 [connection signal="timeout" from="mob/SwitchAction" to="mob" method="_on_switch_action_timeout"]
 [connection signal="area_entered" from="mob/PlayerDetect" to="mob" method="_on_player_detect_area_entered"]
 [connection signal="body_entered" from="mob/PlayerDetect" to="mob" method="_on_body_entered"]
 [connection signal="body_exited" from="mob/PlayerDetect" to="mob" method="_on_body_exited"]
+[connection signal="body_entered" from="Boss/PlayerDetect" to="Boss" method="_on_body_entered"]
+[connection signal="body_exited" from="Boss/PlayerDetect" to="Boss" method="_on_body_exited"]
+[connection signal="timeout" from="Boss/SwitchAction" to="Boss" method="_on_switch_action_timeout"]

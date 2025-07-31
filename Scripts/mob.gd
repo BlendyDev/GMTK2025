@@ -33,6 +33,7 @@ func _physics_process(delta: float) -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	if !trail.can_trail: return
+	if action == Action.DYING: return
 	if body is Player or body is Trail:
 		if !bodies_entered.has(body): bodies_entered.append(body)
 		trail.can_trail = false
@@ -74,5 +75,6 @@ func _on_player_detect_area_entered(area: Area2D) -> void:
 		var tween = get_tree().create_tween()
 		tween.tween_property(sprite, "modulate", Color.from_rgba8(255, 255, 255, 0), 1.0)
 		tween.tween_callback(queue_free)
+		tween.tween_callback($"../Boss".activate)
 		pass
 	pass # Replace with function body.
