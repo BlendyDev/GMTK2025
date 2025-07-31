@@ -11,6 +11,8 @@ var cleared_points = true
 @export var circle_min_timeout_sec: float
 @export var player: Player
 var trail_collisions: Array[CollisionShape2D]
+@export var sfx: SFX
+var can_trail = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -32,6 +34,8 @@ func simplify_polygon(polygon: PackedVector2Array) -> Array[PackedVector2Array]:
 	return Geometry2D.merge_polygons(polygon, PackedVector2Array([]))
 
 func reset_trail():
+	sfx.circle_reset()
+	cleared_points = true
 	last_circle_timestamp = Time.get_ticks_msec()
 	for collision_shape in trail_collisions:
 		collision_shape.queue_free()
@@ -39,7 +43,7 @@ func reset_trail():
 	trail.clear_points()
 
 func spawn_circle(closest_point: Vector2):
-	$"../Trail/AudioStreamPlayer2D".play()
+	sfx.circle_finish()
 	var fade_out_trail = Line2D.new()
 	fade_out_trail.antialiased = true
 	fade_out_trail.width = 3.0
@@ -68,6 +72,7 @@ func spawn_circle(closest_point: Vector2):
 	reset_trail()
 
 func _physics_process(delta: float) -> void:
+	if (!player.playing or !can_trail): return
 	if (Time.get_ticks_msec() - last_trail_point_timestamp > 1000.0/trail_points_per_second):
 		var n = floor((Time.get_ticks_msec() - last_trail_point_timestamp) / (1000.0/trail_points_per_second))
 		var points: Array[Vector2]
@@ -96,14 +101,6 @@ func _physics_process(delta: float) -> void:
 		if (Input.is_key_pressed(KEY_SPACE)):
 			pass
 		pass
-		
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	if (!player.playing): return
-	if (trail.points.size() > 1):
-		pass
-	
 	var closest_point = find_closest_point(0.2)
 	var distance = player.position.distance_to(closest_point)
 	
@@ -111,7 +108,14 @@ func _process(delta: float) -> void:
 	and Time.get_ticks_msec() - last_circle_timestamp > 1000*circle_min_timeout_sec):
 		
 		spawn_circle(closest_point)
-		cleared_points = true
+		
 	if distance > min_distance_to_oldest_points * 3:
 		cleared_points = false
+		
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	
+
+	
 	pass
