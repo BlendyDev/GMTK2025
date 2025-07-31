@@ -27,7 +27,7 @@ stream_0/stream = ExtResource("4_81xng")
 [node name="Level" type="Node2D"]
 
 [node name="Trail" type="Line2D" parent="."]
-width = 3.0
+width = 4.0
 width_curve = SubResource("Curve_6phgx")
 default_color = Color(1, 0.74902, 1, 1)
 gradient = SubResource("Gradient_6phgx")
@@ -38,8 +38,9 @@ script = ExtResource("1_tumq0")
 speed = 100.0
 trail = NodePath("../Trail")
 trail_points_per_second = 120
-max_time_sec = 1.5
-min_distance_to_oldest_points = 10.0
+max_time_sec = 1.15
+min_distance_to_oldest_points = 15.0
+circle_min_timeout_sec = 0.5
 
 [node name="Sprite2D" type="Sprite2D" parent="Player"]
 texture = ExtResource("2_6phgx")
