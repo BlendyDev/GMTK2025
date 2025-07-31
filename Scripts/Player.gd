@@ -27,7 +27,7 @@ func _input(e: InputEvent):
 			
 			
 
-func a():
+func animate_direction():
 	if (velocity.length() > 0):
 		last_velocities.append(velocity)
 		if (last_velocities.size() > stored_velocity_frames):
@@ -55,8 +55,6 @@ func a():
 	else:
 		sprite.animation = "left"
 		
-	
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -68,8 +66,7 @@ func _process(delta: float) -> void:
 		min(offset.x, max(-offset.x, position.x + mouse_motion.x))-position.x,
 		min(offset.y, max(-offset.y, position.y + mouse_motion.y))-position.y
 	)*speed * (1/delta)
-	
-	a()
+	animate_direction()
 	mouse_motion = Vector2.ZERO
 	move_and_slide()
 	pass

@@ -1,4 +1,4 @@
-extends Area2D
+extends StaticBody2D
 
 @export var trail: Line2D
 @export var trail_points_per_second: int
@@ -9,7 +9,7 @@ var cleared_points = true
 @onready var last_circle_timestamp:= Time.get_ticks_msec()
 @export var circle_min_timeout_sec: float
 @export var player: Player
-var collision_polygons: Array[CollisionPolygon2D]
+var trail_collisions: Array[CollisionShape2D]
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -42,6 +42,8 @@ func spawn_circle(closest_point: Vector2):
 		
 	fade_out_trail.add_point(closest_point)
 	var area = Area2D.new()
+	area.collision_layer = pow(2, 10-1)
+	area.collision_mask = pow(2, 3-1)
 	fade_out_trail.add_child(area)
 	var initial_polygon :PackedVector2Array = fade_out_trail.points.duplicate()
 	var polygons := simplify_polygon(initial_polygon)
@@ -55,14 +57,12 @@ func spawn_circle(closest_point: Vector2):
 	tween.tween_callback(fade_out_trail.queue_free)
 	get_tree().current_scene.add_child(fade_out_trail)
 	
-	
+	for collision_shape in trail_collisions:
+		collision_shape.queue_free()
+	trail_collisions.clear()
 	trail.clear_points()
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	if (!player.playing): return
-	if (trail.points.size() > 1):
-		pass
+func _physics_process(delta: float) -> void:
 	if (Time.get_ticks_msec() - last_trail_point_timestamp > 1000.0/trail_points_per_second):
 		var n = floor((Time.get_ticks_msec() - last_trail_point_timestamp) / (1000.0/trail_points_per_second))
 		var points: Array[Vector2]
@@ -72,30 +72,33 @@ func _process(delta: float) -> void:
 		var direction = player.position - last_position
 		for i in range(n):
 			if (trail.points.size() > max_time_sec * trail_points_per_second):
+				if (trail.points.size() > 1):
+					trail_collisions[0].queue_free()
+					trail_collisions.remove_at(0)
 				trail.remove_point(0)
-			trail.add_point(last_position + direction* (i+1)/n)
+			var new_pos :Vector2 = last_position + direction* (i+1)/n
+			trail.add_point(new_pos)
+			if (trail.points.size() > 1):
+				var collision_segment := SegmentShape2D.new()
+				collision_segment.a = trail.points.get(trail.points.size()-2)
+				collision_segment.b = trail.points.get(trail.points.size()-1)
+				var collision_shape := CollisionShape2D.new()
+				collision_shape.shape = collision_segment
+				add_child(collision_shape)
+				trail_collisions.append(collision_shape)
 		last_trail_point_timestamp += n* (1000.0/trail_points_per_second)
-		
-		for collision_polygon in collision_polygons:
-			collision_polygon.queue_free()
-		collision_polygons.clear()
-		var trail_polygons := Geometry2D.offset_polyline(trail.points, trail.width/2.0, Geometry2D.JOIN_ROUND, Geometry2D.END_ROUND)
-		
-		var simple_trail_polygons: Array[PackedVector2Array]
-		for polygon in trail_polygons:
-			simple_trail_polygons.append_array(simplify_polygon(polygon))
-		for polygon in simple_trail_polygons:
-			var collision_polygon = CollisionPolygon2D.new()
-			if polygon.size() == 0:
-				print("nullsized")
-				continue
-			collision_polygon.polygon = polygon
-			trail.add_child(collision_polygon)
-			collision_polygons.append(collision_polygon)
+	
 		if (Input.is_key_pressed(KEY_SPACE)):
 			pass
 		pass
 		
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	if (!player.playing): return
+	if (trail.points.size() > 1):
+		pass
+	
 	var closest_point = find_closest_point(0.2)
 	var distance = player.position.distance_to(closest_point)
 	

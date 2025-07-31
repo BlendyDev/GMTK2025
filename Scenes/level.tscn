@@ -32,7 +32,9 @@ radius = 1.97499
 
 [node name="Level" type="Node2D"]
 
-[node name="Trail" type="Area2D" parent="." node_paths=PackedStringArray("trail", "player")]
+[node name="Trail" type="StaticBody2D" parent="." node_paths=PackedStringArray("trail", "player")]
+collision_layer = 256
+collision_mask = 16777215
 script = ExtResource("1_0f350")
 trail = NodePath("Trail")
 trail_points_per_second = 120
@@ -54,6 +56,7 @@ scale = Vector2(5, 5)
 stream = SubResource("AudioStreamRandomizer_wqkje")
 
 [node name="Player" type="CharacterBody2D" parent="."]
+collision_mask = 7
 input_pickable = true
 script = ExtResource("1_tumq0")
 speed = 1.0
@@ -63,7 +66,7 @@ stored_velocity_frames = 10
 sprite_frames = ExtResource("4_0f350")
 animation = &"right"
 autoplay = "right"
-frame_progress = 0.882118
+frame_progress = 0.0617137
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 shape = SubResource("CircleShape2D_k5f4k")
@@ -73,6 +76,7 @@ shape = SubResource("CircleShape2D_k5f4k")
 [node name="obstacle" type="StaticBody2D" parent="."]
 position = Vector2(-150, -5)
 scale = Vector2(26.7922, 26.7922)
+collision_layer = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="obstacle"]
 texture = ExtResource("2_k5f4k")
@@ -83,6 +87,8 @@ shape = SubResource("RectangleShape2D_k5f4k")
 [node name="mob" type="Area2D" parent="."]
 position = Vector2(109, -70)
 scale = Vector2(10.645, 10.645)
+collision_layer = 260
+collision_mask = 16777215
 script = ExtResource("5_wqkje")
 
 [node name="Sprite2D" type="Sprite2D" parent="mob"]
@@ -96,3 +102,4 @@ z_index = -1000
 texture = ExtResource("7_8c0lf")
 
 [connection signal="mouse_entered" from="Player" to="Player" method="_on_mouse_entered"]
+[connection signal="body_entered" from="mob" to="mob" method="_on_body_entered"]

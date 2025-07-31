@@ -22,6 +22,14 @@ window/size/viewport_height=252
 window/stretch/mode="viewport"
 window/stretch/scale_mode="integer"
 
+[layer_names]
+
+2d_physics/layer_1="Player"
+2d_physics/layer_2="Wall"
+2d_physics/layer_3="Mob"
+2d_physics/layer_9="Trail"
+2d_physics/layer_10="Circle"
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
