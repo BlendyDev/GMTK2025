@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://4otsh1wy31kg"]
+[gd_scene load_steps=14 format=3 uid="uid://4otsh1wy31kg"]
 
 [ext_resource type="Script" uid="uid://cxjw50s4jeh2y" path="res://Scenes/trail.gd" id="1_0f350"]
 [ext_resource type="Script" uid="uid://cd8k0h68k4a8g" path="res://Scripts/Player.gd" id="1_tumq0"]
@@ -6,6 +6,7 @@
 [ext_resource type="SpriteFrames" uid="uid://brjoepnckupck" path="res://Animation/mouseFrames.tres" id="4_0f350"]
 [ext_resource type="AudioStream" uid="uid://dapvn0ocg8s84" path="res://SFX/test_sfx_pickup.wav" id="4_81xng"]
 [ext_resource type="Script" uid="uid://cqcu4jcux40sh" path="res://Scenes/mob.gd" id="5_wqkje"]
+[ext_resource type="Texture2D" uid="uid://c1yfhu6mq1mop" path="res://Sprites/fondo.png" id="7_8c0lf"]
 
 [sub_resource type="Curve" id="Curve_6phgx"]
 _data = [Vector2(0, 0.235955), 0.0, -0.151716, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -56,13 +57,13 @@ stream = SubResource("AudioStreamRandomizer_wqkje")
 input_pickable = true
 script = ExtResource("1_tumq0")
 speed = 1.0
-last_velocity_frames = 10
+stored_velocity_frames = 10
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
 sprite_frames = ExtResource("4_0f350")
 animation = &"right"
 autoplay = "right"
-frame_progress = 0.185315
+frame_progress = 0.882118
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 shape = SubResource("CircleShape2D_k5f4k")
@@ -89,5 +90,9 @@ texture = ExtResource("2_k5f4k")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="mob"]
 shape = SubResource("CircleShape2D_0f350")
+
+[node name="BG" type="Sprite2D" parent="."]
+z_index = -1000
+texture = ExtResource("7_8c0lf")
 
 [connection signal="mouse_entered" from="Player" to="Player" method="_on_mouse_entered"]

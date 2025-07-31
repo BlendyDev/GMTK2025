@@ -8,7 +8,7 @@ var playing := false
 var mouse_motion:= Vector2.ZERO
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 var last_velocities: PackedVector2Array
-@export var last_velocity_frames: int
+@export var stored_velocity_frames: int
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -27,15 +27,14 @@ func _input(e: InputEvent):
 			
 			
 
-func animate_direction():
+func a():
 	if (velocity.length() > 0):
 		last_velocities.append(velocity)
-		if (last_velocity_frames > 10):
+		if (last_velocities.size() > stored_velocity_frames):
 			last_velocities.remove_at(0)
 	var combined_velocity := Vector2.ZERO
 	for v in last_velocities:
 		combined_velocity += v.normalized()
-	
 	var offset_angle := (combined_velocity.angle_to(Vector2.RIGHT) + PI)/(2*PI) + 1.0/16.0
 	if (offset_angle < 1.0/8.0):
 		sprite.animation = "left"
@@ -55,6 +54,9 @@ func animate_direction():
 		sprite.animation = "up_left"
 	else:
 		sprite.animation = "left"
+		
+	
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -66,8 +68,8 @@ func _process(delta: float) -> void:
 		min(offset.x, max(-offset.x, position.x + mouse_motion.x))-position.x,
 		min(offset.y, max(-offset.y, position.y + mouse_motion.y))-position.y
 	)*speed * (1/delta)
-	animate_direction()
-		
+	
+	a()
 	mouse_motion = Vector2.ZERO
 	move_and_slide()
 	pass
