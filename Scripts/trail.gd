@@ -14,6 +14,7 @@ var trail_collisions: Array[CollisionShape2D]
 @export var sfx: SFX
 var can_trail = true
 @export var last_points_tolerance = 0.2
+@onready var loop_scene = preload("res://Scenes/loop.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -68,7 +69,11 @@ func try_spawn_circle(closest_point: Vector2):
 		var collision = CollisionPolygon2D.new()
 		collision.polygon = polygon
 		area.add_child(collision)
-	
+	var loop_count = polygons.size()
+	if (loop_count > 1):
+		var loop := loop_scene.instantiate() as Node2D
+		get_tree().current_scene.add_child(loop)
+		loop.position = player.position
 	var tween = get_tree().create_tween()
 	tween.tween_property(fade_out_trail, "default_color", Color.from_rgba8(255, 255, 255, 0), 1)
 	tween.tween_callback(fade_out_trail.queue_free)

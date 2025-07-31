@@ -1,7 +1,7 @@
 [gd_scene load_steps=26 format=3 uid="uid://4otsh1wy31kg"]
 
 [ext_resource type="Script" uid="uid://cxjw50s4jeh2y" path="res://Scripts/trail.gd" id="1_0f350"]
-[ext_resource type="Script" uid="uid://cd8k0h68k4a8g" path="res://Scripts/Player.gd" id="1_tumq0"]
+[ext_resource type="Script" uid="uid://cd8k0h68k4a8g" path="res://Scripts/player.gd" id="1_tumq0"]
 [ext_resource type="Texture2D" uid="uid://bj30yhx4p3qu0" path="res://Sprites/debugPlayer.png" id="2_k5f4k"]
 [ext_resource type="SpriteFrames" uid="uid://brjoepnckupck" path="res://Animation/mouseFrames.tres" id="4_0f350"]
 [ext_resource type="AudioStream" uid="uid://dapvn0ocg8s84" path="res://SFX/test_sfx_pickup.wav" id="4_81xng"]
@@ -208,6 +208,7 @@ one_shot = true
 [connection signal="area_entered" from="mob/PlayerDetect" to="mob" method="_on_player_detect_area_entered"]
 [connection signal="body_entered" from="mob/PlayerDetect" to="mob" method="_on_body_entered"]
 [connection signal="body_exited" from="mob/PlayerDetect" to="mob" method="_on_body_exited"]
+[connection signal="area_entered" from="Boss/PlayerDetect" to="Boss" method="_on_player_detect_area_entered"]
 [connection signal="body_entered" from="Boss/PlayerDetect" to="Boss" method="_on_body_entered"]
 [connection signal="body_exited" from="Boss/PlayerDetect" to="Boss" method="_on_body_exited"]
 [connection signal="timeout" from="Boss/SwitchAction" to="Boss" method="_on_switch_action_timeout"]

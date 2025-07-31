@@ -19,11 +19,10 @@ var bodies_entered: Array[Node2D]
 @onready var sprite = $Sprite2D
 
 enum Action {PRE, IDLE, MOVING, SHIELD, DYING}
-var action: Action
+@export var action: Action
 var speed = 250.0
 var hp = 30
 @onready var snapped_pos = CENTER
-
 
 var available_locations := [UP_LEFT, LEFT, DOWN_LEFT, DOWN, DOWN_RIGHT, RIGHT, UP_RIGHT, UP]
 
@@ -31,6 +30,10 @@ func _ready() -> void:
 	action = Action.PRE
 	timer.start()
 	pass # Replace with function body.
+
+func _process(delta: float) -> void:
+	if (action == Action.SHIELD): modulate = Color.from_rgba8(255, 0, 0, 255)
+	else: modulate = Color.from_rgba8(255, 255, 255, 255)
 
 func activate():
 	action = Action.IDLE
@@ -54,10 +57,8 @@ func _on_body_exited(body: Node2D) -> void:
 	if (bodies_entered.is_empty()): trail.can_trail = true
 	if (Input.is_key_pressed(KEY_SPACE)):
 		pass
-	pass # Replace with function body.
-
-func pick_location_and_move():
-	var index := rng.randi_range(0, 7)
+		
+func move(index: int):
 	var new_pos = available_locations.get(index)
 	available_locations.remove_at(index)
 	available_locations.append(snapped_pos)
@@ -74,15 +75,34 @@ func pick_location_and_move():
 	tween.tween_property(self, "position", snapped_pos, 0.5)
 	tween.tween_callback(line.queue_free)
 	tween.tween_callback(finish_move)
-	pass
+
+func move_to(loc: Vector2):
+	if (snapped_pos == loc): return
+	var index := available_locations.rfind(loc)
+	if (index == -1): return
+	move(index)
+
+func pick_location_and_move():
+	var index := rng.randi_range(0, 7)
+	move(index)
+	
 
 func finish_move():
+	if (action != Action.MOVING):
+		if (action == Action.SHIELD): move_to(CENTER)
+		return
 	action = Action.IDLE
 	timer.wait_time = 1.0
 	timer.start()
-	pass
 
 func _on_switch_action_timeout() -> void:
 	if (action == Action.IDLE):
+		action = Action.MOVING
 		pick_location_and_move()
-	pass # Replace with function body.
+
+func _on_player_detect_area_entered(area: Area2D) -> void:
+	if (area.collision_layer == pow(2, 10-1)): #traced circle
+		if (action == Action.MOVING or action == Action.IDLE):
+			hp -= 1
+			if (hp%5 == 0):
+				action = Action.SHIELD
