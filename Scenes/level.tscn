@@ -34,6 +34,7 @@ gradient = SubResource("Gradient_6phgx")
 antialiased = true
 
 [node name="Player" type="CharacterBody2D" parent="." node_paths=PackedStringArray("trail")]
+input_pickable = true
 script = ExtResource("1_tumq0")
 speed = 100.0
 trail = NodePath("../Trail")
@@ -73,3 +74,5 @@ shape = SubResource("RectangleShape2D_k5f4k")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="finalTrail"]
 stream = SubResource("AudioStreamRandomizer_wqkje")
+
+[connection signal="mouse_entered" from="Player" to="Player" method="_on_mouse_entered"]

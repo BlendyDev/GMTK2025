@@ -32,7 +32,7 @@ func _input(e: InputEvent):
 			)*speed
 			move_and_slide()
 
-func closest_point(rate: float) -> Vector2:
+func find_closest_point(rate: float) -> Vector2:
 	var point: Vector2
 	var distance:float = INF
 	for i in range (min(trail.points.size(), ceil(rate*max_time_sec*trail_points_per_second))):
@@ -55,16 +55,32 @@ func spawn_circle(closest_point: Vector2):
 		fade_out_trail.remove_point(0)
 		
 	fade_out_trail.add_point(closest_point)
+	var area = Area2D.new()
+	fade_out_trail.add_child(area)
+	var initial_polygon :PackedVector2Array = fade_out_trail.points.duplicate()
+	var polygons := simplify_polygon(initial_polygon)
+	print(polygons.size())
+	for polygon in polygons:
+		var collision = CollisionPolygon2D.new()
+		collision.polygon = polygon
+		area.add_child(collision)
+	
 	var tween = get_tree().create_tween()
 	tween.tween_property(fade_out_trail, "default_color", Color.from_rgba8(255, 255, 255, 0), 1)
 	tween.tween_callback(fade_out_trail.queue_free)
 	get_tree().current_scene.add_child(fade_out_trail)
+	
+	
 	trail.clear_points()
+
+func simplify_polygon(polygon: PackedVector2Array) -> Array[PackedVector2Array]:
+	return Geometry2D.merge_polygons(polygon, PackedVector2Array([]))
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if ((get_viewport().get_mouse_position()-offset).distance_to(position) < 30 and !playing):
-		bind_to_player()
+	if (Input.is_key_pressed(KEY_SPACE)):
+		pass
+		
 	if !playing:
 		return
 	if (Time.get_ticks_msec() - last_trail_point_timestamp > 1000.0/trail_points_per_second):
@@ -75,7 +91,7 @@ func _process(delta: float) -> void:
 			trail.add_point(position)
 		last_trail_point_timestamp += n* (1000.0/trail_points_per_second)
 		pass
-	var closest_point = closest_point(0.2)
+	var closest_point = find_closest_point(0.2)
 	var distance = position.distance_to(closest_point)
 	if (distance < min_distance_to_oldest_points and !cleared_points 
 	and Time.get_ticks_msec() - last_circle_timestamp > 1000*circle_min_timeout_sec):
@@ -87,3 +103,8 @@ func _process(delta: float) -> void:
 	
 	
 	pass
+
+
+func _on_mouse_entered() -> void:
+	if (!playing): bind_to_player()
+	pass # Replace with function body.
