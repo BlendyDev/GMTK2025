@@ -7,7 +7,7 @@ class_name Player
 var playing := false
 var mouse_motion:= Vector2.ZERO
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
-var last_velocities: PackedVector2Array
+var last_velocities: PackedVector2Array = [Vector2.ZERO]
 @export var stored_velocity_frames: int
 
 # Called when the node enters the scene tree for the first time.

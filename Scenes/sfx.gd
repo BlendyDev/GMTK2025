@@ -8,7 +8,7 @@ func _ready() -> void:
 func circle_finish():
 	$CircleFinish.play()
 func circle_reset():
-	$CircleReset.play()
+	if !$CircleReset.playing or $CircleReset.get_playback_position() > 0.1: $CircleReset.play()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

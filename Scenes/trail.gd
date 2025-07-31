@@ -41,8 +41,10 @@ func reset_trail():
 		collision_shape.queue_free()
 	trail_collisions.clear()
 	trail.clear_points()
+	
 
 func spawn_circle(closest_point: Vector2):
+	if (player.velocity.length() < 50.0): return
 	sfx.circle_finish()
 	var fade_out_trail = Line2D.new()
 	fade_out_trail.antialiased = true
@@ -71,36 +73,36 @@ func spawn_circle(closest_point: Vector2):
 	
 	reset_trail()
 
+func add_point():
+	var n = floor((Time.get_ticks_msec() - last_trail_point_timestamp) / (1000.0/trail_points_per_second))
+	var points: Array[Vector2]
+	var last_position: Vector2
+	if (trail.points.size() == 0): last_position = player.position
+	else: last_position = trail.points.get(trail.points.size()-1)
+	var direction = player.position - last_position
+	for i in range(n):
+		if (trail.points.size() > max_time_sec * trail_points_per_second):
+			if (trail.points.size() > 1):
+				trail_collisions[0].queue_free()
+				trail_collisions.remove_at(0)
+			trail.remove_point(0)
+		var new_pos :Vector2 = last_position + direction* (i+1)/n
+		trail.add_point(new_pos)
+		if (trail.points.size() > 1):
+			var collision_segment := SegmentShape2D.new()
+			collision_segment.a = trail.points.get(trail.points.size()-2)
+			collision_segment.b = trail.points.get(trail.points.size()-1)
+			var collision_shape := CollisionShape2D.new()
+			collision_shape.shape = collision_segment
+			add_child(collision_shape)
+			trail_collisions.append(collision_shape)
+	last_trail_point_timestamp += n* (1000.0/trail_points_per_second)
+	
+
 func _physics_process(delta: float) -> void:
 	if (!player.playing or !can_trail): return
 	if (Time.get_ticks_msec() - last_trail_point_timestamp > 1000.0/trail_points_per_second):
-		var n = floor((Time.get_ticks_msec() - last_trail_point_timestamp) / (1000.0/trail_points_per_second))
-		var points: Array[Vector2]
-		var last_position: Vector2
-		if (trail.points.size() == 0): last_position = player.position
-		else: last_position = trail.points.get(trail.points.size()-1)
-		var direction = player.position - last_position
-		for i in range(n):
-			if (trail.points.size() > max_time_sec * trail_points_per_second):
-				if (trail.points.size() > 1):
-					trail_collisions[0].queue_free()
-					trail_collisions.remove_at(0)
-				trail.remove_point(0)
-			var new_pos :Vector2 = last_position + direction* (i+1)/n
-			trail.add_point(new_pos)
-			if (trail.points.size() > 1):
-				var collision_segment := SegmentShape2D.new()
-				collision_segment.a = trail.points.get(trail.points.size()-2)
-				collision_segment.b = trail.points.get(trail.points.size()-1)
-				var collision_shape := CollisionShape2D.new()
-				collision_shape.shape = collision_segment
-				add_child(collision_shape)
-				trail_collisions.append(collision_shape)
-		last_trail_point_timestamp += n* (1000.0/trail_points_per_second)
-	
-		if (Input.is_key_pressed(KEY_SPACE)):
-			pass
-		pass
+		add_point()
 	var closest_point = find_closest_point(0.2)
 	var distance = player.position.distance_to(closest_point)
 	

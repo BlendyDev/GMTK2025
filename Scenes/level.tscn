@@ -73,7 +73,7 @@ antialiased = true
 collision_mask = 7
 input_pickable = true
 script = ExtResource("1_tumq0")
-speed = 1.0
+speed = 0.6
 stored_velocity_frames = 10
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
