@@ -4,6 +4,7 @@ class_name Mob
 @onready var angle := 0.0
 @export var player: Player
 @export var trail: Trail
+@export var sfx: SFX
 var bodies_entered: Array[Node2D]
 
 # Called when the node enters the scene tree for the first time.
@@ -26,6 +27,7 @@ func _on_body_entered(body: Node2D) -> void:
 		if !bodies_entered.has(body): bodies_entered.append(body)
 		trail.can_trail = false
 		trail.reset_trail()
+		sfx.circle_reset()
 	pass # Replace with function body.
 
 

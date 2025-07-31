@@ -25,7 +25,6 @@ func _input(e: InputEvent):
 			if !playing: return
 			mouse_motion = e.relative
 			
-			
 
 func animate_direction():
 	if (velocity.length() > 0):

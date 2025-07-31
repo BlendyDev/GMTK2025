@@ -98,7 +98,7 @@ texture = ExtResource("2_k5f4k")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="obstacle"]
 shape = SubResource("RectangleShape2D_k5f4k")
 
-[node name="mob" type="Area2D" parent="." node_paths=PackedStringArray("player", "trail")]
+[node name="mob" type="Area2D" parent="." node_paths=PackedStringArray("player", "trail", "sfx")]
 position = Vector2(109, -70)
 scale = Vector2(10.645, 10.645)
 collision_layer = 260
@@ -106,6 +106,7 @@ collision_mask = 769
 script = ExtResource("5_wqkje")
 player = NodePath("../Player")
 trail = NodePath("../Trail")
+sfx = NodePath("../SFX")
 
 [node name="Sprite2D" type="Sprite2D" parent="mob"]
 texture = ExtResource("2_k5f4k")

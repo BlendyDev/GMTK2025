@@ -34,17 +34,19 @@ func simplify_polygon(polygon: PackedVector2Array) -> Array[PackedVector2Array]:
 	return Geometry2D.merge_polygons(polygon, PackedVector2Array([]))
 
 func reset_trail():
-	sfx.circle_reset()
+	
 	cleared_points = true
 	last_circle_timestamp = Time.get_ticks_msec()
 	for collision_shape in trail_collisions:
 		collision_shape.queue_free()
 	trail_collisions.clear()
 	trail.clear_points()
-	
 
-func spawn_circle(closest_point: Vector2):
-	if (player.velocity.length() < 50.0): return
+
+func try_spawn_circle(closest_point: Vector2):
+	if (player.velocity.length() < 20.0): 
+		reset_trail()
+		return
 	sfx.circle_finish()
 	var fade_out_trail = Line2D.new()
 	fade_out_trail.antialiased = true
@@ -108,8 +110,7 @@ func _physics_process(delta: float) -> void:
 	
 	if (distance < min_distance_to_oldest_points and !cleared_points 
 	and Time.get_ticks_msec() - last_circle_timestamp > 1000*circle_min_timeout_sec):
-		
-		spawn_circle(closest_point)
+		try_spawn_circle(closest_point)
 		
 	if distance > min_distance_to_oldest_points * 3:
 		cleared_points = false
