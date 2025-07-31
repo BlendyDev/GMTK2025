@@ -6,7 +6,9 @@ class_name Player
 @export var speed: float
 var playing := false
 var mouse_motion:= Vector2.ZERO
-
+@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
+var last_velocities: PackedVector2Array
+@export var last_velocity_frames: int
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -25,21 +27,49 @@ func _input(e: InputEvent):
 			
 			
 
+func animate_direction():
+	if (velocity.length() > 0):
+		last_velocities.append(velocity)
+		if (last_velocity_frames > 10):
+			last_velocities.remove_at(0)
+	var combined_velocity := Vector2.ZERO
+	for v in last_velocities:
+		combined_velocity += v.normalized()
+	
+	var offset_angle := (combined_velocity.angle_to(Vector2.RIGHT) + PI)/(2*PI) + 1.0/16.0
+	if (offset_angle < 1.0/8.0):
+		sprite.animation = "left"
+	elif(offset_angle < 1.0/4.0):
+		sprite.animation = "down_left"
+	elif(offset_angle < 3.0/8.0):     
+		sprite.animation = "down"
+	elif(offset_angle < 1.0/2.0):
+		sprite.animation = "down_right"
+	elif(offset_angle < 5.0/8.0):
+		sprite.animation = "right"
+	elif(offset_angle < 3.0/4.0):
+		sprite.animation = "up_right"
+	elif(offset_angle < 7.0/8.0):
+		sprite.animation = "up"
+	elif(offset_angle < 1):
+		sprite.animation = "up_left"
+	else:
+		sprite.animation = "left"
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	if (Input.is_key_pressed(KEY_SPACE)):
+		pass
+	if !playing:
+		return
 	velocity = Vector2(
 		min(offset.x, max(-offset.x, position.x + mouse_motion.x))-position.x,
 		min(offset.y, max(-offset.y, position.y + mouse_motion.y))-position.y
 	)*speed * (1/delta)
-	mouse_motion = Vector2.ZERO
-	print(velocity)
-	print(delta)
-	move_and_slide()
-	if (Input.is_key_pressed(KEY_SPACE)):
-		pass
+	animate_direction()
 		
-	if !playing:
-		return
+	mouse_motion = Vector2.ZERO
+	move_and_slide()
 	pass
 
 

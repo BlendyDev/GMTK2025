@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://cxjw50s4jeh2y" path="res://Scenes/trail.gd" id="1_0f350"]
 [ext_resource type="Script" uid="uid://cd8k0h68k4a8g" path="res://Scripts/Player.gd" id="1_tumq0"]
-[ext_resource type="Texture2D" uid="uid://d4ld3d7820d0n" path="res://Sprites/mousemc.png" id="2_6phgx"]
 [ext_resource type="Texture2D" uid="uid://bj30yhx4p3qu0" path="res://Sprites/debugPlayer.png" id="2_k5f4k"]
+[ext_resource type="SpriteFrames" uid="uid://brjoepnckupck" path="res://Animation/mouseFrames.tres" id="4_0f350"]
 [ext_resource type="AudioStream" uid="uid://dapvn0ocg8s84" path="res://SFX/test_sfx_pickup.wav" id="4_81xng"]
 [ext_resource type="Script" uid="uid://cqcu4jcux40sh" path="res://Scenes/mob.gd" id="5_wqkje"]
 
@@ -31,15 +31,14 @@ radius = 1.97499
 
 [node name="Level" type="Node2D"]
 
-[node name="Trail" type="Area2D" parent="." node_paths=PackedStringArray("trail", "player", "trail_collision")]
+[node name="Trail" type="Area2D" parent="." node_paths=PackedStringArray("trail", "player")]
 script = ExtResource("1_0f350")
 trail = NodePath("Trail")
 trail_points_per_second = 120
 max_time_sec = 1.15
 min_distance_to_oldest_points = 12.5
-circle_min_timeout_sec = 0.3
+circle_min_timeout_sec = 0.5
 player = NodePath("../Player")
-trail_collision = NodePath("CollisionShape2D")
 
 [node name="Trail" type="Line2D" parent="Trail"]
 width = 4.0
@@ -53,15 +52,17 @@ position = Vector2(27, -21)
 scale = Vector2(5, 5)
 stream = SubResource("AudioStreamRandomizer_wqkje")
 
-[node name="CollisionShape2D" type="CollisionPolygon2D" parent="Trail"]
-
 [node name="Player" type="CharacterBody2D" parent="."]
 input_pickable = true
 script = ExtResource("1_tumq0")
 speed = 1.0
+last_velocity_frames = 10
 
-[node name="Sprite2D" type="Sprite2D" parent="Player"]
-texture = ExtResource("2_6phgx")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
+sprite_frames = ExtResource("4_0f350")
+animation = &"right"
+autoplay = "right"
+frame_progress = 0.185315
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 shape = SubResource("CircleShape2D_k5f4k")
@@ -79,6 +80,7 @@ texture = ExtResource("2_k5f4k")
 shape = SubResource("RectangleShape2D_k5f4k")
 
 [node name="mob" type="Area2D" parent="."]
+position = Vector2(109, -70)
 scale = Vector2(10.645, 10.645)
 script = ExtResource("5_wqkje")
 

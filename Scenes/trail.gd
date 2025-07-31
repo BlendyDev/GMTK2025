@@ -9,7 +9,7 @@ var cleared_points = true
 @onready var last_circle_timestamp:= Time.get_ticks_msec()
 @export var circle_min_timeout_sec: float
 @export var player: Player
-@export var trail_collision: CollisionPolygon2D
+var collision_polygons: Array[CollisionPolygon2D]
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -27,6 +27,9 @@ func find_closest_point(rate: float) -> Vector2:
 			point = current_point
 	return point
 
+func simplify_polygon(polygon: PackedVector2Array) -> Array[PackedVector2Array]:
+	return Geometry2D.merge_polygons(polygon, PackedVector2Array([]))
+
 func spawn_circle(closest_point: Vector2):
 	$"../Trail/AudioStreamPlayer2D".play()
 	var fade_out_trail = Line2D.new()
@@ -41,7 +44,7 @@ func spawn_circle(closest_point: Vector2):
 	var area = Area2D.new()
 	fade_out_trail.add_child(area)
 	var initial_polygon :PackedVector2Array = fade_out_trail.points.duplicate()
-	var polygons := Geometry2D.merge_polygons(initial_polygon, PackedVector2Array([]))
+	var polygons := simplify_polygon(initial_polygon)
 	for polygon in polygons:
 		var collision = CollisionPolygon2D.new()
 		collision.polygon = polygon
@@ -72,9 +75,30 @@ func _process(delta: float) -> void:
 				trail.remove_point(0)
 			trail.add_point(last_position + direction* (i+1)/n)
 		last_trail_point_timestamp += n* (1000.0/trail_points_per_second)
+		
+		for collision_polygon in collision_polygons:
+			collision_polygon.queue_free()
+		collision_polygons.clear()
+		var trail_polygons := Geometry2D.offset_polyline(trail.points, trail.width/2.0, Geometry2D.JOIN_ROUND, Geometry2D.END_ROUND)
+		
+		var simple_trail_polygons: Array[PackedVector2Array]
+		for polygon in trail_polygons:
+			simple_trail_polygons.append_array(simplify_polygon(polygon))
+		for polygon in simple_trail_polygons:
+			var collision_polygon = CollisionPolygon2D.new()
+			if polygon.size() == 0:
+				print("nullsized")
+				continue
+			collision_polygon.polygon = polygon
+			trail.add_child(collision_polygon)
+			collision_polygons.append(collision_polygon)
+		if (Input.is_key_pressed(KEY_SPACE)):
+			pass
 		pass
+		
 	var closest_point = find_closest_point(0.2)
 	var distance = player.position.distance_to(closest_point)
+	
 	if (distance < min_distance_to_oldest_points and !cleared_points 
 	and Time.get_ticks_msec() - last_circle_timestamp > 1000*circle_min_timeout_sec):
 		last_circle_timestamp = Time.get_ticks_msec()
