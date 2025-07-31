@@ -62,10 +62,7 @@ func _process(delta: float) -> void:
 		pass
 	if !playing:
 		return
-	velocity = Vector2(
-		min(offset.x, max(-offset.x, position.x + mouse_motion.x))-position.x,
-		min(offset.y, max(-offset.y, position.y + mouse_motion.y))-position.y
-	)*speed * (1/delta)
+	velocity = mouse_motion*speed * (1/delta)
 	animate_direction()
 	mouse_motion = Vector2.ZERO
 	move_and_slide()

@@ -2,6 +2,8 @@ extends Area2D
 class_name Mob
 
 @onready var angle := 0.0
+@export var player: Player
+@export var trail: Trail
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -18,5 +20,7 @@ func _process(delta: float) -> void:
 
 
 func _on_body_entered(body: Node2D) -> void:
-	print("xasnlsiudnh")
+	if body is Player or body is Trail:
+		print("resetting trail")
+		trail.reset_trail()
 	pass # Replace with function body.

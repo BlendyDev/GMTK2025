@@ -1,4 +1,5 @@
 extends StaticBody2D
+class_name Trail
 
 @export var trail: Line2D
 @export var trail_points_per_second: int
@@ -30,6 +31,13 @@ func find_closest_point(rate: float) -> Vector2:
 func simplify_polygon(polygon: PackedVector2Array) -> Array[PackedVector2Array]:
 	return Geometry2D.merge_polygons(polygon, PackedVector2Array([]))
 
+func reset_trail():
+	last_circle_timestamp = Time.get_ticks_msec()
+	for collision_shape in trail_collisions:
+		collision_shape.queue_free()
+	trail_collisions.clear()
+	trail.clear_points()
+
 func spawn_circle(closest_point: Vector2):
 	$"../Trail/AudioStreamPlayer2D".play()
 	var fade_out_trail = Line2D.new()
@@ -57,10 +65,7 @@ func spawn_circle(closest_point: Vector2):
 	tween.tween_callback(fade_out_trail.queue_free)
 	get_tree().current_scene.add_child(fade_out_trail)
 	
-	for collision_shape in trail_collisions:
-		collision_shape.queue_free()
-	trail_collisions.clear()
-	trail.clear_points()
+	reset_trail()
 
 func _physics_process(delta: float) -> void:
 	if (Time.get_ticks_msec() - last_trail_point_timestamp > 1000.0/trail_points_per_second):
@@ -104,7 +109,7 @@ func _process(delta: float) -> void:
 	
 	if (distance < min_distance_to_oldest_points and !cleared_points 
 	and Time.get_ticks_msec() - last_circle_timestamp > 1000*circle_min_timeout_sec):
-		last_circle_timestamp = Time.get_ticks_msec()
+		
 		spawn_circle(closest_point)
 		cleared_points = true
 	if distance > min_distance_to_oldest_points * 3:

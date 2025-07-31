@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://4otsh1wy31kg"]
+[gd_scene load_steps=19 format=3 uid="uid://4otsh1wy31kg"]
 
 [ext_resource type="Script" uid="uid://cxjw50s4jeh2y" path="res://Scenes/trail.gd" id="1_0f350"]
 [ext_resource type="Script" uid="uid://cd8k0h68k4a8g" path="res://Scripts/Player.gd" id="1_tumq0"]
@@ -7,6 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://dapvn0ocg8s84" path="res://SFX/test_sfx_pickup.wav" id="4_81xng"]
 [ext_resource type="Script" uid="uid://cqcu4jcux40sh" path="res://Scenes/mob.gd" id="5_wqkje"]
 [ext_resource type="Texture2D" uid="uid://c1yfhu6mq1mop" path="res://Sprites/fondo.png" id="7_8c0lf"]
+[ext_resource type="Texture2D" uid="uid://cyeifbyapar62" path="res://Sprites/trueborder.png" id="8_754fn"]
 
 [sub_resource type="Curve" id="Curve_6phgx"]
 _data = [Vector2(0, 0.235955), 0.0, -0.151716, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -30,11 +31,23 @@ size = Vector2(4, 4)
 [sub_resource type="CircleShape2D" id="CircleShape2D_0f350"]
 radius = 1.97499
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bvt00"]
+size = Vector2(449, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_754fn"]
+size = Vector2(449, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oqgf2"]
+size = Vector2(1, 253)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qxfql"]
+size = Vector2(1, 253)
+
 [node name="Level" type="Node2D"]
 
 [node name="Trail" type="StaticBody2D" parent="." node_paths=PackedStringArray("trail", "player")]
 collision_layer = 256
-collision_mask = 16777215
+collision_mask = 4
 script = ExtResource("1_0f350")
 trail = NodePath("Trail")
 trail_points_per_second = 120
@@ -84,12 +97,14 @@ texture = ExtResource("2_k5f4k")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="obstacle"]
 shape = SubResource("RectangleShape2D_k5f4k")
 
-[node name="mob" type="Area2D" parent="."]
+[node name="mob" type="Area2D" parent="." node_paths=PackedStringArray("player", "trail")]
 position = Vector2(109, -70)
 scale = Vector2(10.645, 10.645)
 collision_layer = 260
-collision_mask = 16777215
+collision_mask = 769
 script = ExtResource("5_wqkje")
+player = NodePath("../Player")
+trail = NodePath("../Trail")
 
 [node name="Sprite2D" type="Sprite2D" parent="mob"]
 texture = ExtResource("2_k5f4k")
@@ -100,6 +115,28 @@ shape = SubResource("CircleShape2D_0f350")
 [node name="BG" type="Sprite2D" parent="."]
 z_index = -1000
 texture = ExtResource("7_8c0lf")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
+texture = ExtResource("8_754fn")
+
+[node name="up" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-0.5, -126.5)
+shape = SubResource("RectangleShape2D_bvt00")
+
+[node name="down" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0.5, 126.5)
+shape = SubResource("RectangleShape2D_754fn")
+
+[node name="right" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(224.5, -0.5)
+shape = SubResource("RectangleShape2D_oqgf2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-224.5, 0.5)
+shape = SubResource("RectangleShape2D_qxfql")
 
 [connection signal="mouse_entered" from="Player" to="Player" method="_on_mouse_entered"]
 [connection signal="body_entered" from="mob" to="mob" method="_on_body_entered"]
