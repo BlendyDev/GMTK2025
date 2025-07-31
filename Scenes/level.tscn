@@ -98,11 +98,11 @@ texture = ExtResource("2_k5f4k")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="obstacle"]
 shape = SubResource("RectangleShape2D_k5f4k")
 
-[node name="mob" type="Area2D" parent="." node_paths=PackedStringArray("player", "trail", "sfx")]
+[node name="mob" type="CharacterBody2D" parent="." node_paths=PackedStringArray("player", "trail", "sfx")]
 position = Vector2(109, -70)
 scale = Vector2(10.645, 10.645)
-collision_layer = 260
-collision_mask = 769
+collision_layer = 8
+collision_mask = 2
 script = ExtResource("5_wqkje")
 player = NodePath("../Player")
 trail = NodePath("../Trail")
@@ -112,6 +112,17 @@ sfx = NodePath("../SFX")
 texture = ExtResource("2_k5f4k")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="mob"]
+shape = SubResource("CircleShape2D_0f350")
+
+[node name="SwitchAction" type="Timer" parent="mob"]
+wait_time = 0.3
+one_shot = true
+
+[node name="PlayerDetect" type="Area2D" parent="mob"]
+collision_layer = 4
+collision_mask = 769
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="mob/PlayerDetect"]
 shape = SubResource("CircleShape2D_0f350")
 
 [node name="BG" type="Sprite2D" parent="."]
@@ -156,5 +167,7 @@ stream = SubResource("AudioStreamRandomizer_bvt00")
 pitch_scale = 1.3
 
 [connection signal="mouse_entered" from="Player" to="Player" method="_on_mouse_entered"]
-[connection signal="body_entered" from="mob" to="mob" method="_on_body_entered"]
-[connection signal="body_exited" from="mob" to="mob" method="_on_body_exited"]
+[connection signal="timeout" from="mob/SwitchAction" to="mob" method="_on_switch_action_timeout"]
+[connection signal="area_entered" from="mob/PlayerDetect" to="mob" method="_on_player_detect_area_entered"]
+[connection signal="body_entered" from="mob/PlayerDetect" to="mob" method="_on_body_entered"]
+[connection signal="body_exited" from="mob/PlayerDetect" to="mob" method="_on_body_exited"]
