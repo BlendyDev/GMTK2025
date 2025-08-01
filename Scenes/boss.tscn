@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dd7jxb3adi5uf"]
+[gd_scene load_steps=16 format=3 uid="uid://dd7jxb3adi5uf"]
 
 [ext_resource type="Script" uid="uid://dl360of7mit5t" path="res://Scripts/boss.gd" id="1_wwfse"]
 [ext_resource type="Texture2D" uid="uid://3av3tve7mwuj" path="res://Sprites/catmaligno-Sheet.png" id="2_wwfse"]
@@ -6,6 +6,14 @@
 [sub_resource type="AtlasTexture" id="AtlasTexture_cxrok"]
 atlas = ExtResource("2_wwfse")
 region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wwfse"]
+atlas = ExtResource("2_wwfse")
+region = Rect2(576, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mh6p8"]
+atlas = ExtResource("2_wwfse")
+region = Rect2(608, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ukjjc"]
 atlas = ExtResource("2_wwfse")
@@ -23,6 +31,17 @@ animations = [{
 }],
 "loop": true,
 "name": &"dashing",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wwfse")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mh6p8")
+}],
+"loop": true,
+"name": &"shielding",
 "speed": 5.0
 }, {
 "frames": [{
@@ -163,10 +182,52 @@ tracks/2/keys = {
 "values": [Color(1, 1, 1, 0.611765)]
 }
 
+[sub_resource type="Animation" id="Animation_q76ad"]
+resource_name = "shielding"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"shielding"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_q76ad"]
 _data = {
 &"RESET": SubResource("Animation_yq25j"),
 &"dashing": SubResource("Animation_qtle2"),
+&"shielding": SubResource("Animation_q76ad"),
 &"spawning": SubResource("Animation_odcco")
 }
 
