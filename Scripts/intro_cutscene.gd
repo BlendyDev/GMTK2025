@@ -7,31 +7,32 @@ extends Node2D
 func _process(delta: float) -> void:
 	$TextureProgressBar.value = total
 	if (Input.is_anything_pressed() and !texted):
-		print("Hold space to skip cutscene (please don't if it's the first time you play!!)")
 		$AnimationPlayer.play("showtext")
 		texted = true
-	if Input.is_action_just_pressed("Space"):
-		spaced = true
 	if Input.is_action_pressed("Space"):
 		total += delta
 		$TextureProgressBar.visible = true
-		
 	if Input.is_action_just_released("Space"):
 		total = 0
 		spaced = false
 		$TextureProgressBar.visible = false
-
 	if total > 1.5:
 		total = 0
 		spaced = false
-		$ColorRect.visible = true
-		$VideoStreamPlayer.paused = true
-		pass
-		
-	pass
+		$AnimationPlayer.play("switch_scene")
 	
-
-
+	if Input.is_action_pressed("Up"):
+		$AnimationPlayer.speed_scale = 4.0
+	else:
+		$AnimationPlayer.speed_scale = 1.0
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
-	texted = false
-	pass # Replace with function body.
+	if anim_name == "showtext":
+		texted = false
+	else:
+		print(anim_name)
+		$VideoStreamPlayer.paused = true
+		get_tree().change_scene_to_file("res://Scenes/main_menu.tscn")
+
+
+func _on_video_stream_player_finished() -> void:
+	get_tree().change_scene_to_file("res://Scenes/main_menu.tscn")

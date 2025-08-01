@@ -5,3 +5,8 @@ func circle_sfx():
 	
 func fail_circle_sfx():
 	$FailCircleSFX.play()
+
+func menu_music():
+	$MenuMusic.play()
+func menu_music_stop():
+	$MenuMusic.stop()
