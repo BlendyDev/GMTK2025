@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://db0iuepgj8olx"]
+[gd_scene load_steps=7 format=3 uid="uid://db0iuepgj8olx"]
 
 [ext_resource type="Script" uid="uid://0mcwei50crlf" path="res://Scripts/main_menu.gd" id="1_ce3w2"]
 [ext_resource type="Texture2D" uid="uid://uak7bq8ekusu" path="res://Sprites/windows_media_player_play_button_updated_preview.png" id="2_n45e2"]
 [ext_resource type="Texture2D" uid="uid://cxsepcfb7wpwy" path="res://Sprites/0f9b61268540a80.png" id="3_opfnp"]
 [ext_resource type="Texture2D" uid="uid://exb2h7n2ra8u" path="res://Sprites/exit-button-png.svg.hi.png" id="4_cp0ys"]
+[ext_resource type="Texture2D" uid="uid://2gmr6lrs6ws1" path="res://Sprites/9265823.png" id="5_opfnp"]
+[ext_resource type="PackedScene" uid="uid://dsc0qsqg2g7nq" path="res://Scenes/options_menu.tscn" id="6_cp0ys"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -40,6 +42,15 @@ offset_right = 1503.0
 offset_bottom = 1323.0
 scale = Vector2(0.2, 0.2)
 texture_normal = ExtResource("4_cp0ys")
+
+[node name="Options" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 313.0
+offset_top = 8.0
+offset_right = 825.0
+offset_bottom = 520.0
+scale = Vector2(0.2, 0.2)
+texture_normal = ExtResource("5_opfnp")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 layout_mode = 0
@@ -79,11 +90,17 @@ text = "Yes"
 layout_mode = 2
 text = "No"
 
+[node name="OptionsMenu" parent="." instance=ExtResource("6_cp0ys")]
+visible = false
+layout_mode = 1
+
 [connection signal="mouse_entered" from="Play" to="." method="_on_play_mouse_entered"]
 [connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
 [connection signal="mouse_entered" from="Credits" to="." method="_on_credits_mouse_entered"]
 [connection signal="pressed" from="Credits" to="." method="_on_credits_pressed"]
 [connection signal="mouse_entered" from="Exit" to="." method="_on_exit_mouse_entered"]
 [connection signal="pressed" from="Exit" to="." method="_on_exit_pressed"]
+[connection signal="mouse_entered" from="Options" to="." method="_on_options_mouse_entered"]
+[connection signal="pressed" from="Options" to="." method="_on_options_pressed"]
 [connection signal="pressed" from="HBoxContainer/Yes" to="." method="_on_yes_pressed"]
 [connection signal="pressed" from="HBoxContainer/No" to="." method="_on_no_pressed"]

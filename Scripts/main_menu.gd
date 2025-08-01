@@ -1,7 +1,10 @@
 extends Control
 
+var played_music = false
+
 func _ready() -> void:
 	AudioController.menu_music()
+	played_music = true
 
 func _on_play_pressed() -> void:
 	AudioController.menu_music_stop()
@@ -30,3 +33,15 @@ func _on_yes_pressed() -> void:
 func _on_no_pressed() -> void:
 	$HBoxContainer.visible = false
 	$Sure.visible = false
+
+
+func _on_options_pressed() -> void:
+	var effect = AudioServer.get_bus_effect(1, 0)
+	var tween := get_tree().create_tween()
+	tween.set_ease(Tween.EASE_OUT)
+	tween.set_trans(Tween.TRANS_CUBIC)
+	tween.tween_property(effect, "resonance", 0.5, 0.5)
+	$OptionsMenu.visible = true
+
+func _on_options_mouse_entered() -> void:
+	pass # Replace with function body.

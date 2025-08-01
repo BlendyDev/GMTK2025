@@ -1,0 +1,85 @@
+[gd_scene load_steps=3 format=3 uid="uid://dsc0qsqg2g7nq"]
+
+[ext_resource type="Script" uid="uid://cqme1fyl5r23p" path="res://Scripts/options_menu.gd" id="1_plplt"]
+[ext_resource type="PackedScene" uid="uid://dj2sj4rurva0x" path="res://Scenes/volume_slider.tscn" id="2_uj0ok"]
+
+[node name="OptionsMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_plplt")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 452.0
+offset_bottom = 255.0
+color = Color(0.180005, 0.180005, 0.180005, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 141.0
+offset_top = 59.0
+offset_right = 332.0
+offset_bottom = 115.0
+
+[node name="Label4" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "AUDIO LEVELS"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Master"
+horizontal_alignment = 1
+
+[node name="MasterSlider" parent="VBoxContainer" instance=ExtResource("2_uj0ok")]
+layout_mode = 2
+bus_name = "Master"
+
+[node name="Label2" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Music"
+horizontal_alignment = 1
+
+[node name="MusicSlider" parent="VBoxContainer" instance=ExtResource("2_uj0ok")]
+layout_mode = 2
+bus_name = "Music"
+
+[node name="Label3" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Sound Effects"
+horizontal_alignment = 1
+
+[node name="SFXSlider" parent="VBoxContainer" instance=ExtResource("2_uj0ok")]
+layout_mode = 2
+bus_name = "SFX"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 169.0
+offset_top = 7.0
+offset_right = 304.0
+offset_bottom = 50.0
+
+[node name="Label" type="Label" parent="VBoxContainer2"]
+layout_mode = 2
+text = "Mouse Sensitivity"
+
+[node name="SensitivitySlider" type="HSlider" parent="VBoxContainer2"]
+layout_mode = 2
+max_value = 1.0
+step = 0.001
+
+[node name="Back" type="Button" parent="."]
+layout_mode = 0
+offset_left = 361.0
+offset_top = 184.0
+offset_right = 432.0
+offset_bottom = 215.0
+text = "Go Back"
+
+[connection signal="value_changed" from="VBoxContainer2/SensitivitySlider" to="." method="_on_sensitivity_slider_value_changed"]
+[connection signal="pressed" from="Back" to="." method="_on_back_pressed"]
