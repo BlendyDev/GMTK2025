@@ -40,6 +40,10 @@ func init_random():
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	var tween = get_tree().create_tween()
+	tween.set_ease(Tween.EASE_OUT)
+	tween.set_trans(Tween.TRANS_CUBIC)
+	tween.tween_property(self, "scale", Vector2.ONE, 0.15)
 	action = Action.IDLE
 	timer.start()
 	pass # Replace with function body.

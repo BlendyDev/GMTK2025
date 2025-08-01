@@ -131,7 +131,7 @@ func _on_switch_action_timeout() -> void:
 func spawn_mob():
 	var mob : Mob= mob_scene.instantiate()
 	mob.position = position
-	
+	mob.scale = Vector2.ZERO
 	get_tree().current_scene.call_deferred("add_child", mob)
 	mob.call_deferred("init_random")
 	pass
