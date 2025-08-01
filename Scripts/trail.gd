@@ -173,7 +173,7 @@ func handle_dead_mob():
 	AudioController.hit_sfx((combo.count - combo.mobs.size()) * 0.075 + 1)
 	combo.mobs.remove_at(combo.mobs.rfind(mob))
 	if (combo.mobs.size() == 0):
-		AudioController.cheer_sfx()
+		if (combo.count >= 3): AudioController.cheer_sfx()
 		combos.remove_at(combos.rfind(combo))
 	dead_mobs.remove_at(dead_mobs.size()-1)
 	
