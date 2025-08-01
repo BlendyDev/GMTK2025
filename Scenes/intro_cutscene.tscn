@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://cwq7bfq1rrmcp"]
 
 [ext_resource type="Script" uid="uid://c3qgesexkjs6c" path="res://Scripts/intro_cutscene.gd" id="1_ln4th"]
-[ext_resource type="VideoStream" uid="uid://cgyw41jo8svfq" path="res://Cutscenes/0001-1005.mkv" id="2_7iewc"]
+[ext_resource type="VideoStream" uid="uid://dtlk3i7ccqua0" path="res://Cutscenes/0001-1005(1).mkv" id="2_7iewc"]
 [ext_resource type="Texture2D" uid="uid://kx8wi8n5s08f" path="res://Sprites/688987_circle_512x512.png" id="3_7iewc"]
 
 [sub_resource type="Animation" id="Animation_7iewc"]
@@ -174,7 +174,6 @@ offset_right = 40.0
 offset_bottom = 40.0
 stream = ExtResource("2_7iewc")
 autoplay = true
-bus = &"Music"
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 modulate = Color(1, 1, 1, 0)

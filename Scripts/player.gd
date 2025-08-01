@@ -12,8 +12,6 @@ var last_velocities: PackedVector2Array = [Vector2.ZERO]
 @onready var trail: Trail = $"../Trail"
 
 # Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	AudioController.menu_music()
 	
 func bind_to_player():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
