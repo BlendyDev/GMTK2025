@@ -75,6 +75,7 @@ width = 4.0
 width_curve = SubResource("Curve_6phgx")
 default_color = Color(1, 0.74902, 1, 1)
 gradient = SubResource("Gradient_6phgx")
+joint_mode = 2
 antialiased = true
 
 [node name="Player" type="CharacterBody2D" parent="."]

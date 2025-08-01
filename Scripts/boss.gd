@@ -23,6 +23,7 @@ enum Action {PRE, IDLE, MOVING, SHIELD, DYING}
 var speed = 250.0
 var hp = 30
 @onready var snapped_pos = CENTER
+@onready var trail_sprite = preload("res://Sprites/trail.png")
 
 var available_locations := [UP_LEFT, LEFT, DOWN_LEFT, DOWN, DOWN_RIGHT, RIGHT, UP_RIGHT, UP]
 
@@ -47,6 +48,7 @@ func _on_body_entered(body: Node2D) -> void:
 	if body is Player or body is Trail:
 		if !bodies_entered.has(body): bodies_entered.append(body)
 		trail.can_trail = false
+		trail.animate_fail_trail()
 		trail.reset_trail()
 		sfx.circle_reset()
 	pass # Replace with function body.
@@ -65,13 +67,14 @@ func move(index: int):
 	snapped_pos = new_pos
 	var line = Line2D.new()
 	line.width = 6
+	line.texture = trail_sprite
 	line.add_point(Vector2.ZERO)
 	line.add_point(snapped_pos-position)
 	add_child(line)
 	var tween = get_tree().create_tween()
 	tween.set_ease(Tween.EASE_OUT)
 	tween.set_trans(Tween.TRANS_QUINT)
-	tween.tween_property(line, "modulate", Color.from_rgba8(255, 255, 255, 0), 0.5)
+	#tween.tween_property(line, "modulate", Color.from_rgba8(255, 255, 255, 0), 0.5)
 	tween.tween_property(self, "position", snapped_pos, 0.5)
 	tween.tween_callback(line.queue_free)
 	tween.tween_callback(finish_move)
@@ -89,7 +92,7 @@ func pick_location_and_move():
 
 func finish_move():
 	if (action != Action.MOVING):
-		if (action == Action.SHIELD): move_to(CENTER)
+		if (action == Action.SHIELD): move_to(UP_LEFT)
 		return
 	action = Action.IDLE
 	timer.wait_time = 1.0
@@ -105,4 +108,6 @@ func _on_player_detect_area_entered(area: Area2D) -> void:
 		if (action == Action.MOVING or action == Action.IDLE):
 			hp -= 1
 			if (hp%5 == 0):
+				if (action == Action.IDLE):
+					move_to(UP_LEFT)
 				action = Action.SHIELD

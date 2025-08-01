@@ -37,6 +37,7 @@ func _on_body_entered(body: Node2D) -> void:
 	if body is Player or body is Trail:
 		if !bodies_entered.has(body): bodies_entered.append(body)
 		trail.can_trail = false
+		trail.animate_fail_trail()
 		trail.reset_trail()
 		sfx.circle_reset()
 	pass # Replace with function body.

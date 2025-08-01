@@ -35,8 +35,26 @@ func find_closest_point(rate: float) -> Vector2:
 func simplify_polygon(polygon: PackedVector2Array) -> Array[PackedVector2Array]:
 	return Geometry2D.merge_polygons(polygon, PackedVector2Array([]))
 
+func animate_fail_trail():
+	var failed_trail = Line2D.new()
+	failed_trail.antialiased = true
+	failed_trail.width = 4.0
+	failed_trail.default_color = Color.from_rgba8(199, 66, 79, 255)
+	failed_trail.points = trail.points.duplicate()
+	failed_trail.joint_mode = Line2D.LINE_JOINT_ROUND
+	failed_trail.begin_cap_mode = Line2D.LINE_CAP_ROUND
+	failed_trail.end_cap_mode = Line2D.LINE_CAP_ROUND
+	failed_trail.closed = false
+	failed_trail.points = trail.points.duplicate()
+	failed_trail.z_index = 50
+	var tween = get_tree().create_tween()
+	tween.tween_property(failed_trail, "width", 0, 0.4)
+	tween.set_ease(Tween.EASE_OUT)
+	tween.set_trans(Tween.TRANS_QUART)
+	tween.tween_callback(failed_trail.queue_free)
+	get_tree().current_scene.add_child(failed_trail)
+
 func reset_trail():
-	
 	cleared_points = true
 	last_circle_timestamp = Time.get_ticks_msec()
 	for collision_shape in trail_collisions:
@@ -52,8 +70,13 @@ func try_spawn_circle(closest_point: Vector2):
 	sfx.circle_finish()
 	var fade_out_trail = Line2D.new()
 	fade_out_trail.antialiased = true
-	fade_out_trail.width = 3.0
+	fade_out_trail.width = 6.0
+	fade_out_trail.default_color = Color.from_rgba8(252, 239, 141, 255)
 	fade_out_trail.points = trail.points.duplicate()
+	fade_out_trail.joint_mode = Line2D.LINE_JOINT_ROUND
+	fade_out_trail.begin_cap_mode = Line2D.LINE_CAP_ROUND
+	fade_out_trail.end_cap_mode = Line2D.LINE_CAP_ROUND
+	fade_out_trail.z_index = 50
 	for i in range(trail.points.size()):
 		if (fade_out_trail.points.get(0) == closest_point): break
 		fade_out_trail.remove_point(0)
@@ -75,7 +98,9 @@ func try_spawn_circle(closest_point: Vector2):
 		get_tree().current_scene.add_child(loop)
 		loop.position = player.position
 	var tween = get_tree().create_tween()
-	tween.tween_property(fade_out_trail, "default_color", Color.from_rgba8(255, 255, 255, 0), 1)
+	tween.tween_property(fade_out_trail, "width", 0, 0.8)
+	tween.set_ease(Tween.EASE_OUT)
+	tween.set_trans(Tween.TRANS_QUART)
 	tween.tween_callback(fade_out_trail.queue_free)
 	get_tree().current_scene.add_child(fade_out_trail)
 	
