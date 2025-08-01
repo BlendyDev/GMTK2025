@@ -174,6 +174,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 stream = ExtResource("2_ln4th")
 autoplay = true
+bus = &"Music"
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 modulate = Color(1, 1, 1, 0)

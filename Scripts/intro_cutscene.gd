@@ -4,6 +4,15 @@ extends Node2D
 @onready var spaced = false
 @onready var total = 0
 
+@export
+var bus_name: String
+
+var bus_index: int
+
+func _ready() -> void:
+	bus_index = AudioServer.get_bus_index(bus_name)
+	AudioServer.set_bus_volume_db(1, linear_to_db(0.75))
+
 func _process(delta: float) -> void:
 	$TextureProgressBar.value = total
 	if (Input.is_anything_pressed() and !texted):

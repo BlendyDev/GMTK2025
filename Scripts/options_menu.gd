@@ -17,6 +17,7 @@ func _on_sensitivity_slider_value_changed(value: float) -> void:
 
 func _on_back_pressed() -> void:
 	if get_tree().current_scene.name == "Level":
+		self.visible = false
 		effect.resonance = 0
 		pass
 	else:

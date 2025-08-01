@@ -1,0 +1,107 @@
+[gd_scene load_steps=4 format=3 uid="uid://d2cg3mbio7ehv"]
+
+[ext_resource type="Script" uid="uid://doy504o3wwhr8" path="res://Scripts/pause_menu.gd" id="1_emv3i"]
+[ext_resource type="Shader" uid="uid://g6vj64km5x0h" path="res://Shaders/pause_menu.gdshader" id="2_k0w1u"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1och7"]
+shader = ExtResource("2_k0w1u")
+shader_parameter/amount = 2.0
+
+[node name="PauseMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_emv3i")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_1och7")
+layout_mode = 0
+offset_left = -2365.0
+offset_top = -1750.0
+offset_right = 2322.0
+offset_bottom = 953.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.0
+offset_top = -50.5
+offset_right = 35.0
+offset_bottom = 50.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "PAUSED!"
+horizontal_alignment = 1
+
+[node name="Resume" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Resume"
+
+[node name="Options" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Options"
+
+[node name="Main Menu" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Menu"
+
+[node name="Sure2" type="Label" parent="VBoxContainer"]
+visible = false
+layout_mode = 2
+text = "u Sure?"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Yes2" type="Button" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Yes"
+
+[node name="No2" type="Button" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "No"
+
+[node name="Quit" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Quit"
+
+[node name="Sure" type="Label" parent="VBoxContainer"]
+visible = false
+layout_mode = 2
+text = "u Sure?"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Yes" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Yes"
+
+[node name="No" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "No"
+
+[connection signal="mouse_entered" from="VBoxContainer/Resume" to="." method="_on_resume_mouse_entered"]
+[connection signal="pressed" from="VBoxContainer/Resume" to="." method="_on_resume_pressed"]
+[connection signal="mouse_entered" from="VBoxContainer/Options" to="." method="_on_options_mouse_entered"]
+[connection signal="pressed" from="VBoxContainer/Options" to="." method="_on_options_pressed"]
+[connection signal="mouse_entered" from="VBoxContainer/Main Menu" to="." method="_on_main_menu_mouse_entered"]
+[connection signal="pressed" from="VBoxContainer/Main Menu" to="." method="_on_main_menu_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer2/Yes2" to="." method="_on_yes_2_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer2/No2" to="." method="_on_no_2_pressed"]
+[connection signal="mouse_entered" from="VBoxContainer/Quit" to="." method="_on_quit_mouse_entered"]
+[connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/Yes" to="." method="_on_yes_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/No" to="." method="_on_no_pressed"]
