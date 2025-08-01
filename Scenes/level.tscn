@@ -1,11 +1,11 @@
-[gd_scene load_steps=26 format=3 uid="uid://4otsh1wy31kg"]
+[gd_scene load_steps=25 format=3 uid="uid://4otsh1wy31kg"]
 
 [ext_resource type="Script" uid="uid://cxjw50s4jeh2y" path="res://Scripts/trail.gd" id="1_0f350"]
 [ext_resource type="Script" uid="uid://cd8k0h68k4a8g" path="res://Scripts/player.gd" id="1_tumq0"]
 [ext_resource type="Texture2D" uid="uid://bj30yhx4p3qu0" path="res://Sprites/debugPlayer.png" id="2_k5f4k"]
 [ext_resource type="SpriteFrames" uid="uid://brjoepnckupck" path="res://Animation/mouseFrames.tres" id="4_0f350"]
 [ext_resource type="AudioStream" uid="uid://dapvn0ocg8s84" path="res://SFX/test_sfx_pickup.wav" id="4_81xng"]
-[ext_resource type="Script" uid="uid://cqcu4jcux40sh" path="res://Scripts/mob.gd" id="5_wqkje"]
+[ext_resource type="PackedScene" uid="uid://cmv4o47gysuxx" path="res://Scenes/mob.tscn" id="5_ha31o"]
 [ext_resource type="Texture2D" uid="uid://c1yfhu6mq1mop" path="res://Sprites/fondo.png" id="7_8c0lf"]
 [ext_resource type="Texture2D" uid="uid://cyeifbyapar62" path="res://Sprites/trueborder.png" id="8_754fn"]
 [ext_resource type="Script" uid="uid://cjjsuev7gaqao" path="res://Scripts/sfx.gd" id="8_bvt00"]
@@ -27,9 +27,6 @@ radius = 2.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k5f4k"]
 size = Vector2(4, 4)
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_0f350"]
-radius = 1.97499
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bvt00"]
 size = Vector2(449, 1)
@@ -108,32 +105,11 @@ texture = ExtResource("2_k5f4k")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="obstacle"]
 shape = SubResource("RectangleShape2D_k5f4k")
 
-[node name="mob" type="CharacterBody2D" parent="." node_paths=PackedStringArray("player", "trail", "sfx")]
+[node name="mob" parent="." node_paths=PackedStringArray("player", "trail", "sfx") instance=ExtResource("5_ha31o")]
 position = Vector2(109, -70)
-scale = Vector2(10.645, 10.645)
-collision_layer = 8
-collision_mask = 2
-script = ExtResource("5_wqkje")
 player = NodePath("../Player")
 trail = NodePath("../Trail")
 sfx = NodePath("../SFX")
-
-[node name="Sprite2D" type="Sprite2D" parent="mob"]
-texture = ExtResource("2_k5f4k")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="mob"]
-shape = SubResource("CircleShape2D_0f350")
-
-[node name="SwitchAction" type="Timer" parent="mob"]
-wait_time = 0.3
-one_shot = true
-
-[node name="PlayerDetect" type="Area2D" parent="mob"]
-collision_layer = 4
-collision_mask = 769
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="mob/PlayerDetect"]
-shape = SubResource("CircleShape2D_0f350")
 
 [node name="BG" type="Sprite2D" parent="."]
 z_index = -1000
@@ -205,10 +181,6 @@ shape = SubResource("RectangleShape2D_pa6b8")
 one_shot = true
 
 [connection signal="mouse_entered" from="Player" to="Player" method="_on_mouse_entered"]
-[connection signal="timeout" from="mob/SwitchAction" to="mob" method="_on_switch_action_timeout"]
-[connection signal="area_entered" from="mob/PlayerDetect" to="mob" method="_on_player_detect_area_entered"]
-[connection signal="body_entered" from="mob/PlayerDetect" to="mob" method="_on_body_entered"]
-[connection signal="body_exited" from="mob/PlayerDetect" to="mob" method="_on_body_exited"]
 [connection signal="area_entered" from="Boss/PlayerDetect" to="Boss" method="_on_player_detect_area_entered"]
 [connection signal="body_entered" from="Boss/PlayerDetect" to="Boss" method="_on_body_entered"]
 [connection signal="body_exited" from="Boss/PlayerDetect" to="Boss" method="_on_body_exited"]

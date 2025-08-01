@@ -10,11 +10,37 @@ var bodies_entered: Array[Node2D]
 @onready var sprite = $Sprite2D
 
 enum Action {IDLE, MOVING, DYING}
+enum Type {BASIC, CAT, SLIME, RAMIRO}
 var action: Action
+var type: Type
 var speed = 250.0
+
+func init_basic():
+	type = Type.BASIC
+	$AnimationPlayer.play("basic_idle")
+	
+func init_cat():
+	type = Type.CAT
+	$AnimationPlayer.play("cat_idle")
+	
+func init_slime():
+	type = Type.SLIME
+	$AnimationPlayer.play("slime_idle")
+	
+func init_ramiro():
+	type = Type.BASIC
+	$AnimationPlayer.play("ramiro_idle")
+	
+func init_random():
+	var type := rng.randi_range(0, 3)
+	if type == 0: init_basic()
+	elif type == 1: init_cat()
+	elif type == 2: init_slime()
+	else: init_ramiro()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	init_random()
 	action = Action.IDLE
 	timer.start()
 	pass # Replace with function body.
@@ -65,7 +91,7 @@ func _on_switch_action_timeout() -> void:
 		Action.MOVING:
 			action = Action.IDLE
 			velocity = Vector2.ZERO
-			timer.wait_time = 1.2
+			timer.wait_time = 0.6
 			timer.start()
 	pass # Replace with function body.
 
@@ -74,7 +100,7 @@ func _on_player_detect_area_entered(area: Area2D) -> void:
 	if (area.collision_layer == pow(2, 10-1)): #traced circle
 		action = Action.DYING
 		var tween = get_tree().create_tween()
-		tween.tween_property(sprite, "modulate", Color.from_rgba8(255, 255, 255, 0), 1.0)
+		tween.tween_property(sprite, "scale", Vector2.ZERO, 0.7)
 		tween.tween_callback(queue_free)
 		tween.tween_callback($"../Boss".activate)
 		pass

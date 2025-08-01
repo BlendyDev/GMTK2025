@@ -24,6 +24,7 @@ var speed = 250.0
 var hp = 30
 @onready var snapped_pos = CENTER
 @onready var trail_curve = preload("res://Templates/boss_trail_curve.tres")
+@onready var mob_scene = preload("res://Scenes/mob.tscn")
 
 var available_locations := [UP_LEFT, LEFT, DOWN_LEFT, DOWN, DOWN_RIGHT, RIGHT, UP_RIGHT, UP]
 
@@ -114,6 +115,14 @@ func _on_switch_action_timeout() -> void:
 		action = Action.MOVING
 		pick_location_and_move()
 
+func spawn_mob():
+	var mob = mob_scene.instantiate()
+	
+	
+	get_tree().current_scene.add_child(mob)
+	
+	pass
+
 func _on_player_detect_area_entered(area: Area2D) -> void:
 	if (area.collision_layer == pow(2, 10-1)): #traced circle
 		if (action == Action.MOVING or action == Action.IDLE):
@@ -122,3 +131,5 @@ func _on_player_detect_area_entered(area: Area2D) -> void:
 				if (action == Action.IDLE):
 					move_to(UP_LEFT)
 				action = Action.SHIELD
+				for i in range(3):
+					spawn_mob()
