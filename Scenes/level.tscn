@@ -4,9 +4,8 @@
 [ext_resource type="Script" uid="uid://c26jmx7s0p0dr" path="res://Scripts/level.gd" id="1_ha31o"]
 [ext_resource type="Script" uid="uid://cd8k0h68k4a8g" path="res://Scripts/player.gd" id="1_tumq0"]
 [ext_resource type="SpriteFrames" uid="uid://brjoepnckupck" path="res://Animation/mouseFrames.tres" id="4_0f350"]
-
-[ext_resource type="PackedScene" uid="uid://cwt2fri17lpyp" path="res://Scenes/camera_2d.tscn" id="5_qxfql"]
-
+[ext_resource type="Texture2D" uid="uid://dmos112huldh2" path="res://Sprites/ocstaculoepicodown.png" id="5_oqgf2"]
+[ext_resource type="Texture2D" uid="uid://u8v7wxeolqad" path="res://Sprites/ocstaculoepicoup.png" id="6_qxfql"]
 [ext_resource type="Texture2D" uid="uid://c1yfhu6mq1mop" path="res://Sprites/fondo.png" id="7_8c0lf"]
 [ext_resource type="Texture2D" uid="uid://cyeifbyapar62" path="res://Sprites/trueborder.png" id="8_754fn"]
 [ext_resource type="PackedScene" uid="uid://dd7jxb3adi5uf" path="res://Scenes/boss.tscn" id="10_qxfql"]
@@ -79,7 +78,7 @@ frame_progress = 0.0617137
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 shape = SubResource("CircleShape2D_k5f4k")
 
-[node name="Camera2D" parent="." instance=ExtResource("5_qxfql")]
+[node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="DownSpike" type="StaticBody2D" parent="."]
 position = Vector2(130, -111)
@@ -132,11 +131,6 @@ position = Vector2(-200, 97)
 [node name="PauseMenu" parent="." instance=ExtResource("11_qxfql")]
 visible = false
 z_index = 4000
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
 
 [node name="OptionsMenu" parent="PauseMenu" instance=ExtResource("13_pa6b8")]
 visible = false
