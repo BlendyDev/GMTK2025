@@ -48,12 +48,24 @@ func menu_music():
 	$MenuMusic.play()
 func menu_music_stop():
 	$MenuMusic.stop()
-func menu_music_pause():
-	$MenuMusic.volume_db = -80.0
-	#$MenuMusic.stream_paused = true
-func menu_music_resume():
-	$MenuMusic.volume_db = 0
-	#$MenuMusic.stream_paused = false
+func tutorial_music():
+	$TutorialMusic.play()
+func tutorial_music_stop():
+	tween = get_tree().create_tween()
+	tween.set_process_mode(Tween.TWEEN_PROCESS_IDLE)
+	tween.set_ignore_time_scale(true)
+	tween.set_ease(Tween.EASE_OUT)
+	tween.set_trans(Tween.TRANS_CUBIC)
+	tween.tween_property($TutorialMusic, "volume_db", -80, 0.25)
+	if $TutorialMusic.volume_db == -80:
+		$TutorialMusic.stop()
+func tutorial_music_pause():
+	$TutorialMusic.volume_db = -80.0
+func tutorial_music_resume():
+	$TutorialMusic.volume_db = 0
+	
+func cutscene():
+	$Cutscene.play()
 	
 func removelowpass():
 	tween = get_tree().create_tween()

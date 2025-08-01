@@ -3,8 +3,10 @@ extends Control
 var played_music = false
 
 func _ready() -> void:
+	AudioController.tutorial_music_stop()
 	AudioController.menu_music()
 	played_music = true
+	AudioController.removelowpass()
 
 func _on_play_pressed() -> void:
 	AudioController.ui_click_sfx()

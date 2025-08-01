@@ -49,6 +49,7 @@ func _on_main_menu_mouse_entered() -> void:
 
 func _on_yes_2_pressed() -> void:
 	AudioController.ui_back_sfx()
+	await get_tree().create_timer(1.5, true, false, true).timeout
 	get_tree().change_scene_to_file("res://Scenes/main_menu.tscn")
 
 func _on_no_2_pressed() -> void:
