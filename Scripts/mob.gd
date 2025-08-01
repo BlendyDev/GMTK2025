@@ -104,8 +104,6 @@ func _on_player_detect_area_entered(area: Area2D) -> void:
 	if (area.collision_layer == pow(2, 10-1) and action != Action.DYING): #traced circle
 		action = Action.DYING
 		boss.mobs_alive -= 1
-		if boss.mobs_alive == 0:
-			print(boss.action)
 		trail.dead_mobs.append(self)
 		pass
 	pass # Replace with function body.
