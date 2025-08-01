@@ -13,6 +13,6 @@ func unpause():
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("Esc") and !$PauseMenu.visible:
-		pause()
+		call_deferred("pause")
 	elif Input.is_action_just_pressed("Esc") and $PauseMenu.visible:
-		unpause()
+		call_deferred("unpause")

@@ -3,11 +3,12 @@ class_name Trail
 
 @onready var trail_line: Line2D = $Trail
 @export var trail_points_per_second: int = 120
-@onready var last_trail_point_timestamp : int = Time.get_ticks_msec()
+var time_since_last_point_sec := 0.0
+var time_since_last_circle_sec := 0.0
 @export var max_time_sec: float = 1.15
 @export var min_distance_to_oldest_points: float
 var cleared_points = true
-@onready var last_circle_timestamp:= Time.get_ticks_msec()
+
 @export var circle_min_timeout_sec: float
 @onready var player: Player = $"../Player"
 var trail_collisions: Array[CollisionShape2D]
@@ -18,7 +19,7 @@ var can_trail = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	last_trail_point_timestamp = Time.get_ticks_msec()
+	time_since_last_circle_sec = 0.0
 	pass # Replace with function body.
 
 func find_closest_point(rate: float) -> Vector2:
@@ -56,7 +57,7 @@ func animate_fail_trail():
 
 func reset_trail():
 	cleared_points = true
-	last_circle_timestamp = Time.get_ticks_msec()
+	time_since_last_circle_sec = 0.0
 	for collision_shape in trail_collisions:
 		collision_shape.queue_free()
 	trail_collisions.clear()
@@ -107,7 +108,7 @@ func try_spawn_circle(closest_point: Vector2):
 	reset_trail()
 
 func add_point():
-	var n = floor((Time.get_ticks_msec() - last_trail_point_timestamp) / (1000.0/trail_points_per_second))
+	var n = floor((time_since_last_point_sec) / (1.0/trail_points_per_second))
 	var points: Array[Vector2]
 	var last_position: Vector2
 	if (trail_line.points.size() == 0): last_position = player.position
@@ -129,27 +130,23 @@ func add_point():
 			collision_shape.shape = collision_segment
 			add_child(collision_shape)
 			trail_collisions.append(collision_shape)
-	last_trail_point_timestamp += n* (1000.0/trail_points_per_second)
+	time_since_last_point_sec = fmod(time_since_last_point_sec, 1.0/trail_points_per_second)
 	
 
 func _physics_process(delta: float) -> void:
+	if (Engine.time_scale == 0): return
 	if (!player.playing or !can_trail): return
-	if (Time.get_ticks_msec() - last_trail_point_timestamp > 1000.0/trail_points_per_second):
+	time_since_last_point_sec += delta
+	time_since_last_circle_sec += delta
+	if (time_since_last_point_sec > 1.0/trail_points_per_second):
 		add_point()
 	var closest_point = find_closest_point(last_points_tolerance)
 	var distance = player.position.distance_to(closest_point)
 	
 	if (distance < min_distance_to_oldest_points and !cleared_points 
-	and Time.get_ticks_msec() - last_circle_timestamp > 1000*circle_min_timeout_sec):
+	and time_since_last_circle_sec > circle_min_timeout_sec):
 		try_spawn_circle(closest_point)
 		
 	if distance > min_distance_to_oldest_points * 3:
 		cleared_points = false
 		
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	
-
-	
-	pass

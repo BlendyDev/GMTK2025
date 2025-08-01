@@ -53,6 +53,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 func _physics_process(delta: float) -> void:
+	if (Engine.time_scale == 0): return
 	var friction :Vector2= velocity*delta/timer.wait_time
 	if (friction.length() > velocity.length()): velocity = Vector2.ZERO
 	else: velocity -= friction

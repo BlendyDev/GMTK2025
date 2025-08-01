@@ -59,6 +59,7 @@ func animate_direction():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	if (Engine.time_scale == 0): return
 	if (Input.is_key_pressed(KEY_SPACE)):
 		pass
 	if !playing:

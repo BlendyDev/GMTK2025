@@ -37,6 +37,7 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 func _process(delta: float) -> void:
+	if (Engine.time_scale == 0): return
 	if (action == Action.SHIELD): modulate = Color.from_rgba8(255, 0, 0, 255)
 	else: modulate = Color.from_rgba8(255, 255, 255, 255)
 
