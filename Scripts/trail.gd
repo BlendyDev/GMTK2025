@@ -1,20 +1,26 @@
 extends StaticBody2D
 class_name Trail
 
+@onready var level: Level = $".."
 @onready var trail_line: Line2D = $Trail
+@onready var player: Player = $"../Player"
+@onready var loop_scene = preload("res://Scenes/loop.tscn")
+
 @export var trail_points_per_second: int = 120
+@export var max_trail_time_sec: float = 1.15
+@export var min_distance_to_oldest_points: float
+@export var circle_min_timeout_sec: float
+@export var last_points_tolerance := 0.2
+@export var freeze_time := 0.06
+@export var time_per_death_handle_sec: float = 0.1
+
 var time_since_last_point_sec := 0.0
 var time_since_last_circle_sec := 0.0
-@export var max_time_sec: float = 1.15
-@export var min_distance_to_oldest_points: float
+var time_since_last_death_handle := 0.0
 var cleared_points = true
-
-@export var circle_min_timeout_sec: float
-@onready var player: Player = $"../Player"
 var trail_collisions: Array[CollisionShape2D]
 var can_trail = true
-@export var last_points_tolerance = 0.2
-@onready var loop_scene = preload("res://Scenes/loop.tscn")
+var dead_mobs: Array[Mob] = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -24,7 +30,7 @@ func _ready() -> void:
 func find_closest_point(rate: float) -> Vector2:
 	var point: Vector2
 	var distance:float = INF
-	for i in range (min(trail_line.points.size(), ceil(rate*max_time_sec*trail_points_per_second))):
+	for i in range (min(trail_line.points.size(), ceil(rate*max_trail_time_sec*trail_points_per_second))):
 		var current_point := trail_line.points.get(i)
 		var current_dist := player.position.distance_to(current_point)
 		if (current_dist < distance):
@@ -114,7 +120,7 @@ func add_point():
 	else: last_position = trail_line.points.get(trail_line.points.size()-1)
 	var direction = player.position - last_position
 	for i in range(n):
-		if (trail_line.points.size() > max_time_sec * trail_points_per_second):
+		if (trail_line.points.size() > max_trail_time_sec * trail_points_per_second):
 			if (trail_line.points.size() > 1):
 				trail_collisions[0].queue_free()
 				trail_collisions.remove_at(0)
@@ -132,11 +138,34 @@ func add_point():
 	time_since_last_point_sec = fmod(time_since_last_point_sec, 1.0/trail_points_per_second)
 	
 
+func handle_dead_mob():
+	time_since_last_death_handle = 0.0
+	var mob = dead_mobs.get(dead_mobs.size()-1)
+	dead_mobs.remove_at(dead_mobs.size()-1)
+	AudioController.hit_sfx()
+	level.freeze(freeze_time)
+	match mob.type:
+		Mob.Type.BASIC:
+			mob.animation_player.play("basic_death")
+		Mob.Type.CAT:
+			mob.animation_player.play("cat_death")
+		Mob.Type.SLIME:
+			mob.animation_player.play("slime_death")
+		Mob.Type.RAMIRO:
+			mob.animation_player.play("ramiro_death")
+
 func _physics_process(delta: float) -> void:
 	if (Engine.time_scale == 0): return
 	if (!player.playing or !can_trail): return
+	
+	
 	time_since_last_point_sec += delta
 	time_since_last_circle_sec += delta
+	time_since_last_death_handle += delta
+	
+	if (dead_mobs.size() > 0 and time_since_last_death_handle > time_per_death_handle_sec):
+		handle_dead_mob()
+	
 	if (time_since_last_point_sec > 1.0/trail_points_per_second):
 		add_point()
 	var closest_point = find_closest_point(last_points_tolerance)

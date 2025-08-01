@@ -17,11 +17,12 @@ var bodies_entered: Array[Node2D]
 @onready var timer = $SwitchAction
 @onready var rng = RandomNumberGenerator.new()
 @onready var animation_player := $AnimationPlayer
+@onready var debug_text: RichTextLabel = $"../DebugText"
 
 enum Action {PRE, IDLE, MOVING, SPAWNING, SHIELD, SHIELD_MOVING, DYING}
 @export var action: Action
-var speed = 250.0
 var hp = 26
+var shield = 0
 @onready var snapped_pos = CENTER
 @onready var trail_curve = preload("res://Templates/boss_trail_curve.tres")
 @onready var mob_scene = preload("res://Scenes/mob.tscn")
@@ -30,6 +31,8 @@ var mobs_alive = 0
 var line_tween: Tween
 var pos_tween: Tween
 var available_locations := [UP_LEFT, LEFT, DOWN_LEFT, DOWN, DOWN_RIGHT, RIGHT, UP_RIGHT, UP]
+@export var dash_speed := 300.0
+@export var spawn_shield_speed := 100.0
 
 func _ready() -> void:
 	action = Action.PRE
@@ -39,12 +42,13 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if (Engine.time_scale == 0): return
+	debug_text.text = "action: " + Action.keys()[action] + "\nspawned_mobs: " + str(spawned_mobs) + "\nmobs_alive: " + str(mobs_alive) + "\nhp: " + str(hp) + "\nshield: " + str(shield)
 	if (action == Action.SHIELD and mobs_alive == 0):
 		start_spawning()
 
 func start_spawning():
 	action = Action.SPAWNING
-	trail_to_random_pos(1.5)
+	trail_to_random_pos(spawn_shield_speed)
 	animation_player.play("spawning")
 	spawned_mobs = 0
 
@@ -75,14 +79,14 @@ func _on_body_exited(body: Node2D) -> void:
 	if (Input.is_key_pressed(KEY_SPACE)):
 		pass
 		
-func move(index: int, time_sec: float = 0.5):
+func move(index: int, move_speed: float = dash_speed):
 	var new_pos = available_locations.get(index)
 	available_locations.remove_at(index)
 	available_locations.append(snapped_pos)
 	snapped_pos = new_pos
-	trail_to_move(snapped_pos, time_sec)
+	trail_to_move(snapped_pos, move_speed)
 
-func trail_to_move(pos: Vector2, time_sec: float = 0.5):
+func trail_to_move(pos: Vector2, move_speed: float = dash_speed):
 	if (pos_tween):
 		pos_tween.kill()
 	var line = Line2D.new()
@@ -98,14 +102,14 @@ func trail_to_move(pos: Vector2, time_sec: float = 0.5):
 	line_tween.set_trans(Tween.TRANS_CUBIC)
 	line_tween.tween_property(line, "width", 0, 0.75)
 	line_tween.tween_callback(line.queue_free)
-	line_tween.tween_callback(execute_move.bind(pos, time_sec))
+	line_tween.tween_callback(execute_move.bind(pos, move_speed))
 	
 
-func execute_move(pos: Vector2, time_sec: float = 0.5):
+func execute_move(pos: Vector2, move_speed: float = dash_speed):
 	pos_tween = get_tree().create_tween()
 	pos_tween.set_ease(Tween.EASE_OUT)
 	pos_tween.set_trans(Tween.TRANS_QUINT)
-	pos_tween.tween_property(self, "position", pos, time_sec)
+	pos_tween.tween_property(self, "position", pos, pos.distance_to(position) / move_speed)
 	pos_tween.tween_callback(finish_move)
 
 func move_to(loc: Vector2):
@@ -129,7 +133,7 @@ func finish_move():
 			else: action = Action.SHIELD
 		elif (action == Action.SPAWNING):
 			if (spawned_mobs < 3):
-				trail_to_random_pos(1.5)
+				trail_to_random_pos(spawn_shield_speed)
 				spawn_mob()
 				mobs_alive += 1
 				timer.wait_time = 1.5
@@ -139,7 +143,7 @@ func finish_move():
 					spawned_mobs = 0
 					action = Action.SHIELD_MOVING
 					animation_player.play("shielding")
-					trail_to_move(UP_LEFT, 1.5)
+					trail_to_move(UP_LEFT, spawn_shield_speed)
 				else:
 					start_spawning()
 		return
@@ -162,10 +166,10 @@ func spawn_mob():
 	mob.call_deferred("init_random")
 	pass
 
-func trail_to_random_pos(time_sec: float = 0.5):
+func trail_to_random_pos(move_speed: float = dash_speed):
 	var x := rng.randf_range(LEFT.x, RIGHT.x)
 	var y := rng.randf_range(DOWN.y, UP.y)
-	trail_to_move(Vector2(x, y), time_sec)
+	trail_to_move(Vector2(x, y), move_speed)
 
 func _on_player_detect_area_entered(area: Area2D) -> void:
 	if (Input.is_key_pressed(KEY_SPACE)):
@@ -175,7 +179,7 @@ func _on_player_detect_area_entered(area: Area2D) -> void:
 			hp -= 1
 			if (hp%5 == 0):
 				if (action == Action.IDLE):
-					trail_to_random_pos(1.5)
+					trail_to_random_pos(spawn_shield_speed)
 					timer.wait_time = 1.5
 					timer.start()
 				animation_player.play("spawning")

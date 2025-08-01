@@ -45,11 +45,24 @@ size = Vector2(1, 253)
 [node name="Level" type="Node2D"]
 script = ExtResource("1_ha31o")
 
+[node name="DebugText" type="RichTextLabel" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -221.0
+offset_top = -125.0
+offset_right = 176.0
+offset_bottom = 79.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+text = "popbob"
+fit_content = true
+
 [node name="Trail" type="StaticBody2D" parent="."]
 collision_layer = 256
 collision_mask = 4
 script = ExtResource("1_0f350")
-max_time_sec = 1.0
 min_distance_to_oldest_points = 12.5
 circle_min_timeout_sec = 0.5
 

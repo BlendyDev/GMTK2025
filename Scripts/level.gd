@@ -1,6 +1,8 @@
 extends Node2D
 class_name Level
 
+@onready var player: Player = $Player
+
 func pause():
 	$PauseMenu.visible = true
 	Engine.time_scale = 0
@@ -8,11 +10,18 @@ func pause():
 func unpause():
 	$PauseMenu.visible = false
 	Engine.time_scale = 1
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-		
+	if player.playing: Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
-func _process(delta: float) -> void:
+func _process(delta: float)  -> void:
 	if Input.is_action_just_pressed("Esc") and !$PauseMenu.visible:
 		call_deferred("pause")
 	elif Input.is_action_just_pressed("Esc") and $PauseMenu.visible:
 		call_deferred("unpause")
+
+func freeze(duration):
+	if (duration == 0): return
+	Engine.time_scale = 0.05
+	AudioController.menu_music_pause()
+	await get_tree().create_timer(duration, true, false, true).timeout
+	Engine.time_scale = 1.0
+	AudioController.menu_music_resume()
