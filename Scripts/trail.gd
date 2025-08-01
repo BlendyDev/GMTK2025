@@ -159,10 +159,6 @@ func handle_combo(mob: Mob) -> Combo:
 	var combo = Combo.new()
 	combo.mobs = dead_mobs.duplicate()
 	combo.count = dead_mobs.size()
-	if (combo.count > 1):
-		var combo_indicator := combo_scene.instantiate() as Node2D
-		get_tree().current_scene.add_child(combo_indicator)
-		combo_indicator.position = mob.position
 	combos.append(combo)
 	return combo
 
@@ -173,6 +169,11 @@ func handle_dead_mob():
 	AudioController.hit_sfx((combo.count - combo.mobs.size()) * 0.075 + 1)
 	combo.mobs.remove_at(combo.mobs.rfind(mob))
 	if (combo.mobs.size() == 0):
+		if (combo.count > 1):
+			var combo_indicator :ComboIndicator = combo_scene.instantiate() as Node2D
+			get_tree().current_scene.add_child(combo_indicator)
+			combo_indicator.position = mob.position
+			combo_indicator.number.frame = combo.count
 		if (combo.count >= 3): AudioController.cheer_sfx()
 		combos.remove_at(combos.rfind(combo))
 	dead_mobs.remove_at(dead_mobs.size()-1)

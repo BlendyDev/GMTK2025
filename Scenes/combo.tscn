@@ -1,13 +1,16 @@
-[gd_scene load_steps=11 format=3 uid="uid://cmbxl82w4fnr2"]
+[gd_scene load_steps=25 format=3 uid="uid://cmbxl82w4fnr2"]
 
+[ext_resource type="Script" uid="uid://cfxnlkuqnc6cf" path="res://Scripts/combo.gd" id="1_3xv8b"]
 [ext_resource type="Texture2D" uid="uid://dvpx5bqh160m2" path="res://Sprites/combo-Sheet.png" id="1_my588"]
+[ext_resource type="Texture2D" uid="uid://b2voxgn5avkih" path="res://Sprites/0123456789-Sheet.png" id="3_hnyw4"]
+[ext_resource type="Texture2D" uid="uid://dgwaol200kkf2" path="res://Sprites/x.png" id="3_kr3a1"]
 
 [sub_resource type="Animation" id="Animation_rjmnp"]
 length = 2.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/path = NodePath("Indicator:animation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -19,7 +22,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/path = NodePath("Indicator:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -31,7 +34,7 @@ tracks/1/keys = {
 tracks/2/type = "bezier"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("AnimatedSprite2D:position:y")
+tracks/2/path = NodePath("Indicator:position:y")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -42,7 +45,7 @@ tracks/2/keys = {
 tracks/3/type = "bezier"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("AnimatedSprite2D:modulate:a")
+tracks/3/path = NodePath("Indicator:modulate:a")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -53,7 +56,7 @@ tracks/3/keys = {
 tracks/4/type = "bezier"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("AnimatedSprite2D:scale:x")
+tracks/4/path = NodePath("Indicator:scale:x")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -64,7 +67,7 @@ tracks/4/keys = {
 tracks/5/type = "bezier"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("AnimatedSprite2D:scale:y")
+tracks/5/path = NodePath("Indicator:scale:y")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -128,7 +131,86 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_j8r8v"]
+atlas = ExtResource("3_hnyw4")
+region = Rect2(0, 0, 18, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_56ebj"]
+atlas = ExtResource("3_hnyw4")
+region = Rect2(18, 0, 18, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nnlgs"]
+atlas = ExtResource("3_hnyw4")
+region = Rect2(36, 0, 18, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oq0p2"]
+atlas = ExtResource("3_hnyw4")
+region = Rect2(54, 0, 18, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2bhe7"]
+atlas = ExtResource("3_hnyw4")
+region = Rect2(72, 0, 18, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j8oc2"]
+atlas = ExtResource("3_hnyw4")
+region = Rect2(90, 0, 18, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nodd1"]
+atlas = ExtResource("3_hnyw4")
+region = Rect2(108, 0, 18, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cc7f7"]
+atlas = ExtResource("3_hnyw4")
+region = Rect2(126, 0, 18, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gt3jw"]
+atlas = ExtResource("3_hnyw4")
+region = Rect2(144, 0, 18, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2dg0d"]
+atlas = ExtResource("3_hnyw4")
+region = Rect2(162, 0, 18, 18)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dr0id"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j8r8v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_56ebj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nnlgs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oq0p2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2bhe7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j8oc2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nodd1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cc7f7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gt3jw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2dg0d")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="Combo" type="Node2D"]
+script = ExtResource("1_3xv8b")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -136,5 +218,17 @@ libraries = {
 }
 autoplay = "RESET"
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="Indicator" type="AnimatedSprite2D" parent="."]
+z_index = 1200
 sprite_frames = SubResource("SpriteFrames_j8r8v")
+
+[node name="X" type="Sprite2D" parent="Indicator"]
+z_index = 1200
+position = Vector2(33, 0)
+texture = ExtResource("3_kr3a1")
+
+[node name="Number" type="AnimatedSprite2D" parent="Indicator"]
+z_index = 1200
+position = Vector2(44, 0)
+sprite_frames = SubResource("SpriteFrames_dr0id")
+frame = 9
