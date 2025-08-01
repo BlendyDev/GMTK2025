@@ -3,6 +3,7 @@ extends Node
 var effect = AudioServer.get_bus_effect(1, 0)
 var tween : Tween
 	
+@onready var hitSFX: AudioStreamPlayer2D = $HitSFX
 
 func circle_sfx():
 	$CircleSFX.play()
@@ -10,8 +11,9 @@ func circle_sfx():
 func fail_circle_sfx():
 	$FailCircleSFX.play()
 
-func hit_sfx():
-	$HitSFX.play()
+func hit_sfx(pitch: float):
+	hitSFX.pitch_scale = pitch
+	hitSFX.play()
 	
 func cheer_sfx():
 	$CheerSFX.play()	

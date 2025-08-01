@@ -1,10 +1,15 @@
 extends StaticBody2D
 class_name Trail
 
+class Combo:
+	var count: int
+	var mobs: Array[Mob]
+
 @onready var level: Level = $".."
 @onready var trail_line: Line2D = $Trail
 @onready var player: Player = $"../Player"
 @onready var loop_scene = preload("res://Scenes/loop.tscn")
+@onready var combo_scene = preload("res://Scenes/combo.tscn")
 
 @export var trail_points_per_second: int = 120
 @export var max_trail_time_sec: float = 1.15
@@ -22,6 +27,8 @@ var cleared_points = true
 var trail_collisions: Array[CollisionShape2D]
 var can_trail = true
 var dead_mobs: Array[Mob] = []
+var combos: Array[Combo] = []
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -146,11 +153,30 @@ func add_point():
 	time_since_last_point_sec = fmod(time_since_last_point_sec, 1.0/trail_points_per_second)
 	
 
+func handle_combo(mob: Mob) -> Combo:
+	for combo in combos:
+		if combo.mobs.has(mob): return combo
+	var combo = Combo.new()
+	combo.mobs = dead_mobs.duplicate()
+	combo.count = dead_mobs.size()
+	if (combo.count > 1):
+		var combo_indicator := combo_scene.instantiate() as Node2D
+		get_tree().current_scene.add_child(combo_indicator)
+		combo_indicator.position = mob.position
+	combos.append(combo)
+	return combo
+
 func handle_dead_mob():
 	time_since_last_death_handle = 0.0
 	var mob = dead_mobs.get(dead_mobs.size()-1)
+	var combo = handle_combo(mob)
+	AudioController.hit_sfx((combo.count - combo.mobs.size()) * 0.075 + 1)
+	combo.mobs.remove_at(combo.mobs.rfind(mob))
+	if (combo.mobs.size() == 0):
+		AudioController.cheer()
+		combos.remove_at(combos.rfind(combo))
 	dead_mobs.remove_at(dead_mobs.size()-1)
-	AudioController.hit_sfx()
+	
 	level.freeze(freeze_time)
 	match mob.type:
 		Mob.Type.BASIC:
