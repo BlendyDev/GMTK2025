@@ -12,7 +12,6 @@ const UP := Vector2(0, -97)
 
 @onready var player: Player = $"../Player"
 @onready var trail: Trail = $"../Trail"
-@onready var sfx: SFX = $"../SFX"
 var bodies_entered: Array[Node2D]
 @onready var timer = $SwitchAction
 @onready var rng = RandomNumberGenerator.new()
@@ -55,7 +54,7 @@ func _on_body_entered(body: Node2D) -> void:
 		trail.can_trail = false
 		trail.animate_fail_trail()
 		trail.reset_trail()
-		sfx.circle_reset()
+		AudioController.fail_circle_sfx()
 	pass # Replace with function body.
 
 func _on_body_exited(body: Node2D) -> void:

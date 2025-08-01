@@ -11,7 +11,6 @@ var cleared_points = true
 @export var circle_min_timeout_sec: float
 @onready var player: Player = $"../Player"
 var trail_collisions: Array[CollisionShape2D]
-@onready var sfx: SFX = $"../SFX"
 var can_trail = true
 @export var last_points_tolerance = 0.2
 @onready var loop_scene = preload("res://Scenes/loop.tscn")
@@ -67,7 +66,7 @@ func try_spawn_circle(closest_point: Vector2):
 	if (player.velocity.length() < 20.0): 
 		reset_trail()
 		return
-	sfx.circle_finish()
+	AudioController.circle_sfx()
 	var fade_out_trail = Line2D.new()
 	fade_out_trail.antialiased = true
 	fade_out_trail.width = 6.0

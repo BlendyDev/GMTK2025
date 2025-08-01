@@ -1,15 +1,12 @@
-[gd_scene load_steps=24 format=3 uid="uid://4otsh1wy31kg"]
+[gd_scene load_steps=19 format=3 uid="uid://4otsh1wy31kg"]
 
 [ext_resource type="Script" uid="uid://cxjw50s4jeh2y" path="res://Scripts/trail.gd" id="1_0f350"]
 [ext_resource type="Script" uid="uid://c26jmx7s0p0dr" path="res://Scripts/level.gd" id="1_ha31o"]
 [ext_resource type="Script" uid="uid://cd8k0h68k4a8g" path="res://Scripts/player.gd" id="1_tumq0"]
 [ext_resource type="Texture2D" uid="uid://bj30yhx4p3qu0" path="res://Sprites/debugPlayer.png" id="2_k5f4k"]
 [ext_resource type="SpriteFrames" uid="uid://brjoepnckupck" path="res://Animation/mouseFrames.tres" id="4_0f350"]
-[ext_resource type="AudioStream" uid="uid://dapvn0ocg8s84" path="res://SFX/test_sfx_pickup.wav" id="4_81xng"]
 [ext_resource type="Texture2D" uid="uid://c1yfhu6mq1mop" path="res://Sprites/fondo.png" id="7_8c0lf"]
 [ext_resource type="Texture2D" uid="uid://cyeifbyapar62" path="res://Sprites/trueborder.png" id="8_754fn"]
-[ext_resource type="Script" uid="uid://cjjsuev7gaqao" path="res://Scripts/sfx.gd" id="8_bvt00"]
-[ext_resource type="AudioStream" uid="uid://cf12dn028v1r5" path="res://SFX/test_reset_sfx.wav" id="10_oqgf2"]
 [ext_resource type="PackedScene" uid="uid://dd7jxb3adi5uf" path="res://Scenes/boss.tscn" id="10_qxfql"]
 [ext_resource type="PackedScene" uid="uid://d2cg3mbio7ehv" path="res://Scenes/pause_menu.tscn" id="11_qxfql"]
 [ext_resource type="PackedScene" uid="uid://dsc0qsqg2g7nq" path="res://Scenes/options_menu.tscn" id="13_pa6b8"]
@@ -40,14 +37,6 @@ size = Vector2(1, 253)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qxfql"]
 size = Vector2(1, 253)
-
-[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_754fn"]
-streams_count = 1
-stream_0/stream = ExtResource("4_81xng")
-
-[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_bvt00"]
-streams_count = 1
-stream_0/stream = ExtResource("10_oqgf2")
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_ha31o")
@@ -123,21 +112,6 @@ shape = SubResource("RectangleShape2D_oqgf2")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="border"]
 position = Vector2(-224.5, 0.5)
 shape = SubResource("RectangleShape2D_qxfql")
-
-[node name="SFX" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-script = ExtResource("8_bvt00")
-
-[node name="CircleFinish" type="AudioStreamPlayer2D" parent="SFX"]
-stream = SubResource("AudioStreamRandomizer_754fn")
-pitch_scale = 1.3
-
-[node name="CircleReset" type="AudioStreamPlayer2D" parent="SFX"]
-stream = SubResource("AudioStreamRandomizer_bvt00")
-pitch_scale = 1.3
 
 [node name="Boss" parent="." instance=ExtResource("10_qxfql")]
 position = Vector2(-200, 97)
