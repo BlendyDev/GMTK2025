@@ -5,9 +5,11 @@ class_name Level
 
 func pause():
 	$PauseMenu.visible = true
+	AudioController.applylowpass()
 	Engine.time_scale = 0
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 func unpause():
+	AudioController.removelowpass()
 	$PauseMenu.visible = false
 	Engine.time_scale = 1
 	if player.playing: Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)

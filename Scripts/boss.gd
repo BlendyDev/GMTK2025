@@ -11,6 +11,7 @@ const RIGHT := Vector2(197, 0)
 const UP_RIGHT := Vector2(197, -97)
 const UP := Vector2(0, -97)
 
+@onready var effect = AudioServer.get_bus_effect(1, 0)
 @onready var player: Player = $"../Player"
 @onready var trail: Trail = $"../Trail"
 var bodies_entered: Array[Node2D]
@@ -42,7 +43,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if (Engine.time_scale == 0): return
-	debug_text.text = "action: " + Action.keys()[action] + "\nspawned_mobs: " + str(spawned_mobs) + "\nmobs_alive: " + str(mobs_alive) + "\nhp: " + str(hp) + "\nshield: " + str(shield)
+	debug_text.text ="lowpass resonance: " + str(effect.resonance) + "\naction: " + Action.keys()[action] + "\nspawned_mobs: " + str(spawned_mobs) + "\nmobs_alive: " + str(mobs_alive) + "\nhp: " + str(hp) + "\nshield: " + str(shield)
 	if (action == Action.SHIELD and mobs_alive == 0):
 		start_spawning()
 
@@ -176,6 +177,7 @@ func _on_player_detect_area_entered(area: Area2D) -> void:
 		pass
 	if (area.collision_layer == pow(2, 10-1)): #traced circle
 		if (action == Action.MOVING or action == Action.IDLE):
+			AudioController.cat_hit_sfx()
 			hp -= 1
 			if (hp%5 == 0):
 				if (action == Action.IDLE):
