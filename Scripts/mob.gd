@@ -8,6 +8,7 @@ var bodies_entered: Array[Node2D]
 @onready var timer = $SwitchAction
 @onready var rng = RandomNumberGenerator.new()
 @onready var sprite = $Sprite2D
+@onready var animation_player = $AnimationPlayer
 
 enum Action {IDLE, MOVING, DYING}
 enum Type {BASIC, CAT, SLIME, RAMIRO}
@@ -17,19 +18,19 @@ var speed = 250.0
 
 func init_basic():
 	type = Type.BASIC
-	$AnimationPlayer.play("basic_idle")
+	animation_player.play("basic_idle")
 	
 func init_cat():
 	type = Type.CAT
-	$AnimationPlayer.play("cat_idle")
+	animation_player.play("cat_idle")
 	
 func init_slime():
 	type = Type.SLIME
-	$AnimationPlayer.play("slime_idle")
+	animation_player.play("slime_idle")
 	
 func init_ramiro():
-	type = Type.BASIC
-	$AnimationPlayer.play("ramiro_idle")
+	type = Type.RAMIRO
+	animation_player.play("ramiro_idle")
 	
 func init_random():
 	var new_type := rng.randi_range(0, 3)
@@ -103,8 +104,20 @@ func _on_switch_action_timeout() -> void:
 func _on_player_detect_area_entered(area: Area2D) -> void:
 	if (area.collision_layer == pow(2, 10-1)): #traced circle
 		action = Action.DYING
-		var tween = get_tree().create_tween()
-		tween.tween_property(sprite, "scale", Vector2.ZERO, 0.7)
-		tween.tween_callback(queue_free)
+		match type:
+			Type.BASIC:
+				animation_player.play("basic_death")
+			Type.CAT:
+				animation_player.play("cat_death")
+			Type.SLIME:
+				animation_player.play("slime_death")
+			Type.RAMIRO:
+				animation_player.play("ramiro_death")
 		pass
+	pass # Replace with function body.
+
+
+func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+	if (anim_name.contains("_death")):
+		queue_free()
 	pass # Replace with function body.
