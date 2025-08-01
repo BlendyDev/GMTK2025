@@ -16,6 +16,7 @@ func _on_sensitivity_slider_value_changed(value: float) -> void:
 	pass # Replace with function body.
 
 func _on_back_pressed() -> void:
+	AudioController.ui_back_sfx()
 	if get_tree().current_scene.name == "Level":
 		self.visible = false
 		effect.resonance = 0
@@ -27,3 +28,11 @@ func _on_back_pressed() -> void:
 		tween.set_ease(Tween.EASE_OUT)
 		tween.set_trans(Tween.TRANS_CUBIC)
 		tween.tween_property(effect, "resonance", 0, 0.25)
+
+
+func _on_back_mouse_entered() -> void:
+	AudioController.ui_hover_sfx()
+
+
+func _on_back_mouse_exited() -> void:
+	AudioController.ui_lookaway_sfx()

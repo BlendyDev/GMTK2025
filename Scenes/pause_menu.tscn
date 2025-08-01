@@ -26,6 +26,15 @@ grow_vertical = 2
 script = ExtResource("1_emv3i")
 
 [node name="ColorRect" type="ColorRect" parent="."]
+z_index = -4
+layout_mode = 0
+offset_left = -1970.0
+offset_top = -1509.0
+offset_right = 2285.0
+offset_bottom = 1068.0
+color = Color(0, 0, 0, 0.529412)
+
+[node name="ColorRectShader" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_1och7")
 layout_mode = 0
 offset_left = -2365.0
@@ -115,14 +124,26 @@ layout_mode = 2
 text = "No"
 
 [connection signal="mouse_entered" from="VBoxContainer/Resume" to="." method="_on_resume_mouse_entered"]
+[connection signal="mouse_exited" from="VBoxContainer/Resume" to="." method="_on_resume_mouse_exited"]
 [connection signal="pressed" from="VBoxContainer/Resume" to="." method="_on_resume_pressed"]
 [connection signal="mouse_entered" from="VBoxContainer/Options" to="." method="_on_options_mouse_entered"]
+[connection signal="mouse_exited" from="VBoxContainer/Options" to="." method="_on_options_mouse_exited"]
 [connection signal="pressed" from="VBoxContainer/Options" to="." method="_on_options_pressed"]
 [connection signal="mouse_entered" from="VBoxContainer/Main Menu" to="." method="_on_main_menu_mouse_entered"]
+[connection signal="mouse_exited" from="VBoxContainer/Main Menu" to="." method="_on_main_menu_mouse_exited"]
 [connection signal="pressed" from="VBoxContainer/Main Menu" to="." method="_on_main_menu_pressed"]
+[connection signal="mouse_entered" from="VBoxContainer/HBoxContainer2/Yes2" to="." method="_on_yes_2_mouse_entered"]
+[connection signal="mouse_exited" from="VBoxContainer/HBoxContainer2/Yes2" to="." method="_on_yes_2_mouse_exited"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer2/Yes2" to="." method="_on_yes_2_pressed"]
+[connection signal="mouse_entered" from="VBoxContainer/HBoxContainer2/No2" to="." method="_on_no_2_mouse_entered"]
+[connection signal="mouse_exited" from="VBoxContainer/HBoxContainer2/No2" to="." method="_on_no_2_mouse_exited"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer2/No2" to="." method="_on_no_2_pressed"]
 [connection signal="mouse_entered" from="VBoxContainer/Quit" to="." method="_on_quit_mouse_entered"]
+[connection signal="mouse_exited" from="VBoxContainer/Quit" to="." method="_on_quit_mouse_exited"]
 [connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[connection signal="mouse_entered" from="VBoxContainer/HBoxContainer/Yes" to="." method="_on_yes_mouse_entered"]
+[connection signal="mouse_exited" from="VBoxContainer/HBoxContainer/Yes" to="." method="_on_yes_mouse_exited"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/Yes" to="." method="_on_yes_pressed"]
+[connection signal="mouse_entered" from="VBoxContainer/HBoxContainer/No" to="." method="_on_no_mouse_entered"]
+[connection signal="mouse_exited" from="VBoxContainer/HBoxContainer/No" to="." method="_on_no_mouse_exited"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/No" to="." method="_on_no_pressed"]

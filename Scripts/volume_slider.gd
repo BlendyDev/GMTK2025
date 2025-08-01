@@ -13,3 +13,19 @@ func _ready() -> void:
 
 func _on_value_changed(value: float) -> void:
 	AudioServer.set_bus_volume_db(bus_index, linear_to_db(value))
+
+
+func _on_mouse_entered() -> void:
+	AudioController.ui_hover_sfx()
+
+
+func _on_mouse_exited() -> void:
+	AudioController.ui_lookaway_sfx()
+
+
+func _on_drag_started() -> void:
+	AudioController.ui_sliderclick_sfx()
+
+
+func _on_drag_ended(value_changed: bool) -> void:
+	AudioController.ui_sliderendclick_sfx()

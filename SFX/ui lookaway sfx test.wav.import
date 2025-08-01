@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dncoj2fk4pjuu"
+path="res://.godot/imported/ui lookaway sfx test.wav-8ebd683774ded5cf574e28f87e5d21a9.sample"
+
+[deps]
+
+source_file="res://SFX/ui lookaway sfx test.wav"
+dest_files=["res://.godot/imported/ui lookaway sfx test.wav-8ebd683774ded5cf574e28f87e5d21a9.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

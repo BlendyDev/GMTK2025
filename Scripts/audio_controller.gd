@@ -8,6 +8,24 @@ func fail_circle_sfx():
 
 func hit_sfx():
 	$HitSFX.play()
+	
+func ui_click_sfx():
+	$UIClickSFX.play()
+	
+func ui_hover_sfx():
+	$UIHoverSFX.play()
+
+func ui_back_sfx():
+	$UIBackSFX.play()
+
+func ui_lookaway_sfx():
+	$UILookawaySFX.play()
+
+func ui_sliderclick_sfx():
+	$UISliderClickSFX.play()
+func ui_sliderendclick_sfx():
+	$UISliderClickEndSFX.play()
+
 
 func menu_music():
 	$MenuMusic.play()

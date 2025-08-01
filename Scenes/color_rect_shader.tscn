@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://chv7qbvxrtnqu"]
+
+[ext_resource type="Shader" uid="uid://g6vj64km5x0h" path="res://Shaders/pause_menu.gdshader" id="1_fwn7p"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1och7"]
+shader = ExtResource("1_fwn7p")
+shader_parameter/amount = 2.0
+
+[node name="ColorRectShader" type="ColorRect"]
+material = SubResource("ShaderMaterial_1och7")
+offset_left = -2365.0
+offset_top = -1750.0
+offset_right = 2322.0
+offset_bottom = 953.0
