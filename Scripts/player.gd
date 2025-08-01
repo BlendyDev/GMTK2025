@@ -24,6 +24,7 @@ func _input(e: InputEvent):
 	match e.get_class():
 		"InputEventMouseMotion":
 			if !playing: return
+			if Engine.time_scale == 0: return
 			mouse_motion = e.relative
 			
 
