@@ -23,7 +23,7 @@ enum Action {PRE, IDLE, MOVING, SHIELD, DYING}
 var speed = 250.0
 var hp = 30
 @onready var snapped_pos = CENTER
-@onready var trail_sprite = preload("res://Sprites/trail.png")
+@onready var trail_curve = preload("res://Templates/boss_trail_curve.tres")
 
 var available_locations := [UP_LEFT, LEFT, DOWN_LEFT, DOWN, DOWN_RIGHT, RIGHT, UP_RIGHT, UP]
 
@@ -66,18 +66,29 @@ func move(index: int):
 	available_locations.append(snapped_pos)
 	snapped_pos = new_pos
 	var line = Line2D.new()
-	line.width = 6
-	line.texture = trail_sprite
+	line.width = 15
+	line.default_color = Color.from_rgba8(128, 64, 133, 255)
+	line.width_curve = trail_curve
 	line.add_point(Vector2.ZERO)
 	line.add_point(snapped_pos-position)
-	add_child(line)
-	var tween = get_tree().create_tween()
-	tween.set_ease(Tween.EASE_OUT)
-	tween.set_trans(Tween.TRANS_QUINT)
-	#tween.tween_property(line, "modulate", Color.from_rgba8(255, 255, 255, 0), 0.5)
-	tween.tween_property(self, "position", snapped_pos, 0.5)
-	tween.tween_callback(line.queue_free)
-	tween.tween_callback(finish_move)
+	get_tree().current_scene.add_child(line)
+	line.position = position
+	
+	
+	var line_tween = get_tree().create_tween()
+	line_tween.set_ease(Tween.EASE_IN)
+	line_tween.set_trans(Tween.TRANS_CUBIC)
+	line_tween.tween_property(line, "width", 0, 0.75)
+	line_tween.tween_callback(line.queue_free)
+	line_tween.tween_callback(execute_move.bind(snapped_pos))
+
+func execute_move(pos: Vector2):
+	print("execute_move!")
+	var pos_tween = get_tree().create_tween()
+	pos_tween.set_ease(Tween.EASE_OUT)
+	pos_tween.set_trans(Tween.TRANS_QUINT)
+	pos_tween.tween_property(self, "position", snapped_pos, 0.5)
+	pos_tween.tween_callback(finish_move)
 
 func move_to(loc: Vector2):
 	if (snapped_pos == loc): return
