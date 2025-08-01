@@ -99,18 +99,32 @@ func _on_switch_action_timeout() -> void:
 			timer.start()
 	pass # Replace with function body.
 
+func freeze(duration):
+	Engine.time_scale = 0.05
+	AudioController.menu_music_pause()
+	await get_tree().create_timer(duration, true, false, true).timeout
+	Engine.time_scale = 1.0
+	AudioController.menu_music_resume()
 
 func _on_player_detect_area_entered(area: Area2D) -> void:
 	if (area.collision_layer == pow(2, 10-1)): #traced circle
 		action = Action.DYING
 		match type:
 			Type.BASIC:
+				AudioController.hit_sfx()
+				freeze(0.15)
 				animation_player.play("basic_death")
 			Type.CAT:
+				AudioController.hit_sfx()
+				freeze(0.15)
 				animation_player.play("cat_death")
 			Type.SLIME:
+				AudioController.hit_sfx()
+				freeze(0.15)
 				animation_player.play("slime_death")
 			Type.RAMIRO:
+				AudioController.hit_sfx()
+				freeze(0.15)
 				animation_player.play("ramiro_death")
 		pass
 	pass # Replace with function body.

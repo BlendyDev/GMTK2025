@@ -1,11 +1,20 @@
-[gd_scene load_steps=4 format=3 uid="uid://d2cg3mbio7ehv"]
+[gd_scene load_steps=7 format=3 uid="uid://d2cg3mbio7ehv"]
 
 [ext_resource type="Script" uid="uid://doy504o3wwhr8" path="res://Scripts/pause_menu.gd" id="1_emv3i"]
 [ext_resource type="Shader" uid="uid://g6vj64km5x0h" path="res://Shaders/pause_menu.gdshader" id="2_k0w1u"]
+[ext_resource type="Texture2D" uid="uid://bh4o3s6y06jjc" path="res://Sprites/pausemousegame1.png" id="3_bpi0q"]
+[ext_resource type="Texture2D" uid="uid://n3x2l26iuekn" path="res://Sprites/pausemousegame2.png" id="4_vmyb1"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1och7"]
 shader = ExtResource("2_k0w1u")
 shader_parameter/amount = 2.0
+
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_bpi0q"]
+frames = 2
+frame_0/texture = ExtResource("3_bpi0q")
+frame_0/duration = 0.45
+frame_1/texture = ExtResource("4_vmyb1")
+frame_1/duration = 0.45
 
 [node name="PauseMenu" type="Control"]
 layout_mode = 3
@@ -24,6 +33,18 @@ offset_top = -1750.0
 offset_right = 2322.0
 offset_bottom = 953.0
 
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+texture = SubResource("AnimatedTexture_bpi0q")
+
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 8
@@ -31,10 +52,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -35.0
-offset_top = -50.5
-offset_right = 35.0
-offset_bottom = 50.5
+offset_left = 102.0
+offset_top = -75.0
+offset_right = 172.0
+offset_bottom = 88.0
 grow_horizontal = 2
 grow_vertical = 2
 

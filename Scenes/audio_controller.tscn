@@ -1,9 +1,15 @@
-[gd_scene load_steps=7 format=3 uid="uid://dsaaqh6r846s1"]
+[gd_scene load_steps=9 format=3 uid="uid://dsaaqh6r846s1"]
 
 [ext_resource type="Script" uid="uid://hgdeh6d4tsa2" path="res://Scripts/audio_controller.gd" id="1_t0xn5"]
 [ext_resource type="AudioStream" uid="uid://dapvn0ocg8s84" path="res://SFX/test_sfx_pickup.wav" id="2_nqcbu"]
+[ext_resource type="AudioStream" uid="uid://byndt5frogv3c" path="res://SFX/hitstop sound test.wav" id="2_ual3u"]
 [ext_resource type="AudioStream" uid="uid://cf12dn028v1r5" path="res://SFX/test_reset_sfx.wav" id="3_ual3u"]
 [ext_resource type="AudioStream" uid="uid://dxhooo3lqf4d4" path="res://Music/menu music loop test.wav" id="4_nqcbu"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ncnt2"]
+random_pitch = 1.13
+streams_count = 1
+stream_0/stream = ExtResource("2_ual3u")
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_yyma2"]
 random_pitch = 1.4
@@ -19,6 +25,9 @@ stream_0/stream = ExtResource("3_ual3u")
 
 [node name="AudioController" type="Node"]
 script = ExtResource("1_t0xn5")
+
+[node name="HitSFX" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_ncnt2")
 
 [node name="CircleSFX" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_yyma2")

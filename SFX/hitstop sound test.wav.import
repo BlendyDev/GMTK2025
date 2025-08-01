@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://byndt5frogv3c"
+path="res://.godot/imported/hitstop sound test.wav-5d7517e1412a75076b6207396348c5ee.sample"
+
+[deps]
+
+source_file="res://SFX/hitstop sound test.wav"
+dest_files=["res://.godot/imported/hitstop sound test.wav-5d7517e1412a75076b6207396348c5ee.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

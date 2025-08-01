@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 AudioController="*res://Scenes/audio_controller.tscn"
+Camera2d="*res://Scenes/camera_2d.tscn"
 
 [display]
 
