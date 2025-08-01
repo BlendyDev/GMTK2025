@@ -8,6 +8,7 @@ var bodies_entered: Array[Node2D]
 @onready var rng = RandomNumberGenerator.new()
 @onready var sprite = $Sprite2D
 @onready var animation_player = $AnimationPlayer
+@onready var boss: Boss = $"../Boss"
 
 enum Action {IDLE, MOVING, DYING}
 enum Type {BASIC, CAT, SLIME, RAMIRO}
@@ -107,8 +108,11 @@ func freeze(duration):
 	AudioController.menu_music_resume()
 
 func _on_player_detect_area_entered(area: Area2D) -> void:
-	if (area.collision_layer == pow(2, 10-1)): #traced circle
+	if (area.collision_layer == pow(2, 10-1) and action != Action.DYING): #traced circle
 		action = Action.DYING
+		boss.mobs_alive -= 1
+		if boss.mobs_alive == 0:
+			print(boss.action)
 		match type:
 			Type.BASIC:
 				AudioController.hit_sfx()
@@ -126,6 +130,7 @@ func _on_player_detect_area_entered(area: Area2D) -> void:
 				AudioController.hit_sfx()
 				freeze(0.15)
 				animation_player.play("ramiro_death")
+			
 		pass
 	pass # Replace with function body.
 

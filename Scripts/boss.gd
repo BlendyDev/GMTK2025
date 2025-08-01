@@ -1,4 +1,5 @@
 extends CharacterBody2D
+class_name Boss
 
 const CENTER := Vector2(0,0)
 const UP_LEFT := Vector2(-197,-97)
@@ -17,14 +18,15 @@ var bodies_entered: Array[Node2D]
 @onready var rng = RandomNumberGenerator.new()
 @onready var animation_player := $AnimationPlayer
 
-enum Action {PRE, IDLE, MOVING, SPAWNING, SHIELD, DYING}
+enum Action {PRE, IDLE, MOVING, SPAWNING, SHIELD, SHIELD_MOVING, DYING}
 @export var action: Action
 var speed = 250.0
 var hp = 26
 @onready var snapped_pos = CENTER
 @onready var trail_curve = preload("res://Templates/boss_trail_curve.tres")
 @onready var mob_scene = preload("res://Scenes/mob.tscn")
-var spawned_mobs = -1
+var spawned_mobs = 0
+var mobs_alive = 0
 var line_tween: Tween
 var pos_tween: Tween
 var available_locations := [UP_LEFT, LEFT, DOWN_LEFT, DOWN, DOWN_RIGHT, RIGHT, UP_RIGHT, UP]
@@ -37,8 +39,16 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if (Engine.time_scale == 0): return
-	if (action == Action.SHIELD): modulate = Color.from_rgba8(255, 0, 0, 255)
-	else: modulate = Color.from_rgba8(255, 255, 255, 255)
+	if (action == Action.SHIELD and mobs_alive == 0):
+		start_spawning()
+
+func start_spawning():
+	action = Action.SPAWNING
+	trail_to_random_pos(1.5)
+	animation_player.play("spawning")
+	spawned_mobs = 0
+
+func is_shielding()-> bool: return action == Action.SHIELD or action == Action.SHIELD_MOVING
 
 func activate():
 	animation_player.play("dashing")
@@ -105,18 +115,33 @@ func move_to(loc: Vector2):
 	move(index)
 
 func pick_location_and_move():
-	var index := rng.randi_range(0, 7)
+	var index := rng.randi_range(0, available_locations.size()-1)
 	move(index)
 	
 
 func finish_move():
 	if (action != Action.MOVING):
-		if (action == Action.SHIELD): move_to(UP_LEFT)
-		if (action == Action.SPAWNING):
-			trail_to_random_pos(1.5)
-			spawn_mob()
-			timer.wait_time = 1.5
-			timer.start()
+		if (action == Action.SHIELD):
+			trail_to_move(UP_LEFT)
+			action = Action.SHIELD_MOVING
+		elif (action == Action.SHIELD_MOVING):
+			if (mobs_alive == 0): start_spawning()
+			else: action = Action.SHIELD
+		elif (action == Action.SPAWNING):
+			if (spawned_mobs < 3):
+				trail_to_random_pos(1.5)
+				spawn_mob()
+				mobs_alive += 1
+				timer.wait_time = 1.5
+				timer.start()
+			else:
+				if (mobs_alive > 0):
+					spawned_mobs = 0
+					action = Action.SHIELD_MOVING
+					animation_player.play("shielding")
+					trail_to_move(UP_LEFT, 1.5)
+				else:
+					start_spawning()
 		return
 	action = Action.IDLE
 	timer.wait_time = 1.0
@@ -129,6 +154,7 @@ func _on_switch_action_timeout() -> void:
 		pick_location_and_move()
 
 func spawn_mob():
+	spawned_mobs += 1
 	var mob : Mob= mob_scene.instantiate()
 	mob.position = position
 	mob.scale = Vector2.ZERO
