@@ -26,6 +26,9 @@ func ui_sliderclick_sfx():
 func ui_sliderendclick_sfx():
 	$UISliderClickEndSFX.play()
 
+func arpeggio_sfx():
+	$ArpeggioSFX.play()
+
 
 func menu_music():
 	$MenuMusic.play()

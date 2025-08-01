@@ -74,6 +74,7 @@ func try_spawn_circle(closest_point: Vector2):
 		reset_trail()
 		return
 	AudioController.circle_sfx()
+	AudioController.arpeggio_sfx()
 	var fade_out_trail = Line2D.new()
 	fade_out_trail.antialiased = true
 	fade_out_trail.width = 6.0
