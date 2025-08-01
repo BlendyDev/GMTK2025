@@ -13,6 +13,7 @@ class_name Trail
 @export var last_points_tolerance := 0.2
 @export var freeze_time := 0.06
 @export var time_per_death_handle_sec: float = 0.1
+@export var circle_lifetime: float = 0.05
 
 var time_since_last_point_sec := 0.0
 var time_since_last_circle_sec := 0.0
@@ -91,7 +92,7 @@ func try_spawn_circle(closest_point: Vector2):
 	var area = Area2D.new()
 	area.collision_layer = pow(2, 10-1)
 	area.collision_mask = pow(2, 3-1)
-	fade_out_trail.add_child(area)
+	
 	var initial_polygon :PackedVector2Array = fade_out_trail.points.duplicate()
 	var polygons := simplify_polygon(initial_polygon)
 	for polygon in polygons:
@@ -109,8 +110,13 @@ func try_spawn_circle(closest_point: Vector2):
 	tween.set_trans(Tween.TRANS_QUART)
 	tween.tween_callback(fade_out_trail.queue_free)
 	get_tree().current_scene.add_child(fade_out_trail)
-	
+	destroy_circle_async(area)
+	get_tree().current_scene.add_child(area)
 	reset_trail()
+
+func destroy_circle_async(area: Area2D):
+	await get_tree().create_timer(circle_lifetime).timeout
+	area.queue_free()
 
 func add_point():
 	var n = floor((time_since_last_point_sec) / (1.0/trail_points_per_second))
