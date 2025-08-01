@@ -133,7 +133,7 @@ func spawn_mob():
 	mob.position = position
 	
 	get_tree().current_scene.call_deferred("add_child", mob)
-	
+	mob.call_deferred("init_random")
 	pass
 
 func trail_to_random_pos(time_sec: float = 0.5):
