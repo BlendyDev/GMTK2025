@@ -1,10 +1,11 @@
-[gd_scene load_steps=19 format=3 uid="uid://4otsh1wy31kg"]
+[gd_scene load_steps=21 format=3 uid="uid://4otsh1wy31kg"]
 
 [ext_resource type="Script" uid="uid://cxjw50s4jeh2y" path="res://Scripts/trail.gd" id="1_0f350"]
 [ext_resource type="Script" uid="uid://c26jmx7s0p0dr" path="res://Scripts/level.gd" id="1_ha31o"]
 [ext_resource type="Script" uid="uid://cd8k0h68k4a8g" path="res://Scripts/player.gd" id="1_tumq0"]
-[ext_resource type="Texture2D" uid="uid://bj30yhx4p3qu0" path="res://Sprites/debugPlayer.png" id="2_k5f4k"]
 [ext_resource type="SpriteFrames" uid="uid://brjoepnckupck" path="res://Animation/mouseFrames.tres" id="4_0f350"]
+[ext_resource type="Texture2D" uid="uid://dmos112huldh2" path="res://Sprites/ocstaculoepicodown.png" id="5_oqgf2"]
+[ext_resource type="Texture2D" uid="uid://u8v7wxeolqad" path="res://Sprites/ocstaculoepicoup.png" id="6_qxfql"]
 [ext_resource type="Texture2D" uid="uid://c1yfhu6mq1mop" path="res://Sprites/fondo.png" id="7_8c0lf"]
 [ext_resource type="Texture2D" uid="uid://cyeifbyapar62" path="res://Sprites/trueborder.png" id="8_754fn"]
 [ext_resource type="PackedScene" uid="uid://dd7jxb3adi5uf" path="res://Scenes/boss.tscn" id="10_qxfql"]
@@ -23,8 +24,11 @@ colors = PackedColorArray(0.55, 0.8425, 1, 0.258824, 0.552941, 0.843137, 1, 0.76
 [sub_resource type="CircleShape2D" id="CircleShape2D_k5f4k"]
 radius = 2.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_k5f4k"]
-size = Vector2(4, 4)
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_qxfql"]
+points = PackedVector2Array(-13, -15, 15, -15, 3, 14)
+
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_ha31o"]
+points = PackedVector2Array(0, -15, -11, 16, 11, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bvt00"]
 size = Vector2(449, 1)
@@ -76,40 +80,48 @@ shape = SubResource("CircleShape2D_k5f4k")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
-[node name="obstacle" type="StaticBody2D" parent="."]
-position = Vector2(-150, -5)
-scale = Vector2(26.7922, 26.7922)
+[node name="DownSpike" type="StaticBody2D" parent="."]
+position = Vector2(130, -111)
 collision_layer = 2
 
-[node name="Sprite2D" type="Sprite2D" parent="obstacle"]
-texture = ExtResource("2_k5f4k")
+[node name="Sprite2D" type="Sprite2D" parent="DownSpike"]
+texture = ExtResource("5_oqgf2")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="obstacle"]
-shape = SubResource("RectangleShape2D_k5f4k")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DownSpike"]
+shape = SubResource("ConvexPolygonShape2D_qxfql")
+
+[node name="UpSpike" type="StaticBody2D" parent="."]
+position = Vector2(-138, 108)
+
+[node name="Sprite2D" type="Sprite2D" parent="UpSpike"]
+texture = ExtResource("6_qxfql")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UpSpike"]
+shape = SubResource("ConvexPolygonShape2D_ha31o")
 
 [node name="BG" type="Sprite2D" parent="."]
 z_index = -1000
 texture = ExtResource("7_8c0lf")
 
-[node name="border" type="StaticBody2D" parent="."]
+[node name="Border" type="StaticBody2D" parent="."]
 collision_layer = 2
 
-[node name="Sprite2D" type="Sprite2D" parent="border"]
+[node name="Sprite2D" type="Sprite2D" parent="Border"]
 texture = ExtResource("8_754fn")
 
-[node name="up" type="CollisionShape2D" parent="border"]
+[node name="up" type="CollisionShape2D" parent="Border"]
 position = Vector2(-0.5, -126.5)
 shape = SubResource("RectangleShape2D_bvt00")
 
-[node name="down" type="CollisionShape2D" parent="border"]
+[node name="down" type="CollisionShape2D" parent="Border"]
 position = Vector2(0.5, 126.5)
 shape = SubResource("RectangleShape2D_754fn")
 
-[node name="right" type="CollisionShape2D" parent="border"]
+[node name="right" type="CollisionShape2D" parent="Border"]
 position = Vector2(224.5, -0.5)
 shape = SubResource("RectangleShape2D_oqgf2")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="border"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Border"]
 position = Vector2(-224.5, 0.5)
 shape = SubResource("RectangleShape2D_qxfql")
 
