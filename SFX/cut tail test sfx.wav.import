@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bqdj6tul5ayqb"
+path="res://.godot/imported/cut tail test sfx.wav-eb6cd42a3bbb04f9949e7cf954acaf81.sample"
+
+[deps]
+
+source_file="res://SFX/cut tail test sfx.wav"
+dest_files=["res://.godot/imported/cut tail test sfx.wav-eb6cd42a3bbb04f9949e7cf954acaf81.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

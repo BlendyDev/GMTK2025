@@ -40,11 +40,7 @@ func _on_no_pressed() -> void:
 
 func _on_options_pressed() -> void:
 	AudioController.ui_click_sfx()
-	var effect = AudioServer.get_bus_effect(1, 0)
-	var tween := get_tree().create_tween()
-	tween.set_ease(Tween.EASE_OUT)
-	tween.set_trans(Tween.TRANS_CUBIC)
-	tween.tween_property(effect, "resonance", 0.5, 0.5)
+	AudioController.applylowpass()
 	$OptionsMenu.visible = true
 
 func _on_options_mouse_entered() -> void:

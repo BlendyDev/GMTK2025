@@ -1,5 +1,9 @@
 extends Node
 
+var effect = AudioServer.get_bus_effect(1, 0)
+var tween : Tween
+	
+
 func circle_sfx():
 	$CircleSFX.play()
 	
@@ -9,6 +13,12 @@ func fail_circle_sfx():
 func hit_sfx():
 	$HitSFX.play()
 	
+func cheer_sfx():
+	$CheerSFX.play()	
+
+func cat_hit_sfx():
+	$CatHitSFX.play()	
+
 func ui_click_sfx():
 	$UIClickSFX.play()
 	
@@ -28,7 +38,11 @@ func ui_sliderendclick_sfx():
 
 func arpeggio_sfx():
 	$ArpeggioSFX.play()
-
+	
+func cut_tail_sfx():
+	
+	if $CutTailSFX.get_playback_position() > 0.25 or !$CutTailSFX.playing:
+		$CutTailSFX.play()
 
 func menu_music():
 	$MenuMusic.play()
@@ -40,3 +54,19 @@ func menu_music_pause():
 func menu_music_resume():
 	$MenuMusic.volume_db = 0
 	#$MenuMusic.stream_paused = false
+	
+func removelowpass():
+	tween = get_tree().create_tween()
+	tween.set_process_mode(Tween.TWEEN_PROCESS_IDLE)
+	tween.set_ignore_time_scale(true)
+	tween.set_ease(Tween.EASE_OUT)
+	tween.set_trans(Tween.TRANS_CUBIC)
+	tween.tween_property(effect, "resonance", 0, 0.25)
+
+func applylowpass():
+	tween = get_tree().create_tween()
+	tween.set_process_mode(Tween.TWEEN_PROCESS_IDLE)
+	tween.set_ignore_time_scale(true)
+	tween.set_ease(Tween.EASE_OUT)
+	tween.set_trans(Tween.TRANS_CUBIC)
+	tween.tween_property(effect, "resonance", 0.75, 0.5)

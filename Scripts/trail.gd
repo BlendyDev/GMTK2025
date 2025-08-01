@@ -73,6 +73,7 @@ func reset_trail():
 func try_spawn_circle(closest_point: Vector2):
 	if (player.velocity.length() < 20.0): 
 		reset_trail()
+		AudioController.cut_tail_sfx()
 		return
 	AudioController.circle_sfx()
 	AudioController.arpeggio_sfx()
