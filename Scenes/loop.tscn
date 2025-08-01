@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://c54dkph2icugy"]
 
 [ext_resource type="Texture2D" uid="uid://c4p1de2xby0w0" path="res://Sprites/loop.png" id="1_ao2ld"]
-[ext_resource type="Script" uid="uid://ckm6fnuajwlj0" path="res://Scenes/loop.gd" id="1_h4eis"]
+[ext_resource type="Script" uid="uid://ckm6fnuajwlj0" path="res://Scripts/loop.gd" id="1_h4eis"]
 
 [sub_resource type="Animation" id="Animation_xku0q"]
 length = 2.0

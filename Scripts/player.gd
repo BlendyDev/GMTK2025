@@ -9,6 +9,7 @@ var mouse_motion:= Vector2.ZERO
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 var last_velocities: PackedVector2Array = [Vector2.ZERO]
 @export var stored_velocity_frames: int
+@onready var trail: Trail = $"../Trail"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -61,6 +62,8 @@ func _process(delta: float) -> void:
 		pass
 	if !playing:
 		return
+	if (Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) or Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT)):
+		trail.reset_trail()
 	velocity = mouse_motion*speed * (1/delta)
 	animate_direction()
 	mouse_motion = Vector2.ZERO

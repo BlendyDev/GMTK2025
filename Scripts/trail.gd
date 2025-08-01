@@ -1,7 +1,7 @@
 extends StaticBody2D
 class_name Trail
 
-@export var trail: Line2D
+@onready var trail_line: Line2D = $Trail
 @export var trail_points_per_second: int = 120
 @onready var last_trail_point_timestamp : int = Time.get_ticks_msec()
 @export var max_time_sec: float = 1.15
@@ -9,9 +9,9 @@ class_name Trail
 var cleared_points = true
 @onready var last_circle_timestamp:= Time.get_ticks_msec()
 @export var circle_min_timeout_sec: float
-@export var player: Player
+@onready var player: Player = $"../Player"
 var trail_collisions: Array[CollisionShape2D]
-@export var sfx: SFX
+@onready var sfx: SFX = $"../SFX"
 var can_trail = true
 @export var last_points_tolerance = 0.2
 @onready var loop_scene = preload("res://Scenes/loop.tscn")
@@ -24,8 +24,8 @@ func _ready() -> void:
 func find_closest_point(rate: float) -> Vector2:
 	var point: Vector2
 	var distance:float = INF
-	for i in range (min(trail.points.size(), ceil(rate*max_time_sec*trail_points_per_second))):
-		var current_point := trail.points.get(i)
+	for i in range (min(trail_line.points.size(), ceil(rate*max_time_sec*trail_points_per_second))):
+		var current_point := trail_line.points.get(i)
 		var current_dist := player.position.distance_to(current_point)
 		if (current_dist < distance):
 			distance = current_dist
@@ -40,12 +40,12 @@ func animate_fail_trail():
 	failed_trail.antialiased = true
 	failed_trail.width = 4.0
 	failed_trail.default_color = Color.from_rgba8(199, 66, 79, 255)
-	failed_trail.points = trail.points.duplicate()
+	failed_trail.points = trail_line.points.duplicate()
 	failed_trail.joint_mode = Line2D.LINE_JOINT_ROUND
 	failed_trail.begin_cap_mode = Line2D.LINE_CAP_ROUND
 	failed_trail.end_cap_mode = Line2D.LINE_CAP_ROUND
 	failed_trail.closed = false
-	failed_trail.points = trail.points.duplicate()
+	failed_trail.points = trail_line.points.duplicate()
 	failed_trail.z_index = 50
 	var tween = get_tree().create_tween()
 	tween.tween_property(failed_trail, "width", 0, 0.4)
@@ -60,7 +60,7 @@ func reset_trail():
 	for collision_shape in trail_collisions:
 		collision_shape.queue_free()
 	trail_collisions.clear()
-	trail.clear_points()
+	trail_line.clear_points()
 
 
 func try_spawn_circle(closest_point: Vector2):
@@ -72,12 +72,12 @@ func try_spawn_circle(closest_point: Vector2):
 	fade_out_trail.antialiased = true
 	fade_out_trail.width = 6.0
 	fade_out_trail.default_color = Color.from_rgba8(252, 239, 141, 255)
-	fade_out_trail.points = trail.points.duplicate()
+	fade_out_trail.points = trail_line.points.duplicate()
 	fade_out_trail.joint_mode = Line2D.LINE_JOINT_ROUND
 	fade_out_trail.begin_cap_mode = Line2D.LINE_CAP_ROUND
 	fade_out_trail.end_cap_mode = Line2D.LINE_CAP_ROUND
 	fade_out_trail.z_index = 50
-	for i in range(trail.points.size()):
+	for i in range(trail_line.points.size()):
 		if (fade_out_trail.points.get(0) == closest_point): break
 		fade_out_trail.remove_point(0)
 		
@@ -110,21 +110,21 @@ func add_point():
 	var n = floor((Time.get_ticks_msec() - last_trail_point_timestamp) / (1000.0/trail_points_per_second))
 	var points: Array[Vector2]
 	var last_position: Vector2
-	if (trail.points.size() == 0): last_position = player.position
-	else: last_position = trail.points.get(trail.points.size()-1)
+	if (trail_line.points.size() == 0): last_position = player.position
+	else: last_position = trail_line.points.get(trail_line.points.size()-1)
 	var direction = player.position - last_position
 	for i in range(n):
-		if (trail.points.size() > max_time_sec * trail_points_per_second):
-			if (trail.points.size() > 1):
+		if (trail_line.points.size() > max_time_sec * trail_points_per_second):
+			if (trail_line.points.size() > 1):
 				trail_collisions[0].queue_free()
 				trail_collisions.remove_at(0)
-			trail.remove_point(0)
+			trail_line.remove_point(0)
 		var new_pos :Vector2 = last_position + direction* (i+1)/n
-		trail.add_point(new_pos)
-		if (trail.points.size() > 1):
+		trail_line.add_point(new_pos)
+		if (trail_line.points.size() > 1):
 			var collision_segment := SegmentShape2D.new()
-			collision_segment.a = trail.points.get(trail.points.size()-2)
-			collision_segment.b = trail.points.get(trail.points.size()-1)
+			collision_segment.a = trail_line.points.get(trail_line.points.size()-2)
+			collision_segment.b = trail_line.points.get(trail_line.points.size()-1)
 			var collision_shape := CollisionShape2D.new()
 			collision_shape.shape = collision_segment
 			add_child(collision_shape)

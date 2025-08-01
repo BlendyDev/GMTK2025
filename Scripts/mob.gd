@@ -1,9 +1,9 @@
 extends CharacterBody2D
 class_name Mob
 
-@export var player: Player
-@export var trail: Trail
-@export var sfx: SFX
+@onready var player: Player = $"../Player"
+@onready var trail: Trail = $"../Trail"
+@onready var sfx: SFX = $"../SFX"
 var bodies_entered: Array[Node2D]
 @onready var timer = $SwitchAction
 @onready var rng = RandomNumberGenerator.new()
@@ -101,6 +101,5 @@ func _on_player_detect_area_entered(area: Area2D) -> void:
 		var tween = get_tree().create_tween()
 		tween.tween_property(sprite, "scale", Vector2.ZERO, 0.7)
 		tween.tween_callback(queue_free)
-		tween.tween_callback($"../Boss".activate)
 		pass
 	pass # Replace with function body.
