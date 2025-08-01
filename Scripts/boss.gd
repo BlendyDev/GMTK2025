@@ -16,20 +16,22 @@ const UP := Vector2(0, -97)
 var bodies_entered: Array[Node2D]
 @onready var timer = $SwitchAction
 @onready var rng = RandomNumberGenerator.new()
-@onready var sprite = $Sprite2D
+@onready var animation_player := $AnimationPlayer
 
-enum Action {PRE, IDLE, MOVING, SHIELD, DYING}
+enum Action {PRE, IDLE, MOVING, SPAWNING, SHIELD, DYING}
 @export var action: Action
 var speed = 250.0
 var hp = 30
 @onready var snapped_pos = CENTER
 @onready var trail_curve = preload("res://Templates/boss_trail_curve.tres")
 @onready var mob_scene = preload("res://Scenes/mob.tscn")
+var spawned_mobs = 0
 
 var available_locations := [UP_LEFT, LEFT, DOWN_LEFT, DOWN, DOWN_RIGHT, RIGHT, UP_RIGHT, UP]
 
 func _ready() -> void:
 	action = Action.PRE
+	activate()
 	timer.start()
 	pass # Replace with function body.
 
@@ -38,6 +40,7 @@ func _process(delta: float) -> void:
 	else: modulate = Color.from_rgba8(255, 255, 255, 255)
 
 func activate():
+	animation_player.play("dashing")
 	action = Action.IDLE
 	timer.wait_time = 1.0
 	timer.start()
@@ -84,11 +87,10 @@ func move(index: int):
 	line_tween.tween_callback(execute_move.bind(snapped_pos))
 
 func execute_move(pos: Vector2):
-	print("execute_move!")
 	var pos_tween = get_tree().create_tween()
 	pos_tween.set_ease(Tween.EASE_OUT)
 	pos_tween.set_trans(Tween.TRANS_QUINT)
-	pos_tween.tween_property(self, "position", snapped_pos, 0.5)
+	pos_tween.tween_property(self, "position", pos, 0.5)
 	pos_tween.tween_callback(finish_move)
 
 func move_to(loc: Vector2):
@@ -113,13 +115,15 @@ func finish_move():
 func _on_switch_action_timeout() -> void:
 	if (action == Action.IDLE):
 		action = Action.MOVING
+		animation_player.play("dashing")
 		pick_location_and_move()
 
 func spawn_mob():
+	return
 	var mob = mob_scene.instantiate()
 	
 	
-	get_tree().current_scene.add_child(mob)
+	get_tree().current_scene.call_deferred("add_child", mob)
 	
 	pass
 
@@ -130,6 +134,7 @@ func _on_player_detect_area_entered(area: Area2D) -> void:
 			if (hp%5 == 0):
 				if (action == Action.IDLE):
 					move_to(UP_LEFT)
-				action = Action.SHIELD
+				animation_player.play("spawning")
+				action = Action.SPAWNING
 				for i in range(3):
 					spawn_mob()

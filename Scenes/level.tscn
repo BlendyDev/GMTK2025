@@ -1,17 +1,15 @@
-[gd_scene load_steps=25 format=3 uid="uid://4otsh1wy31kg"]
+[gd_scene load_steps=21 format=3 uid="uid://4otsh1wy31kg"]
 
 [ext_resource type="Script" uid="uid://cxjw50s4jeh2y" path="res://Scripts/trail.gd" id="1_0f350"]
 [ext_resource type="Script" uid="uid://cd8k0h68k4a8g" path="res://Scripts/player.gd" id="1_tumq0"]
 [ext_resource type="Texture2D" uid="uid://bj30yhx4p3qu0" path="res://Sprites/debugPlayer.png" id="2_k5f4k"]
 [ext_resource type="SpriteFrames" uid="uid://brjoepnckupck" path="res://Animation/mouseFrames.tres" id="4_0f350"]
 [ext_resource type="AudioStream" uid="uid://dapvn0ocg8s84" path="res://SFX/test_sfx_pickup.wav" id="4_81xng"]
-[ext_resource type="PackedScene" uid="uid://cmv4o47gysuxx" path="res://Scenes/mob.tscn" id="5_ha31o"]
 [ext_resource type="Texture2D" uid="uid://c1yfhu6mq1mop" path="res://Sprites/fondo.png" id="7_8c0lf"]
 [ext_resource type="Texture2D" uid="uid://cyeifbyapar62" path="res://Sprites/trueborder.png" id="8_754fn"]
 [ext_resource type="Script" uid="uid://cjjsuev7gaqao" path="res://Scripts/sfx.gd" id="8_bvt00"]
 [ext_resource type="AudioStream" uid="uid://cf12dn028v1r5" path="res://SFX/test_reset_sfx.wav" id="10_oqgf2"]
-[ext_resource type="Script" uid="uid://dl360of7mit5t" path="res://Scripts/boss.gd" id="11_ha31o"]
-[ext_resource type="Texture2D" uid="uid://bvyirt0g771gn" path="res://Sprites/catmaligno.png" id="12_pa6b8"]
+[ext_resource type="PackedScene" uid="uid://dd7jxb3adi5uf" path="res://Scenes/boss.tscn" id="10_qxfql"]
 
 [sub_resource type="Curve" id="Curve_6phgx"]
 _data = [Vector2(0, 0.235955), 0.0, -0.151716, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -47,12 +45,6 @@ stream_0/stream = ExtResource("4_81xng")
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_bvt00"]
 streams_count = 1
 stream_0/stream = ExtResource("10_oqgf2")
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ha31o"]
-size = Vector2(12, 11)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_pa6b8"]
-size = Vector2(12, 12)
 
 [node name="Level" type="Node2D"]
 
@@ -105,12 +97,6 @@ texture = ExtResource("2_k5f4k")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="obstacle"]
 shape = SubResource("RectangleShape2D_k5f4k")
 
-[node name="mob" parent="." node_paths=PackedStringArray("player", "trail", "sfx") instance=ExtResource("5_ha31o")]
-position = Vector2(109, -70)
-player = NodePath("../Player")
-trail = NodePath("../Trail")
-sfx = NodePath("../SFX")
-
 [node name="BG" type="Sprite2D" parent="."]
 z_index = -1000
 texture = ExtResource("7_8c0lf")
@@ -152,36 +138,10 @@ pitch_scale = 1.3
 stream = SubResource("AudioStreamRandomizer_bvt00")
 pitch_scale = 1.3
 
-[node name="Boss" type="CharacterBody2D" parent="." node_paths=PackedStringArray("player", "trail", "sfx")]
-z_index = 200
+[node name="Boss" parent="." node_paths=PackedStringArray("player", "trail", "sfx") instance=ExtResource("10_qxfql")]
 position = Vector2(-200, 97)
-collision_layer = 32
-collision_mask = 0
-script = ExtResource("11_ha31o")
 player = NodePath("../Player")
 trail = NodePath("../Trail")
 sfx = NodePath("../SFX")
 
-[node name="Sprite2D" type="Sprite2D" parent="Boss"]
-texture = ExtResource("12_pa6b8")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Boss"]
-position = Vector2(0, 9.5)
-shape = SubResource("RectangleShape2D_ha31o")
-
-[node name="PlayerDetect" type="Area2D" parent="Boss"]
-collision_layer = 16
-collision_mask = 769
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Boss/PlayerDetect"]
-position = Vector2(0, 10)
-shape = SubResource("RectangleShape2D_pa6b8")
-
-[node name="SwitchAction" type="Timer" parent="Boss"]
-one_shot = true
-
 [connection signal="mouse_entered" from="Player" to="Player" method="_on_mouse_entered"]
-[connection signal="area_entered" from="Boss/PlayerDetect" to="Boss" method="_on_player_detect_area_entered"]
-[connection signal="body_entered" from="Boss/PlayerDetect" to="Boss" method="_on_body_entered"]
-[connection signal="body_exited" from="Boss/PlayerDetect" to="Boss" method="_on_body_exited"]
-[connection signal="timeout" from="Boss/SwitchAction" to="Boss" method="_on_switch_action_timeout"]

@@ -32,15 +32,14 @@ func init_ramiro():
 	$AnimationPlayer.play("ramiro_idle")
 	
 func init_random():
-	var type := rng.randi_range(0, 3)
-	if type == 0: init_basic()
-	elif type == 1: init_cat()
-	elif type == 2: init_slime()
+	var new_type := rng.randi_range(0, 3)
+	if new_type == 0: init_basic()
+	elif new_type == 1: init_cat()
+	elif new_type == 2: init_slime()
 	else: init_ramiro()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	init_random()
 	action = Action.IDLE
 	timer.start()
 	pass # Replace with function body.
