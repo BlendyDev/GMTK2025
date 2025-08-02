@@ -3,12 +3,12 @@ extends CharacterBody2D
 class_name Player
 
 @onready var offset :Vector2 = (get_viewport().size/2) 
-@export var speed: float = 0.3
+@export var speed: float = 0.35
 var playing := false
 var mouse_motion:= Vector2.ZERO
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 var last_velocities: PackedVector2Array = [Vector2.ZERO]
-@export var stored_velocity_frames: int
+@export var stored_velocity_frames: int = 10
 @onready var trail: Trail = $"../Trail"
 @onready var boss: Boss = $"../Boss"
 
@@ -67,7 +67,7 @@ func _process(delta: float) -> void:
 	if (Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) or Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT)):
 		trail.reset_trail()
 		AudioController.cut_tail_sfx()
-	velocity = mouse_motion*speed * (1/delta)
+	velocity = mouse_motion*speed * (1/delta) * Global.sensitivity_boost
 	animate_direction()
 	mouse_motion = Vector2.ZERO
 	move_and_slide()

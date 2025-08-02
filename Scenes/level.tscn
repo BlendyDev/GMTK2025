@@ -54,10 +54,11 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -221.0
 offset_top = -125.0
-offset_right = 176.0
-offset_bottom = 79.0
+offset_right = 567.0
+offset_bottom = 359.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(0.5, 0.5)
 mouse_filter = 2
 text = "popbob"
 fit_content = true
@@ -82,8 +83,6 @@ antialiased = true
 z_index = 500
 collision_mask = 23
 script = ExtResource("1_tumq0")
-speed = 0.2
-stored_velocity_frames = 10
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
 sprite_frames = ExtResource("4_0f350")
