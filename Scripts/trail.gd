@@ -270,7 +270,6 @@ func handle_disabled_collisions():
 		cleared_points = true
 	var closest_point = find_closest_point(last_points_tolerance)
 	var distance = player.position.distance_to(closest_point)
-	print(distance)
 	if distance > min_distance_to_oldest_points * 3:
 		cleared_points = false
 
