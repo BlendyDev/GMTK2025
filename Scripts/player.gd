@@ -73,6 +73,7 @@ func _process(delta: float) -> void:
 	if !playing:
 		return
 	if (Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) or Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT)):
+		Dummy.reset_trail()
 		trail.reset_trail()
 		AudioController.cut_tail_sfx()
 	velocity = mouse_motion*speed * (1/delta) * Global.sensitivity_boost

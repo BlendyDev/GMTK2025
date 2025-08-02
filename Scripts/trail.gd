@@ -91,6 +91,9 @@ func reset_trail():
 func area_entered_circle(area: Area2D):
 	if (area.collision_layer == pow(2, 3-1)): #mob
 		(area.get_parent() as Mob).loop = loop_count
+	if (area.collision_layer == pow(2, 11-1)): #dummy
+		(area as Dummy).loop = loop_count
+		
 
 func try_spawn_circle(closest_point: Vector2):
 	if (player.velocity.length() < 20.0): 
@@ -115,7 +118,7 @@ func try_spawn_circle(closest_point: Vector2):
 	fade_out_trail.add_point(closest_point)
 	var area = Area2D.new()
 	area.collision_layer = pow(2, 10-1)
-	area.collision_mask = pow(2, 3-1) + pow (2, 5-1)
+	area.collision_mask = pow(2, 3-1) + pow (2, 5-1) + pow(2, 11-1)
 	area.area_entered.connect(area_entered_circle)
 	
 	var initial_polygon :PackedVector2Array = fade_out_trail.points.duplicate()
