@@ -215,12 +215,10 @@ shape = SubResource("RectangleShape2D_qxfql")
 
 [node name="RightDummy" parent="." instance=ExtResource("9_pa6b8")]
 position = Vector2(100, 0)
+id = 1
 
 [node name="LeftDummy" parent="." instance=ExtResource("9_pa6b8")]
 position = Vector2(-100, 0)
-collision_layer = 1024
-collision_mask = 769
-id = 1
 
 [node name="Boss" parent="." instance=ExtResource("10_qxfql")]
 visible = false
