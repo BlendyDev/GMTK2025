@@ -270,6 +270,7 @@ func handle_disabled_collisions():
 		cleared_points = true
 	var closest_point = find_closest_point(last_points_tolerance)
 	var distance = player.position.distance_to(closest_point)
+	print(distance)
 	if distance > min_distance_to_oldest_points * 3:
 		cleared_points = false
 
@@ -293,6 +294,6 @@ func _physics_process(delta: float) -> void:
 
 func _on_last_segments_body_entered(body: Node2D, point: Vector2) -> void:	
 	if (!body is Player): return
-	if (time_since_last_circle_sec > circle_min_timeout_sec):
+	if (time_since_last_circle_sec > circle_min_timeout_sec and !cleared_points):
 		try_spawn_circle(point)
 		pass # Replace with function body.
