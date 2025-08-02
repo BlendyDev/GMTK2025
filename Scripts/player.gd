@@ -18,7 +18,7 @@ func bind_to_player():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	print("playing!")
 	playing = true
-	boss.activate()
+	#boss.activate()
 
 func _input(e: InputEvent):
 	match e.get_class():
