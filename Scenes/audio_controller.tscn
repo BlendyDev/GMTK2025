@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://dsaaqh6r846s1"]
+[gd_scene load_steps=62 format=3 uid="uid://dsaaqh6r846s1"]
 
 [ext_resource type="Script" uid="uid://hgdeh6d4tsa2" path="res://Scripts/audio_controller.gd" id="1_t0xn5"]
 [ext_resource type="AudioStream" uid="uid://dapvn0ocg8s84" path="res://SFX/test_sfx_pickup.wav" id="2_nqcbu"]
@@ -29,11 +29,15 @@
 [ext_resource type="AudioStream" uid="uid://bft4m6yb1nuuv" path="res://SFX/spawn cat sfx.wav" id="21_4qxby"]
 [ext_resource type="AudioStream" uid="uid://cgdlv0t8day8a" path="res://SFX/spawn mob sfx.wav" id="22_xb1yp"]
 [ext_resource type="AudioStream" uid="uid://kp4cfxgoeidc" path="res://SFX/ramiro spawn sfx.wav" id="23_bjnqe"]
+[ext_resource type="AudioStream" uid="uid://cndhigy2adi5" path="res://SFX/combo sfx test.wav" id="24_4qxby"]
 [ext_resource type="AudioStream" uid="uid://b4kr81kcb835k" path="res://SFX/tapestop sfx.wav" id="25_cbcmf"]
 [ext_resource type="AudioStream" uid="uid://dxhooo3lqf4d4" path="res://Music/menu music loop test.wav" id="25_up6cg"]
+[ext_resource type="AudioStream" uid="uid://bi5dxmtbfaxx2" path="res://SFX/loop sfx.wav" id="25_xb1yp"]
 [ext_resource type="AudioStream" uid="uid://dpu3h4uujiwu8" path="res://SFX/tape sfx 2.wav" id="26_3cpba"]
+[ext_resource type="AudioStream" uid="uid://bkia5a2awjvqg" path="res://SFX/teleport sfx.wav" id="26_ib0e2"]
 [ext_resource type="AudioStream" uid="uid://c4b8bq6b608nr" path="res://Music/intro mouse sfx2.wav" id="26_itbot"]
 [ext_resource type="AudioStream" uid="uid://bim6dxvpiyqy7" path="res://Music/ost tutorial drums.wav" id="27_snmij"]
+[ext_resource type="AudioStream" uid="uid://cwcqmyumedqp5" path="res://SFX/pre teleport sfx.wav" id="27_soipl"]
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ncnt2"]
 random_pitch = 1.13
@@ -108,6 +112,30 @@ random_volume_offset_db = 1.25
 streams_count = 1
 stream_0/stream = ExtResource("23_bjnqe")
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_xb1yp"]
+random_pitch = 1.25
+random_volume_offset_db = 1.0
+streams_count = 1
+stream_0/stream = ExtResource("24_4qxby")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_bjnqe"]
+random_pitch = 1.25
+random_volume_offset_db = 1.0
+streams_count = 1
+stream_0/stream = ExtResource("25_xb1yp")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_r0vj5"]
+random_pitch = 1.3
+random_volume_offset_db = 1.5
+streams_count = 1
+stream_0/stream = ExtResource("26_ib0e2")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_uogm5"]
+random_pitch = 1.2
+random_volume_offset_db = 1.5
+streams_count = 1
+stream_0/stream = ExtResource("27_soipl")
+
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_6o502"]
 random_pitch = 1.3
 random_volume_offset_db = 1.5
@@ -161,6 +189,7 @@ script = ExtResource("1_t0xn5")
 
 [node name="HitSFX" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_ncnt2")
+volume_db = 1.0
 bus = &"SFX"
 
 [node name="CircleSFX" type="AudioStreamPlayer2D" parent="."]
@@ -207,6 +236,28 @@ bus = &"SFX"
 
 [node name="RamiroSpawnSFX" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_x26on")
+pitch_scale = 1.3
+bus = &"SFX"
+
+[node name="ComboSFX" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_xb1yp")
+volume_db = 1.5
+bus = &"SFX"
+
+[node name="LoopSFX" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_bjnqe")
+volume_db = 12.0
+bus = &"SFX"
+
+[node name="TeleportSFX" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_r0vj5")
+volume_db = -4.5
+pitch_scale = 0.88
+bus = &"SFX"
+
+[node name="PreTeleportSFX" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_uogm5")
+volume_db = 3.5
 pitch_scale = 1.3
 bus = &"SFX"
 

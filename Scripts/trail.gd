@@ -122,6 +122,7 @@ func try_spawn_circle(closest_point: Vector2):
 		var loop := loop_scene.instantiate() as Node2D
 		get_tree().current_scene.add_child(loop)
 		loop.position = player.position
+		AudioController.loop_sfx()
 	var tween = get_tree().create_tween()
 	tween.tween_property(fade_out_trail, "width", 0, 0.8)
 	tween.set_ease(Tween.EASE_OUT)
@@ -174,6 +175,7 @@ func handle_combo(mob: Mob) -> Combo:
 func combo_end(combo : Combo):
 	if (combo.indicator != null):
 		await get_tree().create_timer(0.7, true, false, true).timeout
+		AudioController.combo_sfx()
 		combo.indicator.animation_player.play("combo")
 		if (combo.count >= 3):
 			AudioController.cheer_sfx()

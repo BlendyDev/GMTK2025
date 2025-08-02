@@ -59,7 +59,17 @@ func spawn_ramiro():
 	$RamiroSpawnSFX.play()
 func spawn_normal():
 	$NormalSpawnSFX.play()
+	
+func combo_sfx():
+	$ComboSFX.play()
+func loop_sfx():
+	$LoopSFX.play()
 
+func teleport_sfx():
+	$TeleportSFX.play()
+func preteleport_sfx():
+	$PreTeleportSFX.play()
+	
 func menu_music():
 	$MenuMusic.play()
 func menu_music_stop():

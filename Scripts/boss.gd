@@ -121,6 +121,7 @@ func trail_to_move(pos: Vector2, move_speed: float = dash_speed):
 	line_tween.tween_property(line, "width", 0, 0.75)
 	line_tween.tween_callback(line.queue_free)
 	line_tween.tween_callback(execute_move.bind(pos, move_speed))
+	AudioController.preteleport_sfx()
 
 func execute_move(pos: Vector2, move_speed: float = dash_speed):
 	pos_tween = get_tree().create_tween()
@@ -128,12 +129,14 @@ func execute_move(pos: Vector2, move_speed: float = dash_speed):
 	pos_tween.set_trans(Tween.TRANS_QUINT)
 	pos_tween.tween_property(self, "position", pos, pos.distance_to(position) / move_speed)
 	pos_tween.tween_callback(finish_move)
+	AudioController.teleport_sfx()
 
 func move_to(loc: Vector2):
 	if (snapped_pos == loc): return
 	var index := available_locations.rfind(loc)
 	if (index == -1): return
 	move(index)
+	
 
 func pick_location_and_move():
 	var index := rng.randi_range(0, available_locations.size()-1)
@@ -199,6 +202,7 @@ func trail_to_random_pos(move_speed: float = dash_speed):
 	var x := rng.randf_range(LEFT.x, RIGHT.x)
 	var y := rng.randf_range(DOWN.y, UP.y)
 	trail_to_move(Vector2(x, y), move_speed)
+	
 
 func _on_player_detect_area_entered(area: Area2D) -> void:
 	if (Input.is_key_pressed(KEY_SPACE)):
