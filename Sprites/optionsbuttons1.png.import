@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://kx8wi8n5s08f"
-path="res://.godot/imported/688987_circle_512x512.png-318f16c484ea588fa826a467e3ce036f.ctex"
+uid="uid://bhxijn35ioub"
+path="res://.godot/imported/optionsbuttons1.png-526b81dd8f2418be45b4100857fe72d3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/688987_circle_512x512.png"
-dest_files=["res://.godot/imported/688987_circle_512x512.png-318f16c484ea588fa826a467e3ce036f.ctex"]
+source_file="res://Sprites/optionsbuttons1.png"
+dest_files=["res://.godot/imported/optionsbuttons1.png-526b81dd8f2418be45b4100857fe72d3.ctex"]
 
 [params]
 

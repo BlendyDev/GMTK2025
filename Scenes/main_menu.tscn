@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://db0iuepgj8olx"]
+[gd_scene load_steps=36 format=3 uid="uid://db0iuepgj8olx"]
 
 [ext_resource type="Script" uid="uid://0mcwei50crlf" path="res://Scripts/main_menu.gd" id="1_ce3w2"]
 [ext_resource type="Texture2D" uid="uid://ct0q62raty2r7" path="res://Sprites/mousewheel.png" id="2_cp0ys"]
@@ -6,7 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://exb2h7n2ra8u" path="res://Sprites/exit-button-png.svg.hi.png" id="4_cp0ys"]
 [ext_resource type="Texture2D" uid="uid://bcgh6pkvu6752" path="res://Sprites/hamsterwheel2.png" id="4_ehtkc"]
 [ext_resource type="Texture2D" uid="uid://haa6j4r0clfg" path="res://Sprites/hamsterwheel3.png" id="5_6dk6o"]
-[ext_resource type="Texture2D" uid="uid://2gmr6lrs6ws1" path="res://Sprites/9265823.png" id="5_opfnp"]
 [ext_resource type="Texture2D" uid="uid://csfrhkpcg0qab" path="res://Sprites/hamsterwheeltrip1.png" id="6_4nkqq"]
 [ext_resource type="PackedScene" uid="uid://dsc0qsqg2g7nq" path="res://Scenes/options_menu.tscn" id="6_cp0ys"]
 [ext_resource type="Texture2D" uid="uid://bbpkkp02gcw8c" path="res://Sprites/hamsterwheeltrip2.png" id="7_ehtkc"]
@@ -21,6 +20,8 @@
 [ext_resource type="Texture2D" uid="uid://bupdmo17gsbkm" path="res://Sprites/hamsterwheeltrip10.png" id="15_fmarx"]
 [ext_resource type="Texture2D" uid="uid://3tnrefxkf7a5" path="res://Sprites/creditsbutton1.png" id="16_ehtkc"]
 [ext_resource type="Texture2D" uid="uid://djvtrpfdvpu78" path="res://Sprites/creditsbutton2.png" id="17_6dk6o"]
+[ext_resource type="Texture2D" uid="uid://bhxijn35ioub" path="res://Sprites/optionsbuttons1.png" id="19_6dk6o"]
+[ext_resource type="Texture2D" uid="uid://c57fyray2lekm" path="res://Sprites/optionsbuttons2.png" id="20_jr6u5"]
 
 [sub_resource type="ImageTexture" id="ImageTexture_4nkqq"]
 
@@ -145,6 +146,61 @@ _data = {
 &"idle": SubResource("Animation_6m47u")
 }
 
+[sub_resource type="Animation" id="Animation_ne6ao"]
+resource_name = "idle"
+length = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture_normal")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("19_6dk6o")]
+}
+
+[sub_resource type="Animation" id="Animation_tt8ml"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture_normal")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("19_6dk6o")]
+}
+
+[sub_resource type="Animation" id="Animation_fmarx"]
+resource_name = "hover"
+length = 0.01
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture_normal")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("20_jr6u5")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hkdq0"]
+_data = {
+&"RESET": SubResource("Animation_tt8ml"),
+&"hover": SubResource("Animation_fmarx"),
+&"idle": SubResource("Animation_ne6ao")
+}
+
 [node name="MainMenu" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -153,6 +209,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ce3w2")
+tween_intensity = 2.0
+tween_duration = 0.1
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
@@ -176,10 +234,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -33.5
-offset_top = 4.5
-offset_right = 33.5
-offset_bottom = 81.5
+offset_left = -33.0
+offset_top = 5.0
+offset_right = 34.0
+offset_bottom = 82.0
 grow_horizontal = 2
 grow_vertical = 2
 texture_normal = ExtResource("3_4nkqq")
@@ -198,9 +256,9 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 60.0
-offset_top = 138.0
+offset_top = 131.0
 offset_right = -322.0
-offset_bottom = -48.0
+offset_bottom = -55.0
 grow_horizontal = 2
 grow_vertical = 2
 texture_normal = ExtResource("16_ehtkc")
@@ -212,21 +270,35 @@ libraries = {
 
 [node name="Quit" type="TextureButton" parent="."]
 layout_mode = 0
-offset_left = 303.0
-offset_top = 123.0
-offset_right = 903.0
-offset_bottom = 407.0
+offset_left = -2.0
+offset_top = 10.0
+offset_right = 598.0
+offset_bottom = 294.0
 scale = Vector2(0.2, 0.2)
 texture_normal = ExtResource("4_cp0ys")
 
 [node name="Options" type="TextureButton" parent="."]
-layout_mode = 0
-offset_left = 313.0
-offset_top = 8.0
-offset_right = 825.0
-offset_bottom = 520.0
-scale = Vector2(0.2, 0.2)
-texture_normal = ExtResource("5_opfnp")
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.821429
+anchor_top = 0.630952
+anchor_right = 0.821429
+anchor_bottom = 0.630952
+offset_left = -28.0
+offset_top = -28.0
+offset_right = 28.0
+offset_bottom = 28.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(28, 28)
+texture_normal = ExtResource("19_6dk6o")
+metadata/_edit_use_anchors_ = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Options"]
+libraries = {
+&"": SubResource("AnimationLibrary_hkdq0")
+}
+autoplay = "idle"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 0

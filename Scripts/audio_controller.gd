@@ -20,6 +20,11 @@ func cheer_sfx(count: int):
 	cheerSFX.volume_linear = min(float(count+1)/4.0, 2.5)
 	cheerSFX.play()
 
+func swoosh_sfx():
+	$SwooshSFX.play()
+func hey_sfx():
+	$HeySFX.play()
+
 func cat_hit_sfx():
 	$CatHitSFX.play()	
 
