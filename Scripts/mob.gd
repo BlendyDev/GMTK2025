@@ -3,7 +3,6 @@ class_name Mob
 
 @onready var player: Player = $"../Player"
 @onready var trail: Trail = $"../Trail"
-var bodies_entered: Array[Node2D]
 @onready var timer = $SwitchAction
 @onready var rng = RandomNumberGenerator.new()
 @onready var sprite = $Sprite2D
@@ -77,7 +76,7 @@ func _on_body_entered(body: Node2D) -> void:
 	if !trail.can_trail: return
 	if action == Action.DYING: return
 	if body is Player or body is Trail:
-		if !bodies_entered.has(body): bodies_entered.append(body)
+		if !trail.bodies_entered.has(body): trail.bodies_entered.append(body)
 		trail.can_trail = false
 		trail.animate_fail_trail()
 		trail.reset_trail()
@@ -87,9 +86,9 @@ func _on_body_entered(body: Node2D) -> void:
 
 
 func _on_body_exited(body: Node2D) -> void:
-	var index := bodies_entered.rfind(body)
-	if (index != -1): bodies_entered.remove_at(index)
-	if (bodies_entered.is_empty()): trail.can_trail = true
+	var index := trail.bodies_entered.rfind(body)
+	if (index != -1): trail.bodies_entered.remove_at(index)
+	if (trail.bodies_entered.is_empty()): trail.can_trail = true
 	if (Input.is_key_pressed(KEY_SPACE)):
 		pass
 	pass # Replace with function body.

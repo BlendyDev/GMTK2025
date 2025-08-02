@@ -18,7 +18,7 @@ func bind_to_player():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	print("playing!")
 	playing = true
-	#boss.activate()
+	Dummy.stage = Dummy.Stage.PRE_SENSITIVITY
 
 func _input(e: InputEvent):
 	match e.get_class():
@@ -28,8 +28,10 @@ func _input(e: InputEvent):
 			mouse_motion = e.relative
 		"InputEventMouseButton":
 			if (e as InputEventMouseButton).button_index == MOUSE_BUTTON_WHEEL_UP:
+				Dummy.changed_sensitivity()
 				Global.sensitivity_boost = min(Global.sensitivity_boost + 0.02, 3)
 			elif (e as InputEventMouseButton).button_index == MOUSE_BUTTON_WHEEL_DOWN:
+				Dummy.changed_sensitivity()
 				Global.sensitivity_boost = max(Global.sensitivity_boost - 0.02, 0.25)
 
 func animate_direction():

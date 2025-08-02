@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://bcgh6pkvu6752" path="res://Sprites/hamsterwheel2.png" id="4_ehtkc"]
 [ext_resource type="Texture2D" uid="uid://haa6j4r0clfg" path="res://Sprites/hamsterwheel3.png" id="5_6dk6o"]
 [ext_resource type="Texture2D" uid="uid://csfrhkpcg0qab" path="res://Sprites/hamsterwheeltrip1.png" id="6_4nkqq"]
-[ext_resource type="PackedScene" uid="uid://dsc0qsqg2g7nq" path="res://Scenes/options_menu.tscn" id="6_cp0ys"]
+[ext_resource type="PackedScene" uid="uid://bxyvs55u3pfiy" path="res://Scenes/options_menu.tscn" id="6_cp0ys"]
 [ext_resource type="Texture2D" uid="uid://bbpkkp02gcw8c" path="res://Sprites/hamsterwheeltrip2.png" id="7_ehtkc"]
 [ext_resource type="Texture2D" uid="uid://difxu6jl5altn" path="res://Sprites/hamsterwheeltrip3.png" id="8_6dk6o"]
 [ext_resource type="PackedScene" uid="uid://7v6mu82w1o7g" path="res://Scenes/loading.tscn" id="8_yhxw7"]

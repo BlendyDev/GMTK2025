@@ -34,7 +34,7 @@ enum Action {PRE, IDLE, MOVING, SPAWNING, SHIELD, SHIELD_MOVING, DYING}
 
 var available_locations := [UP_LEFT, LEFT, DOWN_LEFT, DOWN, DOWN_RIGHT, RIGHT, UP_RIGHT, UP]
 
-var bodies_entered: Array[Node2D]
+
 var hp := 26
 var shield := 0
 var spawned_mobs := 0
@@ -83,7 +83,7 @@ func _on_body_entered(body: Node2D) -> void:
 	if action == Action.PRE: return
 	if action == Action.DYING: return
 	if body is Player or body is Trail:
-		if !bodies_entered.has(body): bodies_entered.append(body)
+		if !trail.bodies_entered.has(body): trail.bodies_entered.append(body)
 		trail.can_trail = false
 		trail.animate_fail_trail()
 		trail.reset_trail()
@@ -91,9 +91,9 @@ func _on_body_entered(body: Node2D) -> void:
 	pass # Replace with function body.
 
 func _on_body_exited(body: Node2D) -> void:
-	var index := bodies_entered.rfind(body)
-	if (index != -1): bodies_entered.remove_at(index)
-	if (bodies_entered.is_empty()): trail.can_trail = true
+	var index := trail.bodies_entered.rfind(body)
+	if (index != -1): trail.bodies_entered.remove_at(index)
+	if (trail.bodies_entered.is_empty()): trail.can_trail = true
 	if (Input.is_key_pressed(KEY_SPACE)):
 		pass
 

@@ -26,7 +26,7 @@ class Combo:
 @export var circle_lifetime: float = 0.05
 @export var min_ratio_max_points_to_current_final_points := 2.5
 
-
+var bodies_entered: Array[Node2D]
 var time_since_last_point_sec := 0.0
 var time_since_last_circle_sec := 0.0
 var time_since_last_death_handle := 0.0

@@ -73,6 +73,7 @@ Esc={
 2d_physics/layer_8="Trail (last segments)"
 2d_physics/layer_9="Trail"
 2d_physics/layer_10="Circle"
+2d_physics/layer_11="Dummy"
 
 [rendering]
 
