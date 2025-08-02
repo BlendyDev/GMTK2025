@@ -24,6 +24,7 @@ class Combo:
 @export var freeze_time := 0.05
 @export var time_per_death_handle_sec: float = 0.1
 @export var circle_lifetime: float = 0.05
+@export var min_ratio_max_points_to_current_final_points := 2.5
 
 
 var time_since_last_point_sec := 0.0
@@ -32,7 +33,6 @@ var time_since_last_death_handle := 0.0
 var cleared_points = true
 var trail_collisions: Array[CollisionShape2D]
 var last_trail_collisions: Array[Area2D]
-var disabled_segments: Array[CollisionShape2D]
 var can_trail = true
 var dead_mobs: Array[Mob] = []
 var combos: Array[Combo] = []
@@ -82,7 +82,6 @@ func reset_trail():
 	time_since_last_circle_sec = 0.0
 	for collision_shape in trail_collisions:
 		collision_shape.queue_free()
-	disabled_segments.clear()
 	for last_collision_shape in last_trail_collisions:
 		last_collision_shape.queue_free()
 	last_trail_collisions.clear()
@@ -161,12 +160,10 @@ func add_last_segment(a: Vector2, b: Vector2):
 	
 	var last_collision_shape := CollisionShape2D.new()
 	last_collision_shape.debug_color = Color.from_rgba8(255, 0, 0, 255)
-	last_collision_shape.disabled = true
 	last_collision_shape.shape = last_collision_segment
 	last_collision_area.add_child(last_collision_shape)
 	
 	last_trail_collisions.append(last_collision_area)
-	disabled_segments.append(last_collision_shape)
 
 func add_point():
 	var n = floor((time_since_last_point_sec) / (1.0/trail_points_per_second))
@@ -181,12 +178,9 @@ func add_point():
 	
 	for i in range(n):
 		if (trail_line.points.size() > max_trail_time_sec * trail_points_per_second or (no_change and trail_collisions.size()>0) ):
-			print("removing from normal")
 			if (trail_line.points.size() > 1):
 				trail_collisions[0].queue_free()
 				trail_collisions.remove_at(0)
-				if (disabled_segments.has(last_trail_collisions[0].get_child(0))):
-					disabled_segments.remove_at(disabled_segments.rfind(last_trail_collisions[0].get_child(0)))
 				last_trail_collisions[0].queue_free()
 				last_trail_collisions.remove_at(0)
 				if (trail_line.points.size() > last_trail_collisions.size() + 2):
@@ -272,12 +266,12 @@ func handle_dead_mob():
 			mob.animation_player.play("ramiro_death")
 
 func handle_disabled_collisions():
-	var disabling := disabled_segments.duplicate()
-	for segment in disabling:
-		var segment_shape = segment.shape as SegmentShape2D
-		if (player.position.distance_to(segment_shape.b) > min_distance_to_oldest_points):
-			disabled_segments.remove_at(disabled_segments.rfind(segment))
-			segment.disabled = false
+	if (float(trail_line.points.size())/float(last_points_count()) < min_ratio_max_points_to_current_final_points): 
+		cleared_points = true
+	var closest_point = find_closest_point(last_points_tolerance)
+	var distance = player.position.distance_to(closest_point)
+	if distance > min_distance_to_oldest_points * 3:
+		cleared_points = false
 
 func _physics_process(delta: float) -> void:
 	if (Input.is_key_pressed(KEY_SPACE)):
@@ -296,15 +290,8 @@ func _physics_process(delta: float) -> void:
 	
 	if (time_since_last_point_sec > 1.0/trail_points_per_second):
 		add_point()
-	var closest_point = find_closest_point(last_points_tolerance)
-	var distance = player.position.distance_to(closest_point)
-		
-	if distance > min_distance_to_oldest_points * 3:
-		cleared_points = false
-		
 
-
-func _on_last_segments_body_entered(body: Node2D, point: Vector2) -> void:
+func _on_last_segments_body_entered(body: Node2D, point: Vector2) -> void:	
 	if (!body is Player): return
 	if (time_since_last_circle_sec > circle_min_timeout_sec):
 		try_spawn_circle(point)
