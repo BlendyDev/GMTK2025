@@ -53,6 +53,7 @@ Esc={
 2d_physics/layer_5="Boss"
 2d_physics/layer_6="Boss (solid)"
 2d_physics/layer_7="Player Grab"
+2d_physics/layer_8="Trail (last segments)"
 2d_physics/layer_9="Trail"
 2d_physics/layer_10="Circle"
 

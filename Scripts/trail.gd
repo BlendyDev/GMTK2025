@@ -12,6 +12,7 @@ class Combo:
 @onready var trail_line: Line2D = $Trail
 @onready var player: Player = $"../Player"
 @onready var boss: Boss = $"../Boss"
+
 @onready var loop_scene = preload("res://Scenes/loop.tscn")
 @onready var combo_scene = preload("res://Scenes/combo.tscn")
 
@@ -30,6 +31,8 @@ var time_since_last_circle_sec := 0.0
 var time_since_last_death_handle := 0.0
 var cleared_points = true
 var trail_collisions: Array[CollisionShape2D]
+var last_trail_collisions: Array[Area2D]
+var disabled_segments: Array[CollisionShape2D]
 var can_trail = true
 var dead_mobs: Array[Mob] = []
 var combos: Array[Combo] = []
@@ -79,6 +82,10 @@ func reset_trail():
 	time_since_last_circle_sec = 0.0
 	for collision_shape in trail_collisions:
 		collision_shape.queue_free()
+	disabled_segments.clear()
+	for last_collision_shape in last_trail_collisions:
+		last_collision_shape.queue_free()
+	last_trail_collisions.clear()
 	trail_collisions.clear()
 	trail_line.clear_points()
 
@@ -129,14 +136,37 @@ func try_spawn_circle(closest_point: Vector2):
 	tween.set_ease(Tween.EASE_OUT)
 	tween.set_trans(Tween.TRANS_QUART)
 	tween.tween_callback(fade_out_trail.queue_free)
-	get_tree().current_scene.add_child(fade_out_trail)
+	get_tree().current_scene.call_deferred("add_child",fade_out_trail)
 	destroy_circle_async(area)
-	get_tree().current_scene.add_child(area)
+	get_tree().current_scene.call_deferred("add_child",area)
 	reset_trail()
 
 func destroy_circle_async(area: Area2D):
 	await get_tree().create_timer(circle_lifetime).timeout
 	area.queue_free()
+
+func last_points_count()->int:
+	return floor(max_trail_time_sec*trail_points_per_second * last_points_tolerance)
+
+func add_last_segment(a: Vector2, b: Vector2):
+	var last_collision_segment = SegmentShape2D.new()
+	last_collision_segment.a = a
+	last_collision_segment.b = b
+	var last_collision_area := Area2D.new()
+	last_collision_area.collision_layer = pow (2, 8-1)
+	last_collision_area.collision_mask = pow(2, 1-1)
+	last_collision_area.input_pickable = false
+	last_collision_area.body_entered.connect(_on_last_segments_body_entered.bind(last_collision_segment.b))
+	add_child(last_collision_area)
+	
+	var last_collision_shape := CollisionShape2D.new()
+	last_collision_shape.debug_color = Color.from_rgba8(255, 0, 0, 255)
+	last_collision_shape.disabled = true
+	last_collision_shape.shape = last_collision_segment
+	last_collision_area.add_child(last_collision_shape)
+	
+	last_trail_collisions.append(last_collision_area)
+	disabled_segments.append(last_collision_shape)
 
 func add_point():
 	var n = floor((time_since_last_point_sec) / (1.0/trail_points_per_second))
@@ -145,23 +175,43 @@ func add_point():
 	if (trail_line.points.size() == 0): last_position = player.position
 	else: last_position = trail_line.points.get(trail_line.points.size()-1)
 	var direction = player.position - last_position
+	time_since_last_point_sec = fmod(time_since_last_point_sec, 1.0/trail_points_per_second)
+	
+	var no_change = direction == Vector2.ZERO and trail_line.points.size() > 0
+	
 	for i in range(n):
-		if (trail_line.points.size() > max_trail_time_sec * trail_points_per_second):
+		if (trail_line.points.size() > max_trail_time_sec * trail_points_per_second or (no_change and trail_collisions.size()>0) ):
+			print("removing from normal")
 			if (trail_line.points.size() > 1):
 				trail_collisions[0].queue_free()
 				trail_collisions.remove_at(0)
+				if (disabled_segments.has(last_trail_collisions[0].get_child(0))):
+					disabled_segments.remove_at(disabled_segments.rfind(last_trail_collisions[0].get_child(0)))
+				last_trail_collisions[0].queue_free()
+				last_trail_collisions.remove_at(0)
+				if (trail_line.points.size() > last_trail_collisions.size() + 2):
+					add_last_segment(trail_line.points[last_trail_collisions.size()], trail_line.points[last_trail_collisions.size()+1])
 			trail_line.remove_point(0)
+	if (no_change): return
+	for i in range(n):
 		var new_pos :Vector2 = last_position + direction* (i+1)/n
 		trail_line.add_point(new_pos)
 		if (trail_line.points.size() > 1):
 			var collision_segment := SegmentShape2D.new()
-			collision_segment.a = trail_line.points.get(trail_line.points.size()-2)
-			collision_segment.b = trail_line.points.get(trail_line.points.size()-1)
+			var a = trail_line.points.get(trail_line.points.size()-2)
+			var b = trail_line.points.get(trail_line.points.size()-1)
+			collision_segment.a = a
+			collision_segment.b = b
 			var collision_shape := CollisionShape2D.new()
 			collision_shape.shape = collision_segment
 			add_child(collision_shape)
 			trail_collisions.append(collision_shape)
-	time_since_last_point_sec = fmod(time_since_last_point_sec, 1.0/trail_points_per_second)
+			
+			if (last_trail_collisions.size() < last_points_count() ):
+				add_last_segment(a, b)
+			
+			
+	
 
 func handle_combo(mob: Mob) -> Combo:
 	for combo in combos:
@@ -221,10 +271,21 @@ func handle_dead_mob():
 		Mob.Type.RAMIRO:
 			mob.animation_player.play("ramiro_death")
 
+func handle_disabled_collisions():
+	var disabling := disabled_segments.duplicate()
+	for segment in disabling:
+		var segment_shape = segment.shape as SegmentShape2D
+		if (player.position.distance_to(segment_shape.b) > min_distance_to_oldest_points):
+			disabled_segments.remove_at(disabled_segments.rfind(segment))
+			segment.disabled = false
+
 func _physics_process(delta: float) -> void:
+	if (Input.is_key_pressed(KEY_SPACE)):
+		pass
 	if (Engine.time_scale == 0): return
 	if (!player.playing or !can_trail): return
 	
+	handle_disabled_collisions()
 	
 	time_since_last_point_sec += delta
 	time_since_last_circle_sec += delta
@@ -237,11 +298,14 @@ func _physics_process(delta: float) -> void:
 		add_point()
 	var closest_point = find_closest_point(last_points_tolerance)
 	var distance = player.position.distance_to(closest_point)
-	
-	if (distance < min_distance_to_oldest_points and !cleared_points 
-	and time_since_last_circle_sec > circle_min_timeout_sec):
-		try_spawn_circle(closest_point)
 		
 	if distance > min_distance_to_oldest_points * 3:
 		cleared_points = false
 		
+
+
+func _on_last_segments_body_entered(body: Node2D, point: Vector2) -> void:
+	if (!body is Player): return
+	if (time_since_last_circle_sec > circle_min_timeout_sec):
+		try_spawn_circle(point)
+		pass # Replace with function body.
