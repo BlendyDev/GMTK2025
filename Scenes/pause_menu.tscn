@@ -460,10 +460,6 @@ libraries = {
 }
 speed_scale = 0.5
 
-[node name="OptionsMenu" parent="."]
-layout_mode = 1
-metadata/_edit_use_anchors_ = true
-
 [connection signal="mouse_entered" from="VBoxContainer/Resume" to="." method="_on_resume_mouse_entered"]
 [connection signal="mouse_exited" from="VBoxContainer/Resume" to="." method="_on_resume_mouse_exited"]
 [connection signal="pressed" from="VBoxContainer/Resume" to="." method="_on_resume_pressed"]
