@@ -270,7 +270,7 @@ func handle_disabled_collisions():
 	var distance = player.position.distance_to(closest_point)
 	if (float(trail_line.points.size())/float(last_points_count()) < min_ratio_max_points_to_current_final_points): 
 		cleared_points = true
-	elif distance > min_distance_to_oldest_points * 3:
+	elif distance > min_distance_to_oldest_points:
 		cleared_points = false
 	
 
