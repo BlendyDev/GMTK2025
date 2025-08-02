@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://dsaaqh6r846s1"]
+[gd_scene load_steps=42 format=3 uid="uid://dsaaqh6r846s1"]
 
 [ext_resource type="Script" uid="uid://hgdeh6d4tsa2" path="res://Scripts/audio_controller.gd" id="1_t0xn5"]
 [ext_resource type="AudioStream" uid="uid://dapvn0ocg8s84" path="res://SFX/test_sfx_pickup.wav" id="2_nqcbu"]
@@ -27,6 +27,7 @@
 [ext_resource type="AudioStream" uid="uid://djkf0qn5klu0h" path="res://SFX/cat hit sfx 4.wav" id="19_snmij"]
 [ext_resource type="AudioStream" uid="uid://dxhooo3lqf4d4" path="res://Music/menu music loop test.wav" id="25_up6cg"]
 [ext_resource type="AudioStream" uid="uid://c4b8bq6b608nr" path="res://Music/intro mouse sfx2.wav" id="26_itbot"]
+[ext_resource type="AudioStream" uid="uid://bim6dxvpiyqy7" path="res://Music/ost tutorial drums.wav" id="27_snmij"]
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ncnt2"]
 random_pitch = 1.13
@@ -186,6 +187,12 @@ playback_type = 1
 [node name="TutorialMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("19_8tkq0")
 volume_db = 1.0
+bus = &"Music"
+playback_type = 1
+
+[node name="TutorialDrums" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("27_snmij")
+volume_db = 8.0
 bus = &"Music"
 playback_type = 1
 
