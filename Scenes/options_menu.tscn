@@ -1,15 +1,16 @@
-[gd_scene load_steps=18 format=3 uid="uid://dsc0qsqg2g7nq"]
+[gd_scene load_steps=19 format=3 uid="uid://d2cg3mbio7ehv"]
 
 [ext_resource type="Script" uid="uid://cqme1fyl5r23p" path="res://Scripts/options_menu.gd" id="1_plplt"]
 [ext_resource type="FontFile" uid="uid://ciygyfdhhcin5" path="res://Sprites/FONT1.png" id="2_tqe32"]
 [ext_resource type="PackedScene" uid="uid://dj2sj4rurva0x" path="res://Scenes/volume_slider.tscn" id="2_uj0ok"]
-[ext_resource type="Shader" uid="uid://ckg8b2a2owe7x" path="res://Shaders/scroll.gdshader" id="2_wbndg"]
+[ext_resource type="Shader" path="res://Shaders/scroll.gdshader" id="2_wbndg"]
 [ext_resource type="Texture2D" uid="uid://dxjy3ej3scaqg" path="res://Sprites/optionsmouseitems-export.png" id="3_uyb61"]
 [ext_resource type="Texture2D" uid="uid://veujwf2k3btk" path="res://Sprites/mousemc-Sheet-1.png.png" id="4_qfavn"]
 [ext_resource type="Texture2D" uid="uid://c8l5slruu5ljl" path="res://Sprites/mousemc-Sheet-1.png(1).png" id="5_syw6n"]
 [ext_resource type="Texture2D" uid="uid://dcbglvnmwn7ui" path="res://Sprites/mousemc-Sheet-2.png(1).png" id="6_cvaji"]
 [ext_resource type="Texture2D" uid="uid://cbascitrtggix" path="res://Sprites/optionsmouse1.png" id="6_wbndg"]
 [ext_resource type="FontFile" uid="uid://dshoo2jsk1ijo" path="res://Sprites/FONT5.png" id="7_uyb61"]
+[ext_resource type="Script" path="res://Scripts/sensitivity_slider.gd" id="8_uyb61"]
 [ext_resource type="FontFile" uid="uid://n2exgpxs2fx5" path="res://Sprites/FONT2.png" id="10_064ll"]
 [ext_resource type="FontFile" uid="uid://bk5j57lgnqs3q" path="res://Sprites/FONT3.png" id="11_a6r4q"]
 
@@ -409,7 +410,7 @@ theme_override_icons/grabber_disabled = ExtResource("5_syw6n")
 theme_override_icons/tick = ExtResource("5_syw6n")
 max_value = 1.0
 step = 0.001
-script = ExtResource("3_l1wg4")
+script = ExtResource("8_uyb61")
 
 [node name="TextureRect2" type="TextureRect" parent="."]
 layout_mode = 0
