@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=3 uid="uid://dsaaqh6r846s1"]
+[gd_scene load_steps=66 format=3 uid="uid://dsaaqh6r846s1"]
 
 [ext_resource type="Script" uid="uid://hgdeh6d4tsa2" path="res://Scripts/audio_controller.gd" id="1_t0xn5"]
 [ext_resource type="AudioStream" uid="uid://dapvn0ocg8s84" path="res://SFX/test_sfx_pickup.wav" id="2_nqcbu"]
@@ -38,6 +38,8 @@
 [ext_resource type="AudioStream" uid="uid://c4b8bq6b608nr" path="res://Music/intro mouse sfx2.wav" id="26_itbot"]
 [ext_resource type="AudioStream" uid="uid://bim6dxvpiyqy7" path="res://Music/ost tutorial drums.wav" id="27_snmij"]
 [ext_resource type="AudioStream" uid="uid://cwcqmyumedqp5" path="res://SFX/pre teleport sfx.wav" id="27_soipl"]
+[ext_resource type="AudioStream" uid="uid://cyttnmllikpbs" path="res://SFX/swoosh sfx.wav" id="35_re00d"]
+[ext_resource type="AudioStream" uid="uid://4c33ebyshtv2" path="res://SFX/mouse hey sfx.wav" id="36_x26on"]
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ncnt2"]
 random_pitch = 1.13
@@ -184,6 +186,18 @@ random_volume_offset_db = 1.0
 streams_count = 1
 stream_0/stream = ExtResource("26_3cpba")
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_fo00n"]
+random_pitch = 1.15
+random_volume_offset_db = 1.0
+streams_count = 1
+stream_0/stream = ExtResource("35_re00d")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_jhpkq"]
+random_pitch = 1.15
+random_volume_offset_db = 1.0
+streams_count = 1
+stream_0/stream = ExtResource("36_x26on")
+
 [node name="AudioController" type="Node"]
 script = ExtResource("1_t0xn5")
 
@@ -274,7 +288,7 @@ bus = &"SFX"
 
 [node name="UIHoverSFX" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamRandomizer_7md5g")
-volume_db = -10.0
+volume_db = -7.75
 bus = &"SFX"
 
 [node name="UIClickSFX" type="AudioStreamPlayer" parent="."]
@@ -284,7 +298,7 @@ bus = &"SFX"
 
 [node name="UILookawaySFX" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamRandomizer_y5jvc")
-volume_db = -3.0
+volume_db = -1.0
 bus = &"SFX"
 
 [node name="UIBackSFX" type="AudioStreamPlayer" parent="."]
@@ -302,8 +316,17 @@ stream = SubResource("AudioStreamRandomizer_rr58k")
 volume_db = -2.0
 bus = &"SFX"
 
+[node name="SwooshSFX" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_fo00n")
+volume_db = 4.0
+
+[node name="HeySFX" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_jhpkq")
+volume_db = -10.0
+
 [node name="MenuMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("25_up6cg")
+volume_db = -2.0
 bus = &"Music"
 playback_type = 1
 

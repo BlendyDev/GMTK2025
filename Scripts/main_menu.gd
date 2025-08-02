@@ -1,6 +1,15 @@
 extends Control
 
+@export var tween_intensity : float
+@export var tween_duration : float
+@onready var play : TextureButton = $Play
+@onready var exit : TextureButton = $Quit
+
 var played_music = false
+
+func start_tween(object: Object, property: String, final_val: Variant, duration: float):
+	var tween = create_tween()
+	tween.tween_property(object, property, final_val, duration)
 
 func _ready() -> void:
 	AudioController.makeclickloudagain()
@@ -9,6 +18,7 @@ func _ready() -> void:
 	AudioController.removelowpass()
 	$Play/AnimationPlayer.play("idle")
 	$Credits/AnimationPlayer.play("idle")
+	$Options/AnimationPlayer.play("idle")
 
 
 
@@ -25,6 +35,7 @@ func _on_play_pressed() -> void:
 func _on_play_mouse_entered() -> void:
 	$Play/AnimationPlayer.play("hover")
 	AudioController.ui_hover_sfx()
+	AudioController.hey_sfx()
 
 func _on_credits_pressed() -> void:
 	AudioController.ui_click_sfx()
@@ -32,6 +43,7 @@ func _on_credits_pressed() -> void:
 func _on_credits_mouse_entered() -> void:
 	$Credits/AnimationPlayer.play("credits")
 	AudioController.ui_hover_sfx()
+	AudioController.swoosh_sfx()
 
 func _on_exit_pressed() -> void:
 	AudioController.ui_click_sfx()
@@ -57,6 +69,9 @@ func _on_options_pressed() -> void:
 	$OptionsMenu.visible = true
 
 func _on_options_mouse_entered() -> void:
+	start_tween($Options, "rotation", PI/2.0, tween_duration)
+	$Options.pivot_offset = $Options.size / 2
+	$Options/AnimationPlayer.play("hover")
 	AudioController.ui_hover_sfx()
 
 func _on_yes_mouse_entered() -> void:
@@ -66,7 +81,10 @@ func _on_yes_mouse_exited() -> void:
 	AudioController.ui_lookaway_sfx()
 
 func _on_options_mouse_exited() -> void:
+	$Options.pivot_offset = $Options.size / 2
+	start_tween($Options, "rotation", 0, tween_duration)
 	AudioController.ui_lookaway_sfx()
+	$Options/AnimationPlayer.play("idle")
 
 func _on_quit_mouse_exited() -> void:
 	AudioController.ui_lookaway_sfx()

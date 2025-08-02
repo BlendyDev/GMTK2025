@@ -1,0 +1,25 @@
+[remap]
+
+importer="font_data_image"
+type="FontFile"
+uid="uid://n2exgpxs2fx5"
+path="res://.godot/imported/FONT2.png-811af4a5e3856c38902471e1fe299bab.fontdata"
+
+[deps]
+
+source_file="res://Sprites/FONT2.png"
+dest_files=["res://.godot/imported/FONT2.png-811af4a5e3856c38902471e1fe299bab.fontdata"]
+
+[params]
+
+character_ranges=PackedStringArray("\'A\'", "\'B\'", "\'C\'", "\'D\'", "\'E\'", "\'F\'", "\'G\'", "\'H\'", "\'I\'", "\'J\'", "\'K\'", "\'L\'", "\'M\'", "\'N\'", "\' \'", "\'O\'", "\'P\'", "\'Q\'", "\'R\'", "\'S\'", "\'T\'", "\'U\'", "\'V\'", "\'W\'", "\'X\'", "\'Y\'", "\'Z\'", "\'?\'", "\'!\'", "\'.\'")
+kerning_pairs=PackedStringArray()
+columns=15
+rows=2
+image_margin=Rect2i(0, 0, 0, 0)
+character_margin=Rect2i(0, 0, 0, 0)
+ascent=0
+descent=0
+fallbacks=[]
+compress=true
+scaling_mode=2

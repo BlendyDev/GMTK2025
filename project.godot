@@ -26,6 +26,22 @@ window/size/viewport_height=252
 window/stretch/mode="viewport"
 window/stretch/scale_mode="integer"
 
+[importer_defaults]
+
+font_data_image={
+"ascent": 0,
+"character_margin": Rect2i(0, 0, 0, 0),
+"character_ranges": PackedStringArray("\'A\'", "\'B\'", "\'C\'", "\'D\'", "\'E\'", "\'F\'", "\'G\'", "\'H\'", "\'I\'", "\'J\'", "\'K\'", "\'L\'", "\'M\'", "\'N\'", "\' \'", "\'O\'", "\'P\'", "\'Q\'", "\'R\'", "\'S\'", "\'T\'", "\'U\'", "\'V\'", "\'W\'", "\'X\'", "\'Y\'", "\'Z\'", "\'?\'", "\'!\'", "\'.\'"),
+"columns": 15,
+"compress": true,
+"descent": 0,
+"fallbacks": [],
+"image_margin": Rect2i(0, 0, 0, 0),
+"kerning_pairs": PackedStringArray(),
+"rows": 2,
+"scaling_mode": 2
+}
+
 [input]
 
 Space={

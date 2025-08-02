@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cyttnmllikpbs"
+path="res://.godot/imported/swoosh sfx.wav-187d57e8cd62fb2e0debe507e8e94a55.sample"
+
+[deps]
+
+source_file="res://SFX/swoosh sfx.wav"
+dest_files=["res://.godot/imported/swoosh sfx.wav-187d57e8cd62fb2e0debe507e8e94a55.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2
