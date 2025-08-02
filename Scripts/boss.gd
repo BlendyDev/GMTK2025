@@ -11,30 +11,37 @@ const RIGHT := Vector2(197, 0)
 const UP_RIGHT := Vector2(197, -97)
 const UP := Vector2(0, -97)
 
-@onready var effect = AudioServer.get_bus_effect(1, 0)
+enum Action {PRE, IDLE, MOVING, SPAWNING, SHIELD, SHIELD_MOVING, DYING}
+
 @onready var player: Player = $"../Player"
 @onready var trail: Trail = $"../Trail"
-var bodies_entered: Array[Node2D]
-@onready var timer = $SwitchAction
-@onready var rng = RandomNumberGenerator.new()
-@onready var animation_player := $AnimationPlayer
 @onready var debug_text: RichTextLabel = $"../DebugText"
+@onready var timer = $SwitchAction
+@onready var animation_player := $AnimationPlayer
 
-enum Action {PRE, IDLE, MOVING, SPAWNING, SHIELD, SHIELD_MOVING, DYING}
-@export var action: Action
-@export var shield_threshold: int = 50
-var hp = 26
-var shield = 0
+@onready var effect = AudioServer.get_bus_effect(1, 0)
+@onready var rng = RandomNumberGenerator.new()
+
 @onready var snapped_pos = CENTER
+
 @onready var trail_curve = preload("res://Templates/boss_trail_curve.tres")
 @onready var mob_scene = preload("res://Scenes/mob.tscn")
-var spawned_mobs = 0
-var mobs_alive = 0
-var line_tween: Tween
-var pos_tween: Tween
-var available_locations := [UP_LEFT, LEFT, DOWN_LEFT, DOWN, DOWN_RIGHT, RIGHT, UP_RIGHT, UP]
+
+@export var action: Action
+@export var shield_threshold: int = 1
 @export var dash_speed := 300.0
 @export var spawn_shield_speed := 100.0
+
+var available_locations := [UP_LEFT, LEFT, DOWN_LEFT, DOWN, DOWN_RIGHT, RIGHT, UP_RIGHT, UP]
+
+var bodies_entered: Array[Node2D]
+var hp := 26
+var shield := 0
+var spawned_mobs := 0
+var mobs_alive := 0
+var queued_deaths := 0
+var line_tween: Tween
+var pos_tween: Tween
 
 func _ready() -> void:
 	action = Action.PRE
@@ -44,8 +51,18 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if (Engine.time_scale == 0): return
 	debug_text.text = "loop count: " + str(trail.loop_count) + "\nlowpass resonance: " + str(effect.resonance) + "\naction: " + Action.keys()[action] + "\nspawned_mobs: " + str(spawned_mobs) + "\nmobs_alive: " + str(mobs_alive) + "\nhp: " + str(hp) + "\nshield: " + str(shield)
+	
 	if (action == Action.SHIELD and mobs_alive == 0):
-		start_spawning()
+		if (shield < shield_threshold): start_spawning()
+		else:
+			shield = 0
+			hp -= 1
+			action = Action.MOVING
+			animation_player.play("dashing")
+			pick_location_and_move()
+
+func max_spawns()->int:
+	return 8-hp/5 
 
 func start_spawning():
 	action = Action.SPAWNING
@@ -79,7 +96,7 @@ func _on_body_exited(body: Node2D) -> void:
 	if (bodies_entered.is_empty()): trail.can_trail = true
 	if (Input.is_key_pressed(KEY_SPACE)):
 		pass
-		
+
 func move(index: int, move_speed: float = dash_speed):
 	var new_pos = available_locations.get(index)
 	available_locations.remove_at(index)
@@ -104,7 +121,6 @@ func trail_to_move(pos: Vector2, move_speed: float = dash_speed):
 	line_tween.tween_property(line, "width", 0, 0.75)
 	line_tween.tween_callback(line.queue_free)
 	line_tween.tween_callback(execute_move.bind(pos, move_speed))
-	
 
 func execute_move(pos: Vector2, move_speed: float = dash_speed):
 	pos_tween = get_tree().create_tween()
@@ -122,7 +138,6 @@ func move_to(loc: Vector2):
 func pick_location_and_move():
 	var index := rng.randi_range(0, available_locations.size()-1)
 	move(index)
-	
 
 func finish_move():
 	if (action != Action.MOVING):
@@ -130,15 +145,21 @@ func finish_move():
 			trail_to_move(UP_LEFT)
 			action = Action.SHIELD_MOVING
 		elif (action == Action.SHIELD_MOVING):
-			if (mobs_alive == 0): start_spawning()
+			if (mobs_alive == 0):
+				if (shield < shield_threshold):
+					start_spawning()
+				else:
+					shield = 0
+					hp -= 1
+					action = Action.MOVING
+					animation_player.play("dashing")
+					pick_location_and_move()
 			else: action = Action.SHIELD
 		elif (action == Action.SPAWNING):
-			if (spawned_mobs < 3):
+			if (spawned_mobs < max_spawns()):
 				trail_to_random_pos(spawn_shield_speed)
 				spawn_mob()
 				mobs_alive += 1
-				timer.wait_time = 1.5
-				timer.start()
 			else:
 				if (mobs_alive > 0):
 					spawned_mobs = 0
@@ -146,7 +167,14 @@ func finish_move():
 					animation_player.play("shielding")
 					trail_to_move(UP_LEFT, spawn_shield_speed)
 				else:
-					start_spawning()
+					if (shield < shield_threshold):
+						start_spawning()
+					else:
+						shield = 0
+						hp -= 1
+						action = Action.MOVING
+						animation_player.play("dashing")
+						pick_location_and_move()
 		return
 	action = Action.IDLE
 	timer.wait_time = 1.0

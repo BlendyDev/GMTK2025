@@ -192,8 +192,11 @@ func handle_dead_mob():
 			combo.indicator.animation_player.play("combo")
 		if (combo.count >= 3): AudioController.cheer_sfx()
 		var bonus = 0
-		if combo.loop_count > 1: bonus = 6+combo.loop_count
+		if combo.loop_count > 1:
+			bonus = floor((3.0*sqrt(sqrt(float(combo.loop_count)))+2.5)*combo.count)
 		boss.shield += pow(combo.count, 2) + bonus
+		boss.mobs_alive -= boss.queued_deaths
+		boss.queued_deaths = 0
 		combos.remove_at(combos.rfind(combo))
 	dead_mobs.remove_at(dead_mobs.size()-1)
 	
