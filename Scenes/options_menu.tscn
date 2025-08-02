@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://d2cg3mbio7ehv"]
+[gd_scene load_steps=19 format=3 uid="uid://bxyvs55u3pfiy"]
 
 [ext_resource type="Script" uid="uid://cqme1fyl5r23p" path="res://Scripts/options_menu.gd" id="1_plplt"]
 [ext_resource type="FontFile" uid="uid://ciygyfdhhcin5" path="res://Sprites/FONT1.png" id="2_tqe32"]
@@ -275,6 +275,7 @@ _data = {
 }
 
 [node name="OptionsMenu" type="Control"]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

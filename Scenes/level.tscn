@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://4otsh1wy31kg"]
+[gd_scene load_steps=32 format=3 uid="uid://4otsh1wy31kg"]
 
 [ext_resource type="Script" uid="uid://cxjw50s4jeh2y" path="res://Scripts/trail.gd" id="1_0f350"]
 [ext_resource type="Script" uid="uid://c26jmx7s0p0dr" path="res://Scripts/level.gd" id="1_ha31o"]
@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://u8v7wxeolqad" path="res://Sprites/ocstaculoepicoup.png" id="6_qxfql"]
 [ext_resource type="Texture2D" uid="uid://c1yfhu6mq1mop" path="res://Sprites/fondo.png" id="7_8c0lf"]
 [ext_resource type="Texture2D" uid="uid://cyeifbyapar62" path="res://Sprites/trueborder.png" id="8_754fn"]
-[ext_resource type="PackedScene" uid="uid://cc54cr13j7aqs" path="res://Scenes/dummy.tscn" id="9_pa6b8"]
+[ext_resource type="PackedScene" uid="uid://drhmfihvu5x4o" path="res://Scenes/dummy.tscn" id="9_pa6b8"]
 [ext_resource type="Texture2D" uid="uid://dwgaupo44whxw" path="res://Sprites/bordes-Sheet.png" id="10_ha31o"]
 [ext_resource type="PackedScene" uid="uid://dd7jxb3adi5uf" path="res://Scenes/boss.tscn" id="10_qxfql"]
 [ext_resource type="PackedScene" uid="uid://d2cg3mbio7ehv" path="res://Scenes/pause_menu.tscn" id="11_qxfql"]
