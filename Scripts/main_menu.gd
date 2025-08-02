@@ -7,6 +7,10 @@ func _ready() -> void:
 	AudioController.menu_music()
 	played_music = true
 	AudioController.removelowpass()
+	$Play/AnimationPlayer.play("idle")
+	$Credits/AnimationPlayer.play("idle")
+
+
 
 func _on_play_pressed() -> void:
 	AudioController.ui_click_sfx()
@@ -19,12 +23,14 @@ func _on_play_pressed() -> void:
 	get_tree().change_scene_to_file("res://Scenes/level.tscn")
 
 func _on_play_mouse_entered() -> void:
+	$Play/AnimationPlayer.play("hover")
 	AudioController.ui_hover_sfx()
 
 func _on_credits_pressed() -> void:
 	AudioController.ui_click_sfx()
 
 func _on_credits_mouse_entered() -> void:
+	$Credits/AnimationPlayer.play("credits")
 	AudioController.ui_hover_sfx()
 
 func _on_exit_pressed() -> void:
@@ -67,9 +73,11 @@ func _on_quit_mouse_exited() -> void:
 
 func _on_credits_mouse_exited() -> void:
 	AudioController.ui_lookaway_sfx()
+	$Credits/AnimationPlayer.play("idle")
 
 func _on_play_mouse_exited() -> void:
 	AudioController.ui_lookaway_sfx()
+	$Play/AnimationPlayer.play("idle")
 
 
 func _on_no_mouse_entered() -> void:
