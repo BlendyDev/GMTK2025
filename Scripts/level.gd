@@ -12,22 +12,22 @@ func pause():
 	$PauseMenu.visible = true
 	AudioController.choose_tutorial_drums()
 	AudioController.applylowpass()
-	Engine.time_scale = 0
+	get_tree().paused = true
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	$PauseMenu/AnimationPlayer.play("movetext")
 
 func unpause():
 	AudioController.tapestop2()
 	AudioController.choose_tutorial_music()
 	AudioController.removelowpass()
 	$PauseMenu.visible = false
-	Engine.time_scale = 1
+	$PauseMenu/OptionsMenu.visible = false
+	get_tree().paused = false
 	if player.playing: Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _process(delta: float)  -> void:
 	if Input.is_action_just_pressed("Esc") and !$PauseMenu.visible:
 		call_deferred("pause")
-	elif Input.is_action_just_pressed("Esc") and $PauseMenu.visible:
-		call_deferred("unpause")
 
 func freeze(duration):
 	if (duration == 0): return

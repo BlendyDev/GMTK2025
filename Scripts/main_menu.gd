@@ -12,6 +12,7 @@ func start_tween(object: Object, property: String, final_val: Variant, duration:
 	tween.tween_property(object, property, final_val, duration)
 
 func _ready() -> void:
+	AudioController.removelowpass()
 	AudioController.makeclickloudagain()
 	AudioController.menu_music()
 	played_music = true
@@ -23,6 +24,8 @@ func _ready() -> void:
 
 
 func _on_play_pressed() -> void:
+	$Play/GoofySFX.stop()
+	$Quit/LightSFX.stop()
 	AudioController.ui_click_sfx()
 	AudioController.menu_music_stop()
 	$Loading2.visible = true

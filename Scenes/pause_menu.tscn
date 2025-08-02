@@ -1,5 +1,6 @@
 [gd_scene load_steps=25 format=3 uid="uid://dtvjq0c7xnecv"]
 
+[ext_resource type="Script" uid="uid://doy504o3wwhr8" path="res://Scripts/pause_menu.gd" id="1_emv3i"]
 [ext_resource type="Shader" uid="uid://g6vj64km5x0h" path="res://Shaders/pause_menu.gdshader" id="2_k0w1u"]
 [ext_resource type="Texture2D" uid="uid://bh4o3s6y06jjc" path="res://Sprites/pausemousegame1.png" id="3_bpi0q"]
 [ext_resource type="Texture2D" uid="uid://n3x2l26iuekn" path="res://Sprites/pausemousegame2.png" id="4_vmyb1"]
@@ -8,125 +9,6 @@
 [ext_resource type="FontFile" uid="uid://n2exgpxs2fx5" path="res://Sprites/FONT2.png" id="7_u8tnp"]
 [ext_resource type="FontFile" uid="uid://bk5j57lgnqs3q" path="res://Sprites/FONT3.png" id="8_stj27"]
 [ext_resource type="PackedScene" uid="uid://bxyvs55u3pfiy" path="res://Scenes/options_menu.tscn" id="9_stj27"]
-
-[sub_resource type="GDScript" id="GDScript_u8tnp"]
-script/source = "extends Control
-@onready var level : Level = $\"..\"
-
-func _ready() -> void:
-	$AnimationPlayer.play(\"movetext\")
-	$Loading.visible = false
-	await get_tree().create_timer(0.8, true, false, true).timeout
-
-func _on_resume_pressed() -> void:
-	AudioController.ui_click_sfx()
-	level.unpause()
-func _on_resume_mouse_entered() -> void:
-	AudioController.ui_hover_sfx()
-
-func _on_options_pressed() -> void:
-	AudioController.ui_click_sfx()
-	$OptionsMenu.visible = true
-
-func _on_options_mouse_entered() -> void:
-	AudioController.ui_hover_sfx()
-
-func _on_quit_pressed() -> void:
-	AudioController.ui_click_sfx()
-	$VBoxContainer/HBoxContainer.visible = true
-	$VBoxContainer/Sure.visible = true
-	$VBoxContainer/HBoxContainer2.visible = false
-	$VBoxContainer/Sure2.visible = false
-
-func _on_quit_mouse_entered() -> void:
-	AudioController.ui_hover_sfx()
-
-
-func _on_yes_pressed() -> void:
-	get_tree().quit()
-
-
-func _on_no_pressed() -> void:
-	AudioController.ui_back_sfx()
-	$VBoxContainer/HBoxContainer.visible = false
-	$VBoxContainer/Sure.visible = false
-
-
-func _on_main_menu_pressed() -> void:
-	AudioController.ui_click_sfx()
-	$VBoxContainer/HBoxContainer2.visible = true
-	$VBoxContainer/Sure2.visible = true
-	$VBoxContainer/HBoxContainer.visible = false
-	$VBoxContainer/Sure.visible = false
-
-func _on_main_menu_mouse_entered() -> void:
-	AudioController.ui_hover_sfx()
-	pass # Replace with function body.
-
-
-func _on_yes_2_pressed() -> void:
-	AudioController.ui_back_sfx()
-	AudioController.tutorial_music_stop()
-	$Loading.visible = true
-	await get_tree().create_timer(0.4, true, false, true).timeout
-	AudioController.ui_click_sfx()
-	await get_tree().create_timer(0.4, true, false, true).timeout
-	$Loading.visible = false
-	get_tree().change_scene_to_file(\"res://Scenes/main_menu.tscn\")
-
-func _on_no_2_pressed() -> void:
-	AudioController.ui_back_sfx()
-	$VBoxContainer/HBoxContainer2.visible = false
-	$VBoxContainer/Sure2.visible = false
-
-
-func _on_yes_mouse_entered() -> void:
-	AudioController.ui_hover_sfx()
-
-
-func _on_yes_mouse_exited() -> void:
-	AudioController.ui_lookaway_sfx()
-
-
-func _on_no_mouse_entered() -> void:
-	AudioController.ui_hover_sfx()
-
-
-func _on_no_mouse_exited() -> void:
-	AudioController.ui_lookaway_sfx()
-
-
-func _on_yes_2_mouse_entered() -> void:
-	AudioController.ui_hover_sfx()
-
-
-func _on_yes_2_mouse_exited() -> void:
-	AudioController.ui_lookaway_sfx()
-
-
-func _on_resume_mouse_exited() -> void:
-	AudioController.ui_lookaway_sfx()
-
-
-func _on_options_mouse_exited() -> void:
-	AudioController.ui_lookaway_sfx()
-
-
-func _on_main_menu_mouse_exited() -> void:
-	AudioController.ui_lookaway_sfx()
-
-
-func _on_quit_mouse_exited() -> void:
-	AudioController.ui_lookaway_sfx()
-
-
-func _on_no_2_mouse_entered() -> void:
-	AudioController.ui_hover_sfx()
-
-
-func _on_no_2_mouse_exited() -> void:
-	AudioController.ui_lookaway_sfx()
-"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1och7"]
 shader = ExtResource("2_k0w1u")
@@ -418,7 +300,9 @@ _data = {
 }
 
 [node name="PauseMenu" type="Control"]
+process_mode = 3
 visible = false
+z_index = 4096
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -429,7 +313,7 @@ offset_right = 224.0
 offset_bottom = 126.0
 grow_horizontal = 2
 grow_vertical = 2
-script = SubResource("GDScript_u8tnp")
+script = ExtResource("1_emv3i")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 z_index = -4
@@ -581,6 +465,7 @@ position = Vector2(224, 126)
 libraries = {
 &"": SubResource("AnimationLibrary_0fi7f")
 }
+autoplay = "movetext"
 speed_scale = 0.5
 
 [node name="OptionsMenu" parent="." instance=ExtResource("9_stj27")]

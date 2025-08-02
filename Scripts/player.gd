@@ -14,7 +14,7 @@ var last_velocities: PackedVector2Array = [Vector2.ZERO]
 
 
 func _ready() -> void:
-	Engine.time_scale = 1.0
+	get_tree().paused = false
 
 func bind_to_player():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -26,7 +26,7 @@ func _input(e: InputEvent):
 	match e.get_class():
 		"InputEventMouseMotion":
 			if !playing: return
-			if Engine.time_scale == 0: return
+			if get_tree().paused: return
 			mouse_motion = e.relative
 		"InputEventMouseButton":
 			if (e as InputEventMouseButton).button_index == MOUSE_BUTTON_WHEEL_UP:
@@ -67,7 +67,7 @@ func animate_direction():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if (Engine.time_scale == 0): return
+	if get_tree().paused: return
 	if (Input.is_key_pressed(KEY_SPACE)):
 		pass
 	if !playing:

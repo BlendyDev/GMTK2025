@@ -199,6 +199,7 @@ streams_count = 1
 stream_0/stream = ExtResource("36_x26on")
 
 [node name="AudioController" type="Node"]
+process_mode = 3
 script = ExtResource("1_t0xn5")
 
 [node name="HitSFX" type="AudioStreamPlayer2D" parent="."]

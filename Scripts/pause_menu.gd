@@ -1,14 +1,18 @@
 extends Control
-#@onready var level : Level = $".."
+@onready var level : Level = $".."
 
 func _ready() -> void:
 	$AnimationPlayer.play("movetext")
 	$Loading.visible = false
 	await get_tree().create_timer(0.8, true, false, true).timeout
 
+func _process(delta: float) -> void:
+	if Input.is_action_just_pressed("Esc") and self.visible:
+		level.unpause()
+
 func _on_resume_pressed() -> void:
 	AudioController.ui_click_sfx()
-	#level.unpause()
+	level.unpause()
 func _on_resume_mouse_entered() -> void:
 	AudioController.ui_hover_sfx()
 
@@ -28,7 +32,6 @@ func _on_quit_pressed() -> void:
 
 func _on_quit_mouse_entered() -> void:
 	AudioController.ui_hover_sfx()
-	$Quit/AnimationPlayer.play("lightflicker")
 
 
 func _on_yes_pressed() -> void:
@@ -61,6 +64,7 @@ func _on_yes_2_pressed() -> void:
 	AudioController.ui_click_sfx()
 	await get_tree().create_timer(0.4, true, false, true).timeout
 	$Loading.visible = false
+	get_tree().paused = false
 	get_tree().change_scene_to_file("res://Scenes/main_menu.tscn")
 
 func _on_no_2_pressed() -> void:
@@ -107,7 +111,6 @@ func _on_main_menu_mouse_exited() -> void:
 
 func _on_quit_mouse_exited() -> void:
 	AudioController.ui_lookaway_sfx()
-	$Quit/AnimationPlayer.play("RESET")
 
 
 func _on_no_2_mouse_entered() -> void:
