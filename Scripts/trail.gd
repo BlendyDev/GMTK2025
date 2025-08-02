@@ -6,6 +6,7 @@ class Combo:
 	var mobs: Array[Mob]
 	var indicator: ComboIndicator
 	var loop_count: int
+	var max_mobs: int
 
 @onready var level: Level = $".."
 @onready var trail_line: Line2D = $Trail
@@ -168,6 +169,7 @@ func handle_combo(mob: Mob) -> Combo:
 	combo.mobs = dead_mobs.duplicate()
 	combo.count = dead_mobs.size()
 	combo.loop_count = mob.loop
+	combo.max_mobs = boss.max_spawns()
 	combos.append(combo)
 	return combo
 
@@ -175,8 +177,9 @@ func combo_end(combo : Combo):
 	if (combo.indicator != null):
 		await get_tree().create_timer(0.7, true, false, true).timeout
 		combo.indicator.animation_player.play("combo")
-		if (combo.count >= 3):
-			AudioController.cheer_sfx()
+		print("combo.count: " + str(combo.count) + " | maxspawns: " + str(combo.max_mobs))
+		if (combo.count >= combo.max_mobs):
+			AudioController.cheer_sfx(combo.count)
 			
 
 func handle_dead_mob():

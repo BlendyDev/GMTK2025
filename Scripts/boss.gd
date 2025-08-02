@@ -217,4 +217,6 @@ func _on_player_detect_area_entered(area: Area2D) -> void:
 				spawned_mobs = 0
 				timer.wait_time = 0.8
 				timer.start()
-				
+			else:
+				if (timer.wait_time > 0.1):
+					timer.start(0.1)

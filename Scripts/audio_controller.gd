@@ -4,6 +4,7 @@ var effect = AudioServer.get_bus_effect(1, 0)
 var tween : Tween
 	
 @onready var hitSFX: AudioStreamPlayer2D = $HitSFX
+@onready var cheerSFX: AudioStreamPlayer2D = $CheerSFX
 
 func circle_sfx():
 	$CircleSFX.play()
@@ -15,8 +16,10 @@ func hit_sfx(pitch: float):
 	hitSFX.pitch_scale = pitch
 	hitSFX.play()
 	
-func cheer_sfx():
-	$CheerSFX.play()	
+func cheer_sfx(count: int):
+	cheerSFX.volume_linear = min(float(count+9)/12.0, 1.5)
+	print("volume: " + str(cheerSFX.volume_linear))
+	cheerSFX.play()
 
 func cat_hit_sfx():
 	$CatHitSFX.play()	
