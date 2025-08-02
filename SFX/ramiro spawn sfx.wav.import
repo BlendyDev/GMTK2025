@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://kp4cfxgoeidc"
+path="res://.godot/imported/ramiro spawn sfx.wav-15287e5a2c079de3c72ad1de04561004.sample"
+
+[deps]
+
+source_file="res://SFX/ramiro spawn sfx.wav"
+dest_files=["res://.godot/imported/ramiro spawn sfx.wav-15287e5a2c079de3c72ad1de04561004.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

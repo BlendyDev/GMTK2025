@@ -46,6 +46,20 @@ func cut_tail_sfx():
 	if $CutTailSFX.get_playback_position() > 0.25 or !$CutTailSFX.playing:
 		$CutTailSFX.play()
 
+func tapestop1():
+	$TapeStopSFX.play()
+func tapestop2():
+	$TapeStop2SFX.play()
+	
+func spawn_slime():
+	$SlimeSpawnSFX.play()
+func spawn_cat():
+	$CatSpawnSFX.play()
+func spawn_ramiro():
+	$RamiroSpawnSFX.play()
+func spawn_normal():
+	$NormalSpawnSFX.play()
+
 func menu_music():
 	$MenuMusic.play()
 func menu_music_stop():

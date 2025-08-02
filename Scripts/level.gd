@@ -8,12 +8,14 @@ func _ready() -> void:
 	AudioController.tutorial_music()
 
 func pause():
+	AudioController.tapestop1()
 	$PauseMenu.visible = true
 	AudioController.choose_tutorial_drums()
 	AudioController.applylowpass()
 	Engine.time_scale = 0
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 func unpause():
+	AudioController.tapestop2()
 	AudioController.choose_tutorial_music()
 	AudioController.removelowpass()
 	$PauseMenu.visible = false
