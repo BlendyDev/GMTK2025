@@ -26,7 +26,11 @@ func _input(e: InputEvent):
 			if !playing: return
 			if Engine.time_scale == 0: return
 			mouse_motion = e.relative
-			
+		"InputEventMouseButton":
+			if (e as InputEventMouseButton).button_index == MOUSE_BUTTON_WHEEL_UP:
+				Global.sensitivity_boost = min(Global.sensitivity_boost + 0.02, 3)
+			elif (e as InputEventMouseButton).button_index == MOUSE_BUTTON_WHEEL_DOWN:
+				Global.sensitivity_boost = max(Global.sensitivity_boost - 0.02, 0.25)
 
 func animate_direction():
 	if (velocity.length() > 0):
