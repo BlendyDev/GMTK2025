@@ -4,14 +4,17 @@ class_name Level
 @onready var player: Player = $Player
 
 func _ready() -> void:
+	AudioController.choose_tutorial_music()
 	AudioController.tutorial_music()
 
 func pause():
 	$PauseMenu.visible = true
+	AudioController.choose_tutorial_drums()
 	AudioController.applylowpass()
 	Engine.time_scale = 0
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 func unpause():
+	AudioController.choose_tutorial_music()
 	AudioController.removelowpass()
 	$PauseMenu.visible = false
 	Engine.time_scale = 1

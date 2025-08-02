@@ -171,6 +171,14 @@ func handle_combo(mob: Mob) -> Combo:
 	combos.append(combo)
 	return combo
 
+func combo_end(combo : Combo):
+	if (combo.indicator != null):
+		await get_tree().create_timer(0.7, true, false, true).timeout
+		combo.indicator.animation_player.play("combo")
+		if (combo.count >= 3):
+			AudioController.cheer_sfx()
+			
+
 func handle_dead_mob():
 	time_since_last_death_handle = 0.0
 	var mob = dead_mobs.get(dead_mobs.size()-1)
@@ -188,9 +196,7 @@ func handle_dead_mob():
 	else:
 		level.freeze(freeze_time)
 	if (combo.mobs.size() == 0):
-		if (combo.indicator != null):
-			combo.indicator.animation_player.play("combo")
-		if (combo.count >= 3): AudioController.cheer_sfx()
+		combo_end(combo)
 		var bonus = 0
 		if combo.loop_count > 1: bonus = 6+combo.loop_count
 		boss.shield += pow(combo.count, 2) + bonus
