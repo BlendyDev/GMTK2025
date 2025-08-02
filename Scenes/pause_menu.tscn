@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://7v6mu82w1o7g" path="res://Scenes/loading.tscn" id="5_vmyb1"]
 [ext_resource type="FontFile" uid="uid://n2exgpxs2fx5" path="res://Sprites/FONT2.png" id="7_u8tnp"]
 [ext_resource type="FontFile" uid="uid://bk5j57lgnqs3q" path="res://Sprites/FONT3.png" id="8_stj27"]
-[ext_resource type="PackedScene" uid="uid://dsc0qsqg2g7nq" path="res://Scenes/options_menu.tscn" id="9_stj27"]
+[ext_resource type="PackedScene" uid="uid://d2cg3mbio7ehv" path="res://Scenes/options_menu.tscn" id="9_stj27"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1och7"]
 shader = ExtResource("2_k0w1u")
@@ -460,7 +460,7 @@ libraries = {
 }
 speed_scale = 0.5
 
-[node name="OptionsMenu" parent="." instance=ExtResource("9_stj27")]
+[node name="OptionsMenu" parent="."]
 layout_mode = 1
 metadata/_edit_use_anchors_ = true
 
