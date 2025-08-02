@@ -28,6 +28,7 @@ func _on_quit_pressed() -> void:
 
 func _on_quit_mouse_entered() -> void:
 	AudioController.ui_hover_sfx()
+	$Quit/AnimationPlayer.play("lightflicker")
 
 
 func _on_yes_pressed() -> void:
@@ -106,6 +107,7 @@ func _on_main_menu_mouse_exited() -> void:
 
 func _on_quit_mouse_exited() -> void:
 	AudioController.ui_lookaway_sfx()
+	$Quit/AnimationPlayer.play("RESET")
 
 
 func _on_no_2_mouse_entered() -> void:

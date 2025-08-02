@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://cqme1fyl5r23p" path="res://Scripts/options_menu.gd" id="1_plplt"]
 [ext_resource type="FontFile" uid="uid://ciygyfdhhcin5" path="res://Sprites/FONT1.png" id="2_tqe32"]
 [ext_resource type="PackedScene" uid="uid://dj2sj4rurva0x" path="res://Scenes/volume_slider.tscn" id="2_uj0ok"]
-[ext_resource type="Shader" path="res://Shaders/scroll.gdshader" id="2_wbndg"]
+[ext_resource type="Shader" uid="uid://ckg8b2a2owe7x" path="res://Shaders/scroll.gdshader" id="2_wbndg"]
 [ext_resource type="Texture2D" uid="uid://dxjy3ej3scaqg" path="res://Sprites/optionsmouseitems-export.png" id="3_uyb61"]
 [ext_resource type="Texture2D" uid="uid://veujwf2k3btk" path="res://Sprites/mousemc-Sheet-1.png.png" id="4_qfavn"]
 [ext_resource type="Texture2D" uid="uid://c8l5slruu5ljl" path="res://Sprites/mousemc-Sheet-1.png(1).png" id="5_syw6n"]
@@ -310,11 +310,11 @@ color = Color(0.18, 0.18, 0.18, 0)
 
 [node name="Label4" type="Label" parent="."]
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = -1
 anchor_left = 0.5
-anchor_top = 0.5
+anchor_top = 0.519841
 anchor_right = 0.5
-anchor_bottom = 0.5
+anchor_bottom = 0.519841
 offset_left = -169.0
 offset_top = -78.0
 offset_right = 71.0
@@ -322,7 +322,6 @@ offset_bottom = -58.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("2_tqe32")
-theme_override_font_sizes/font_size = 16
 text = "AUDIO LEVELS"
 horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
@@ -330,19 +329,18 @@ metadata/_edit_use_anchors_ = true
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.207589
-anchor_top = 0.277778
+anchor_left = 0.229911
+anchor_top = 0.297619
 anchor_right = 0.207589
-anchor_bottom = 0.277778
+anchor_bottom = 0.297619
 offset_right = 154.0
 offset_bottom = 164.0
-theme_override_constants/separation = 1
+theme_override_constants/separation = 0
 metadata/_edit_use_anchors_ = true
 
 [node name="Label" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_tqe32")
-theme_override_font_sizes/font_size = 12
 text = "MASTER"
 horizontal_alignment = 1
 
@@ -357,7 +355,6 @@ bus_name = "Master"
 [node name="Label2" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_tqe32")
-theme_override_font_sizes/font_size = 12
 text = "MUSIC"
 horizontal_alignment = 1
 
@@ -371,7 +368,6 @@ bus_name = "Music"
 [node name="Label3" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_tqe32")
-theme_override_font_sizes/font_size = 12
 text = "SOUNDS"
 horizontal_alignment = 1
 
@@ -384,21 +380,22 @@ bus_name = "SFX"
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
+anchors_preset = -1
+anchor_left = 0.462054
+anchor_top = -0.00396825
+anchor_right = 0.537946
+anchor_bottom = 0.00793651
 offset_left = -174.0
 offset_top = 7.0
 offset_right = 64.0
 offset_bottom = 50.0
 grow_horizontal = 2
-theme_override_constants/separation = 1
+theme_override_constants/separation = -2
 metadata/_edit_use_anchors_ = true
 
 [node name="Label" type="Label" parent="VBoxContainer2"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_tqe32")
-theme_override_font_sizes/font_size = 14
 text = "MOUSE SENSITIVITY"
 horizontal_alignment = 1
 
@@ -411,6 +408,7 @@ theme_override_icons/tick = ExtResource("5_syw6n")
 max_value = 1.0
 step = 0.001
 script = ExtResource("8_uyb61")
+theme_override_icons/grabber = ExtResource("5_syw6n")
 
 [node name="TextureRect2" type="TextureRect" parent="."]
 layout_mode = 0
