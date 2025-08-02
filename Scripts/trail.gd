@@ -160,8 +160,6 @@ func add_last_segment(a: Vector2, b: Vector2):
 	last_collision_area.input_pickable = false
 	last_collision_area.body_entered.connect(_on_last_segments_body_entered.bind(last_collision_segment.b))
 	add_child(last_collision_area)
-		if (Input.is_key_pressed(KEY_SPACE)):
-		pass
 	var last_collision_shape := CollisionShape2D.new()
 	last_collision_shape.debug_color = Color.from_rgba8(255, 0, 0, 255)
 	last_collision_shape.shape = last_collision_segment
