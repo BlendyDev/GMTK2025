@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://4otsh1wy31kg"]
+[gd_scene load_steps=22 format=3 uid="uid://4otsh1wy31kg"]
 
 [ext_resource type="Script" uid="uid://cxjw50s4jeh2y" path="res://Scripts/trail.gd" id="1_0f350"]
 [ext_resource type="Script" uid="uid://c26jmx7s0p0dr" path="res://Scripts/level.gd" id="1_ha31o"]
@@ -23,6 +23,9 @@ colors = PackedColorArray(0.55, 0.8425, 1, 0.258824, 0.552941, 0.843137, 1, 0.76
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_k5f4k"]
 radius = 2.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ha31o"]
+size = Vector2(18, 14)
 
 [sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_qxfql"]
 points = PackedVector2Array(-13, -15, 15, -15, 3, 14)
@@ -75,7 +78,6 @@ antialiased = true
 [node name="Player" type="CharacterBody2D" parent="."]
 z_index = 500
 collision_mask = 23
-input_pickable = true
 script = ExtResource("1_tumq0")
 speed = 0.2
 stored_velocity_frames = 10
@@ -88,6 +90,13 @@ frame_progress = 0.0617137
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 shape = SubResource("CircleShape2D_k5f4k")
+
+[node name="GrabDetector" type="Area2D" parent="Player"]
+collision_layer = 64
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/GrabDetector"]
+shape = SubResource("RectangleShape2D_ha31o")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
@@ -157,4 +166,4 @@ offset_top = -127.0
 offset_right = -227.0
 offset_bottom = -127.0
 
-[connection signal="mouse_entered" from="Player" to="Player" method="_on_mouse_entered"]
+[connection signal="mouse_entered" from="Player/GrabDetector" to="Player" method="_on_mouse_entered"]
