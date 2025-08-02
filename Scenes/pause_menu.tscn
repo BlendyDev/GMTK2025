@@ -423,6 +423,7 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = 32.0
 grow_horizontal = 2
 grow_vertical = 2
 script = SubResource("GDScript_u8tnp")
@@ -580,6 +581,7 @@ libraries = {
 speed_scale = 0.5
 
 [node name="OptionsMenu" parent="." instance=ExtResource("9_stj27")]
+visible = false
 layout_mode = 1
 
 [connection signal="mouse_entered" from="VBoxContainer/Resume" to="." method="_on_resume_mouse_entered"]
