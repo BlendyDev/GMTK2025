@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://7v6mu82w1o7g"]
+
+[ext_resource type="Texture2D" uid="uid://et4tbju8rjqs" path="res://Sprites/loadingtimo1.png" id="1_1l04a"]
+[ext_resource type="Texture2D" uid="uid://b7i0umg7vn4tl" path="res://Sprites/loadingtimo2.png" id="2_ecfth"]
+[ext_resource type="Texture2D" uid="uid://cjykr8icusj8g" path="res://Sprites/loadingtimo3.png" id="3_wc73m"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xvgud"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_1l04a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_ecfth")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_wc73m")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Loading" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_xvgud")
+autoplay = "default"
