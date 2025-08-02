@@ -175,7 +175,7 @@ func add_point():
 	time_since_last_point_sec = fmod(time_since_last_point_sec, 1.0/trail_points_per_second)
 	
 	var no_change = direction == Vector2.ZERO and trail_line.points.size() > 0
-	
+	if (trail_line.points.size() == 0): n= 1
 	for i in range(n):
 		if (trail_line.points.size() > max_trail_time_sec * trail_points_per_second or (no_change and trail_collisions.size()>0) ):
 			if (trail_line.points.size() > 1):
@@ -274,7 +274,7 @@ func handle_disabled_collisions():
 		cleared_points = false
 	
 
-func _physics_process(delta: float) -> void:
+func _process(delta: float) -> void:
 	if (Input.is_key_pressed(KEY_SPACE)):
 		pass
 	if (Engine.time_scale == 0): return
