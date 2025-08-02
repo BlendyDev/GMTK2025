@@ -12,8 +12,10 @@ var last_velocities: PackedVector2Array = [Vector2.ZERO]
 @onready var trail: Trail = $"../Trail"
 @onready var boss: Boss = $"../Boss"
 
-# Called when the node enters the scene tree for the first time.
-	
+
+func _ready() -> void:
+	Engine.time_scale = 1.0
+
 func bind_to_player():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	print("playing!")
