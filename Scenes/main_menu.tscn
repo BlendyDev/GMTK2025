@@ -1,13 +1,15 @@
-[gd_scene load_steps=38 format=3 uid="uid://db0iuepgj8olx"]
+[gd_scene load_steps=56 format=3 uid="uid://db0iuepgj8olx"]
 
 [ext_resource type="Script" uid="uid://0mcwei50crlf" path="res://Scripts/main_menu.gd" id="1_ce3w2"]
-[ext_resource type="Texture2D" uid="uid://ct0q62raty2r7" path="res://Sprites/mousewheel.png" id="2_cp0ys"]
+[ext_resource type="Texture2D" uid="uid://rc0e0h2kk7xn" path="res://Sprites/fondo2.png" id="2_xcoo4"]
 [ext_resource type="Texture2D" uid="uid://lhlq250l8db8" path="res://Sprites/hamsterwheel1.png" id="3_4nkqq"]
-[ext_resource type="Texture2D" uid="uid://exb2h7n2ra8u" path="res://Sprites/exit-button-png.svg.hi.png" id="4_cp0ys"]
+[ext_resource type="Shader" uid="uid://ckg8b2a2owe7x" path="res://Shaders/scroll.gdshader" id="3_jw7lb"]
+[ext_resource type="Texture2D" uid="uid://hif4qmsh42us" path="res://Sprites/fondo1.png" id="4_6vfk8"]
 [ext_resource type="Texture2D" uid="uid://bcgh6pkvu6752" path="res://Sprites/hamsterwheel2.png" id="4_ehtkc"]
+[ext_resource type="Texture2D" uid="uid://bbwxalk61bbj0" path="res://Sprites/logo.png" id="5_1xund"]
 [ext_resource type="Texture2D" uid="uid://haa6j4r0clfg" path="res://Sprites/hamsterwheel3.png" id="5_6dk6o"]
 [ext_resource type="Texture2D" uid="uid://csfrhkpcg0qab" path="res://Sprites/hamsterwheeltrip1.png" id="6_4nkqq"]
-[ext_resource type="PackedScene" uid="uid://dsc0qsqg2g7nq" path="res://Scenes/options_menu.tscn" id="6_cp0ys"]
+[ext_resource type="PackedScene" uid="uid://bxyvs55u3pfiy" path="res://Scenes/options_menu.tscn" id="6_cp0ys"]
 [ext_resource type="Texture2D" uid="uid://bbpkkp02gcw8c" path="res://Sprites/hamsterwheeltrip2.png" id="7_ehtkc"]
 [ext_resource type="Texture2D" uid="uid://difxu6jl5altn" path="res://Sprites/hamsterwheeltrip3.png" id="8_6dk6o"]
 [ext_resource type="PackedScene" uid="uid://7v6mu82w1o7g" path="res://Scenes/loading.tscn" id="8_yhxw7"]
@@ -21,8 +23,18 @@
 [ext_resource type="Texture2D" uid="uid://3tnrefxkf7a5" path="res://Sprites/creditsbutton1.png" id="16_ehtkc"]
 [ext_resource type="Texture2D" uid="uid://djvtrpfdvpu78" path="res://Sprites/creditsbutton2.png" id="17_6dk6o"]
 [ext_resource type="Texture2D" uid="uid://bhxijn35ioub" path="res://Sprites/optionsbuttons1.png" id="19_6dk6o"]
+[ext_resource type="Texture2D" uid="uid://dschcfnq1dcoe" path="res://Sprites/exit1.png" id="19_6m47u"]
+[ext_resource type="Texture2D" uid="uid://dn7xhht2jglrr" path="res://Sprites/exit2.png" id="20_84iac"]
 [ext_resource type="Texture2D" uid="uid://c57fyray2lekm" path="res://Sprites/optionsbuttons2.png" id="20_jr6u5"]
+[ext_resource type="AudioStream" uid="uid://dhosxqp777m4w" path="res://SFX/light sfx loop.wav" id="21_tt8ml"]
 [ext_resource type="AudioStream" uid="uid://db7ow537xqlaj" path="res://SFX/goofy ahh sound.mp3" id="23_jr6u5"]
+[ext_resource type="FontFile" uid="uid://ciygyfdhhcin5" path="res://Sprites/FONT1.png" id="23_ne6ao"]
+[ext_resource type="FontFile" uid="uid://n2exgpxs2fx5" path="res://Sprites/FONT2.png" id="26_tt8ml"]
+[ext_resource type="FontFile" uid="uid://bk5j57lgnqs3q" path="res://Sprites/FONT3.png" id="27_fmarx"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_msuys"]
+shader = ExtResource("3_jw7lb")
+shader_parameter/speed = 0.075
 
 [sub_resource type="ImageTexture" id="ImageTexture_4nkqq"]
 
@@ -176,6 +188,62 @@ _data = {
 &"idle": SubResource("Animation_6m47u")
 }
 
+[sub_resource type="Animation" id="Animation_hkdq0"]
+resource_name = "lightflicker"
+length = 1.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture_normal")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.166667, 0.200008, 0.246522, 0.27443, 0.334898, 0.362806, 0.418622, 0.474439, 0.546535, 0.590723, 0.637236, 0.672121, 0.833333, 0.886084),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("19_6m47u"), ExtResource("20_84iac"), ExtResource("19_6m47u"), ExtResource("20_84iac"), ExtResource("19_6m47u"), ExtResource("20_84iac"), ExtResource("19_6m47u"), ExtResource("20_84iac"), ExtResource("19_6m47u"), ExtResource("20_84iac"), ExtResource("19_6m47u"), ExtResource("20_84iac"), ExtResource("19_6m47u"), ExtResource("20_84iac"), ExtResource("19_6m47u"), ExtResource("20_84iac")]
+}
+
+[sub_resource type="Animation" id="Animation_xcoo4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture_normal")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("19_6m47u")]
+}
+
+[sub_resource type="Animation" id="Animation_jw7lb"]
+resource_name = "idle"
+length = 0.01
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture_normal")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("19_6m47u")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jw7lb"]
+_data = {
+&"RESET": SubResource("Animation_xcoo4"),
+&"idle": SubResource("Animation_jw7lb"),
+&"lightflicker": SubResource("Animation_hkdq0")
+}
+
 [sub_resource type="Animation" id="Animation_tt8ml"]
 length = 0.001
 tracks/0/type = "value"
@@ -231,6 +299,96 @@ _data = {
 &"idle": SubResource("Animation_ne6ao")
 }
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6vfk8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1xund"]
+
+[sub_resource type="Animation" id="Animation_msuys"]
+resource_name = "movetext"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("VBoxContainer/HBoxContainer/Yes:theme_override_fonts/font")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [ExtResource("23_ne6ao"), ExtResource("26_tt8ml"), ExtResource("27_fmarx")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("VBoxContainer/HBoxContainer/No:theme_override_fonts/font")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [ExtResource("23_ne6ao"), ExtResource("26_tt8ml"), ExtResource("27_fmarx")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("VBoxContainer/Sure:theme_override_fonts/font")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [ExtResource("23_ne6ao"), ExtResource("26_tt8ml"), ExtResource("27_fmarx")]
+}
+
+[sub_resource type="Animation" id="Animation_aylim"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("VBoxContainer/HBoxContainer/Yes:theme_override_fonts/font")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("23_ne6ao")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("VBoxContainer/HBoxContainer/No:theme_override_fonts/font")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("23_ne6ao")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("VBoxContainer/Sure:theme_override_fonts/font")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("23_ne6ao")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_y82t1"]
+_data = {
+&"RESET": SubResource("Animation_aylim"),
+&"movetext": SubResource("Animation_msuys")
+}
+
 [node name="MainMenu" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -242,7 +400,28 @@ script = ExtResource("1_ce3w2")
 tween_intensity = 2.0
 tween_duration = 0.1
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_xcoo4")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 449.0
+offset_bottom = 259.0
+color = Color(0, 0, 0, 0.0745098)
+
+[node name="Parallax" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0.490196)
+texture_repeat = 2
+material = SubResource("ShaderMaterial_msuys")
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("4_6vfk8")
+
+[node name="Logo" type="TextureRect" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -255,7 +434,7 @@ offset_right = 101.5
 offset_bottom = -2.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_cp0ys")
+texture = ExtResource("5_1xund")
 
 [node name="Play" type="TextureButton" parent="."]
 layout_mode = 1
@@ -288,15 +467,14 @@ speed_scale = 1.35
 
 [node name="Credits" type="TextureButton" parent="."]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
+anchors_preset = 2
+anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 60.0
-offset_top = 131.0
-offset_right = -322.0
-offset_bottom = -55.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_left = 69.0
+offset_top = -124.0
+offset_right = 135.0
+offset_bottom = -58.0
+grow_vertical = 0
 texture_normal = ExtResource("16_ehtkc")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Credits"]
@@ -306,19 +484,30 @@ libraries = {
 
 [node name="Quit" type="TextureButton" parent="."]
 layout_mode = 0
-offset_left = -2.0
-offset_top = 10.0
-offset_right = 598.0
-offset_bottom = 294.0
-scale = Vector2(0.2, 0.2)
-texture_normal = ExtResource("4_cp0ys")
+offset_left = 384.0
+offset_top = 188.0
+offset_right = 440.0
+offset_bottom = 244.0
+texture_normal = ExtResource("19_6m47u")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Quit"]
+libraries = {
+&"": SubResource("AnimationLibrary_jw7lb")
+}
+autoplay = "idle"
+
+[node name="LightSFX" type="AudioStreamPlayer" parent="Quit"]
+stream = ExtResource("21_tt8ml")
+volume_db = -3.5
+bus = &"SFX"
+playback_type = 1
 
 [node name="Options" type="TextureButton" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.821429
+anchor_left = 0.776786
 anchor_top = 0.630952
-anchor_right = 0.821429
+anchor_right = 0.776786
 anchor_bottom = 0.630952
 offset_left = -28.0
 offset_top = -28.0
@@ -337,34 +526,35 @@ libraries = {
 autoplay = "idle"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Sure" type="Label" parent="."]
 visible = false
 layout_mode = 0
-offset_left = 336.0
-offset_top = 176.0
-offset_right = 393.0
-offset_bottom = 199.0
-text = "u Sure?"
+offset_left = 274.0
+offset_top = 204.0
+offset_right = 386.0
+offset_bottom = 248.0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
-visible = false
-layout_mode = 0
-offset_left = 329.0
-offset_top = 200.0
-offset_right = 399.0
-offset_bottom = 240.0
-
-[node name="Yes" type="Button" parent="HBoxContainer"]
+[node name="Sure" type="Label" parent="VBoxContainer"]
 layout_mode = 2
-text = "Yes"
+theme_override_fonts/font = ExtResource("23_ne6ao")
+text = "U SURE?"
+horizontal_alignment = 1
 
-[node name="No" type="Button" parent="HBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
-text = "No"
+
+[node name="Yes" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("23_ne6ao")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_6vfk8")
+text = "YES"
+flat = true
+
+[node name="No" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("23_ne6ao")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_1xund")
+text = "NO"
+flat = true
 
 [node name="OptionsMenu" parent="." instance=ExtResource("6_cp0ys")]
 visible = false
@@ -373,6 +563,12 @@ layout_mode = 1
 [node name="Loading2" parent="." instance=ExtResource("8_yhxw7")]
 visible = false
 position = Vector2(224, 126)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_y82t1")
+}
+autoplay = "movetext"
 
 [connection signal="mouse_entered" from="Play" to="." method="_on_play_mouse_entered"]
 [connection signal="mouse_exited" from="Play" to="." method="_on_play_mouse_exited"]
@@ -386,9 +582,9 @@ position = Vector2(224, 126)
 [connection signal="mouse_entered" from="Options" to="." method="_on_options_mouse_entered"]
 [connection signal="mouse_exited" from="Options" to="." method="_on_options_mouse_exited"]
 [connection signal="pressed" from="Options" to="." method="_on_options_pressed"]
-[connection signal="mouse_entered" from="HBoxContainer/Yes" to="." method="_on_yes_mouse_entered"]
-[connection signal="mouse_exited" from="HBoxContainer/Yes" to="." method="_on_yes_mouse_exited"]
-[connection signal="pressed" from="HBoxContainer/Yes" to="." method="_on_yes_pressed"]
-[connection signal="mouse_entered" from="HBoxContainer/No" to="." method="_on_no_mouse_entered"]
-[connection signal="mouse_exited" from="HBoxContainer/No" to="." method="_on_no_mouse_exited"]
-[connection signal="pressed" from="HBoxContainer/No" to="." method="_on_no_pressed"]
+[connection signal="mouse_entered" from="VBoxContainer/HBoxContainer/Yes" to="." method="_on_yes_mouse_entered"]
+[connection signal="mouse_exited" from="VBoxContainer/HBoxContainer/Yes" to="." method="_on_yes_mouse_exited"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/Yes" to="." method="_on_yes_pressed"]
+[connection signal="mouse_entered" from="VBoxContainer/HBoxContainer/No" to="." method="_on_no_mouse_entered"]
+[connection signal="mouse_exited" from="VBoxContainer/HBoxContainer/No" to="." method="_on_no_mouse_exited"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/No" to="." method="_on_no_pressed"]

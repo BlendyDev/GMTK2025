@@ -47,11 +47,12 @@ func _on_credits_mouse_entered() -> void:
 
 func _on_exit_pressed() -> void:
 	AudioController.ui_click_sfx()
-	$HBoxContainer.visible = true
-	$Sure.visible = true
+	$VBoxContainer.visible = true
 	
 func _on_exit_mouse_entered() -> void:
 	AudioController.ui_hover_sfx()
+	$Quit/AnimationPlayer.play("lightflicker")
+	$Quit/LightSFX.play()
 
 
 func _on_yes_pressed() -> void:
@@ -59,8 +60,7 @@ func _on_yes_pressed() -> void:
 
 func _on_no_pressed() -> void:
 	AudioController.ui_back_sfx()
-	$HBoxContainer.visible = false
-	$Sure.visible = false
+	$VBoxContainer.visible = false
 
 
 func _on_options_pressed() -> void:
@@ -88,7 +88,9 @@ func _on_options_mouse_exited() -> void:
 	$Options/AnimationPlayer.play("idle")
 
 func _on_quit_mouse_exited() -> void:
+	$Quit/LightSFX.playing = false
 	AudioController.ui_lookaway_sfx()
+	$Quit/AnimationPlayer.play("idle")
 
 func _on_credits_mouse_exited() -> void:
 	AudioController.ui_lookaway_sfx()

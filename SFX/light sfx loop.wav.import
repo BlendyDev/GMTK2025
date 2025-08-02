@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dhosxqp777m4w"
+path="res://.godot/imported/light sfx loop.wav-c0b3ec62f58a1433089ef35ec032a096.sample"
+
+[deps]
+
+source_file="res://SFX/light sfx loop.wav"
+dest_files=["res://.godot/imported/light sfx loop.wav-c0b3ec62f58a1433089ef35ec032a096.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=2
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2
