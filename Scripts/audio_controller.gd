@@ -18,7 +18,6 @@ func hit_sfx(pitch: float):
 	
 func cheer_sfx(count: int):
 	cheerSFX.volume_linear = min(float(count+9)/12.0, 1.5)
-	print("volume: " + str(cheerSFX.volume_linear))
 	cheerSFX.play()
 
 func cat_hit_sfx():

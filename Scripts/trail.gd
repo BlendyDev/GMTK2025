@@ -177,7 +177,6 @@ func combo_end(combo : Combo):
 	if (combo.indicator != null):
 		await get_tree().create_timer(0.7, true, false, true).timeout
 		combo.indicator.animation_player.play("combo")
-		print("combo.count: " + str(combo.count) + " | maxspawns: " + str(combo.max_mobs))
 		if (combo.count >= combo.max_mobs):
 			AudioController.cheer_sfx(combo.count)
 			
@@ -186,7 +185,7 @@ func handle_dead_mob():
 	time_since_last_death_handle = 0.0
 	var mob = dead_mobs.get(dead_mobs.size()-1)
 	var combo = handle_combo(mob)
-	AudioController.hit_sfx((combo.count - combo.mobs.size()) * 0.075 + 1)
+	AudioController.hit_sfx((combo.count - combo.mobs.size()) * 0.2 + 0.7)
 	combo.mobs.remove_at(combo.mobs.rfind(mob))
 	if (combo.count > 1):
 		if (combo.indicator == null):
