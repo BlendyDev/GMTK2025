@@ -94,8 +94,6 @@ func _on_body_exited(body: Node2D) -> void:
 	var index := trail.bodies_entered.rfind(body)
 	if (index != -1): trail.bodies_entered.remove_at(index)
 	if (trail.bodies_entered.is_empty()): trail.can_trail = true
-	if (Input.is_key_pressed(KEY_SPACE)):
-		pass
 
 func move(index: int, move_speed: float = dash_speed):
 	var new_pos = available_locations.get(index)
@@ -205,8 +203,6 @@ func trail_to_random_pos(move_speed: float = dash_speed):
 	
 
 func _on_player_detect_area_entered(area: Area2D) -> void:
-	if (Input.is_key_pressed(KEY_SPACE)):
-		pass
 	if (area.collision_layer == pow(2, 10-1)): #traced circle
 		if (action == Action.MOVING or action == Action.IDLE):
 			AudioController.cat_hit_sfx()

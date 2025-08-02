@@ -130,7 +130,7 @@ fit_content = true
 
 [node name="Trail" type="StaticBody2D" parent="."]
 collision_layer = 256
-collision_mask = 4
+collision_mask = 1028
 script = ExtResource("1_0f350")
 min_distance_to_oldest_points = 18.0
 circle_min_timeout_sec = 0.2

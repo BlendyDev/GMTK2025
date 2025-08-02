@@ -68,11 +68,10 @@ func animate_direction():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if get_tree().paused: return
-	if (Input.is_key_pressed(KEY_SPACE)):
-		pass
 	if !playing:
 		return
 	if (Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) or Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT)):
+		Dummy.reset_trail()
 		trail.reset_trail()
 		AudioController.cut_tail_sfx()
 	velocity = mouse_motion*speed * (1/delta) * Global.sensitivity_boost

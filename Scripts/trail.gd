@@ -91,6 +91,9 @@ func reset_trail():
 func area_entered_circle(area: Area2D):
 	if (area.collision_layer == pow(2, 3-1)): #mob
 		(area.get_parent() as Mob).loop = loop_count
+	if (area.collision_layer == pow(2, 11-1)): #dummy
+		(area as Dummy).loop = loop_count
+		
 
 func try_spawn_circle(closest_point: Vector2):
 	if (player.velocity.length() < 20.0): 
@@ -115,7 +118,7 @@ func try_spawn_circle(closest_point: Vector2):
 	fade_out_trail.add_point(closest_point)
 	var area = Area2D.new()
 	area.collision_layer = pow(2, 10-1)
-	area.collision_mask = pow(2, 3-1) + pow (2, 5-1)
+	area.collision_mask = pow(2, 3-1) + pow (2, 5-1) + pow(2, 11-1)
 	area.area_entered.connect(area_entered_circle)
 	
 	var initial_polygon :PackedVector2Array = fade_out_trail.points.duplicate()
@@ -157,7 +160,8 @@ func add_last_segment(a: Vector2, b: Vector2):
 	last_collision_area.input_pickable = false
 	last_collision_area.body_entered.connect(_on_last_segments_body_entered.bind(last_collision_segment.b))
 	add_child(last_collision_area)
-	
+		if (Input.is_key_pressed(KEY_SPACE)):
+		pass
 	var last_collision_shape := CollisionShape2D.new()
 	last_collision_shape.debug_color = Color.from_rgba8(255, 0, 0, 255)
 	last_collision_shape.shape = last_collision_segment
@@ -275,8 +279,6 @@ func handle_disabled_collisions():
 	
 
 func _process(delta: float) -> void:
-	if (Input.is_key_pressed(KEY_SPACE)):
-		pass
 	if get_tree().paused: return
 	if (!player.playing or !can_trail): return
 	
