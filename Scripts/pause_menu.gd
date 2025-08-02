@@ -1,6 +1,10 @@
 extends Control
 @onready var level : Level = $".."
 
+func _ready() -> void:
+	$Loading.visible = false
+	await get_tree().create_timer(0.8, true, false, true).timeout
+
 func _on_resume_pressed() -> void:
 	AudioController.ui_click_sfx()
 	level.unpause()
@@ -49,7 +53,12 @@ func _on_main_menu_mouse_entered() -> void:
 
 func _on_yes_2_pressed() -> void:
 	AudioController.ui_back_sfx()
-	await get_tree().create_timer(1.5, true, false, true).timeout
+	AudioController.tutorial_music_stop()
+	$Loading.visible = true
+	await get_tree().create_timer(0.4, true, false, true).timeout
+	AudioController.ui_click_sfx()
+	await get_tree().create_timer(0.4, true, false, true).timeout
+	$Loading.visible = false
 	get_tree().change_scene_to_file("res://Scenes/main_menu.tscn")
 
 func _on_no_2_pressed() -> void:

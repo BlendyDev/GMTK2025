@@ -27,8 +27,10 @@ func _process(delta: float) -> void:
 		spaced = false
 		$TextureProgressBar.visible = false
 	if total > 1.5:
+		AudioController.cut_tail_sfx()
 		total = 0
 		spaced = false
+		AudioController.cutscene_stop()
 		$AnimationPlayer.play("switch_scene")
 	
 	if Input.is_action_pressed("Up"):

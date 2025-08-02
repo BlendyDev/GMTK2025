@@ -3,7 +3,7 @@ extends Control
 var played_music = false
 
 func _ready() -> void:
-	AudioController.tutorial_music_stop()
+	AudioController.makeclickloudagain()
 	AudioController.menu_music()
 	played_music = true
 	AudioController.removelowpass()
@@ -11,6 +11,11 @@ func _ready() -> void:
 func _on_play_pressed() -> void:
 	AudioController.ui_click_sfx()
 	AudioController.menu_music_stop()
+	$Loading2.visible = true
+	await get_tree().create_timer(0.4, true, false, true).timeout
+	AudioController.arpeggio_sfx()
+	await get_tree().create_timer(0.4, true, false, true).timeout
+	$Loading2.visible = false
 	get_tree().change_scene_to_file("res://Scenes/level.tscn")
 
 func _on_play_mouse_entered() -> void:

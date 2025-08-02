@@ -68,6 +68,21 @@ func tutorial_music_resume():
 	
 func cutscene():
 	$Cutscene.play()
+func cutscene_stop():
+	await get_tree().create_timer(1.2, true, false, true).timeout
+	$UIClickSFX.volume_db = -15.0
+	AudioController.ui_click_sfx()
+	tween = get_tree().create_tween()
+	tween.set_process_mode(Tween.TWEEN_PROCESS_IDLE)
+	tween.set_ignore_time_scale(true)
+	tween.set_ease(Tween.EASE_OUT)
+	tween.set_trans(Tween.TRANS_CUBIC)
+	tween.tween_property($Cutscene, "volume_db", -80, 1)
+	if $Cutscene.volume_db == -80:
+		$Cutscene.stop()
+	
+func makeclickloudagain():
+	$UIClickSFX.volume_db = -1.5
 	
 func removelowpass():
 	tween = get_tree().create_tween()
