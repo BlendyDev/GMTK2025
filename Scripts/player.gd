@@ -10,6 +10,7 @@ var mouse_motion:= Vector2.ZERO
 var last_velocities: PackedVector2Array = [Vector2.ZERO]
 @export var stored_velocity_frames: int
 @onready var trail: Trail = $"../Trail"
+@onready var boss: Boss = $"../Boss"
 
 # Called when the node enters the scene tree for the first time.
 	
@@ -17,6 +18,7 @@ func bind_to_player():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	print("playing!")
 	playing = true
+	boss.activate()
 
 func _input(e: InputEvent):
 	match e.get_class():

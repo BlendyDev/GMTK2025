@@ -37,7 +37,6 @@ var available_locations := [UP_LEFT, LEFT, DOWN_LEFT, DOWN, DOWN_RIGHT, RIGHT, U
 
 func _ready() -> void:
 	action = Action.PRE
-	activate()
 	timer.start()
 	pass # Replace with function body.
 

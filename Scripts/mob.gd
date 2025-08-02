@@ -14,21 +14,27 @@ enum Action {IDLE, MOVING, DYING}
 enum Type {BASIC, CAT, SLIME, RAMIRO}
 var action: Action
 var type: Type
-var speed = 250.0
+var base_speed = 250.0
+var speed_mult: float = 1.0
+var idle_time_mult: float = 1.0
 
 func init_basic():
 	type = Type.BASIC
 	animation_player.play("basic_idle")
 	
 func init_cat():
+	speed_mult = 1.5
 	type = Type.CAT
 	animation_player.play("cat_idle")
 	
 func init_slime():
+	speed_mult = 0.6
 	type = Type.SLIME
 	animation_player.play("slime_idle")
 	
 func init_ramiro():
+	idle_time_mult = 0.5
+	speed_mult = 1.35
 	type = Type.RAMIRO
 	animation_player.play("ramiro_idle")
 	
@@ -90,13 +96,13 @@ func _on_switch_action_timeout() -> void:
 			action = Action.MOVING
 			var angle = rng.randf_range(0.0, 2*PI)
 			velocity = (Vector2(cos(angle), sin(angle)) + (player.position-position).normalized()*2).normalized()
-			velocity = velocity * speed * rng.randf_range(0.75, 1.25)
-			timer.wait_time = 0.3
+			velocity = velocity * base_speed * speed_mult * rng.randf_range(0.75, 1.25)
+			timer.wait_time = 0.3 * idle_time_mult
 			timer.start()
 		Action.MOVING:
 			action = Action.IDLE
 			velocity = Vector2.ZERO
-			timer.wait_time = 0.6
+			timer.wait_time = 0.6 * idle_time_mult
 			timer.start()
 	pass # Replace with function body.
 
