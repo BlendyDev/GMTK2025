@@ -4,6 +4,7 @@ class_name Trail
 class Combo:
 	var count: int
 	var mobs: Array[Mob]
+	var indicator: ComboIndicator
 
 @onready var level: Level = $".."
 @onready var trail_line: Line2D = $Trail
@@ -16,7 +17,7 @@ class Combo:
 @export var min_distance_to_oldest_points: float
 @export var circle_min_timeout_sec: float
 @export var last_points_tolerance := 0.2
-@export var freeze_time := 0.06
+@export var freeze_time := 0.05
 @export var time_per_death_handle_sec: float = 0.1
 @export var circle_lifetime: float = 0.05
 
@@ -168,17 +169,24 @@ func handle_dead_mob():
 	var combo = handle_combo(mob)
 	AudioController.hit_sfx((combo.count - combo.mobs.size()) * 0.075 + 1)
 	combo.mobs.remove_at(combo.mobs.rfind(mob))
-	if (combo.mobs.size() == 0):
-		if (combo.count > 1):
+	if (combo.count > 1):
+		if (combo.indicator == null):
 			var combo_indicator :ComboIndicator = combo_scene.instantiate() as Node2D
 			get_tree().current_scene.add_child(combo_indicator)
-			combo_indicator.position = mob.position
-			combo_indicator.number.frame = combo.count
+			combo.indicator = combo_indicator
+		combo.indicator.number.frame = combo.count - combo.mobs.size()
+		combo.indicator.position = mob.position
+		level.freeze(freeze_time + min(0.1,(combo.count - combo.mobs.size())*0.025 ))
+	else:
+		level.freeze(freeze_time)
+	if (combo.mobs.size() == 0):
+		if (combo.indicator != null):
+			combo.indicator.animation_player.play("combo")
 		if (combo.count >= 3): AudioController.cheer_sfx()
 		combos.remove_at(combos.rfind(combo))
 	dead_mobs.remove_at(dead_mobs.size()-1)
 	
-	level.freeze(freeze_time)
+	
 	match mob.type:
 		Mob.Type.BASIC:
 			mob.animation_player.play("basic_death")
