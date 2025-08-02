@@ -22,22 +22,26 @@ var loop := 0
 func init_basic():
 	type = Type.BASIC
 	animation_player.play("basic_idle")
+	AudioController.spawn_normal()
 	
 func init_cat():
 	speed_mult = 1.5
 	type = Type.CAT
 	animation_player.play("cat_idle")
+	AudioController.spawn_cat()
 	
 func init_slime():
 	speed_mult = 0.6
 	type = Type.SLIME
 	animation_player.play("slime_idle")
+	AudioController.spawn_slime()
 	
 func init_ramiro():
 	idle_time_mult = 0.5
 	speed_mult = 1.35
 	type = Type.RAMIRO
 	animation_player.play("ramiro_idle")
+	AudioController.spawn_ramiro()
 	
 func init_random():
 	var new_type := rng.randi_range(0, 3)
