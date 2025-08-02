@@ -89,9 +89,6 @@ func _on_body_exited(body: Node2D) -> void:
 	var index := trail.bodies_entered.rfind(body)
 	if (index != -1): trail.bodies_entered.remove_at(index)
 	if (trail.bodies_entered.is_empty()): trail.can_trail = true
-	if (Input.is_key_pressed(KEY_SPACE)):
-		pass
-	pass # Replace with function body.
 
 
 func _on_switch_action_timeout() -> void:

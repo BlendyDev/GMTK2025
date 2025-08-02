@@ -278,8 +278,6 @@ func handle_disabled_collisions():
 	
 
 func _process(delta: float) -> void:
-	if (Input.is_key_pressed(KEY_SPACE)):
-		pass
 	if (Engine.time_scale == 0): return
 	if (!player.playing or !can_trail): return
 	

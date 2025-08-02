@@ -1,12 +1,16 @@
 extends Area2D
 class_name Dummy
 
-var loop:= 0
-
 enum Stage {PRE, PRE_SENSITIVITY, PRE_LEFT, PRE_RIGHT, PRE_BOTH, PRE_LEMNISCATE, PRE_RESET, COMPLETED}
 
-static var stage
+static var stage: Stage
+static var transitioning: bool
 static var comboed_dummies: Array[Dummy]
+
+@export var id: int
+@onready var trail: Trail = $"../Trail"
+
+var loop:= 0
 
 static func changed_sensitivity():
 	if (stage == Stage.PRE_SENSITIVITY): 
@@ -15,9 +19,6 @@ static func changed_sensitivity():
 static func reset_trail():
 	if (stage == Stage.PRE_RESET):
 		stage = Stage.COMPLETED
-
-@export var id: int
-@onready var trail: Trail = $"../Trail"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -31,8 +32,6 @@ func _process(delta: float) -> void:
 	if (id != 0): return # make leftmost dummy handle processing
 	if (comboed_dummies.size() > 1 and stage == Stage.PRE_BOTH):
 		stage = Stage.PRE_LEMNISCATE
-	if (comboed_dummies.size() != 0):
-		print("comboed_dummies.size() " + str(comboed_dummies.size()) + "|loop: " + str(loop) + "|stage: " + str(Stage.keys()[stage]))
 	if (comboed_dummies.size() > 1 and loop > 1 and stage == Stage.PRE_LEMNISCATE):
 		stage = Stage.PRE_RESET
 	comboed_dummies.clear()
