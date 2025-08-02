@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://4otsh1wy31kg"]
+[gd_scene load_steps=33 format=3 uid="uid://4otsh1wy31kg"]
 
 [ext_resource type="Script" uid="uid://cxjw50s4jeh2y" path="res://Scripts/trail.gd" id="1_0f350"]
 [ext_resource type="Script" uid="uid://c26jmx7s0p0dr" path="res://Scripts/level.gd" id="1_ha31o"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://u8v7wxeolqad" path="res://Sprites/ocstaculoepicoup.png" id="6_qxfql"]
 [ext_resource type="Texture2D" uid="uid://c1yfhu6mq1mop" path="res://Sprites/fondo.png" id="7_8c0lf"]
 [ext_resource type="Texture2D" uid="uid://cyeifbyapar62" path="res://Sprites/trueborder.png" id="8_754fn"]
+[ext_resource type="PackedScene" uid="uid://cc54cr13j7aqs" path="res://Scenes/dummy.tscn" id="9_pa6b8"]
 [ext_resource type="Texture2D" uid="uid://dwgaupo44whxw" path="res://Sprites/bordes-Sheet.png" id="10_ha31o"]
 [ext_resource type="PackedScene" uid="uid://dd7jxb3adi5uf" path="res://Scenes/boss.tscn" id="10_qxfql"]
 [ext_resource type="PackedScene" uid="uid://d2cg3mbio7ehv" path="res://Scenes/pause_menu.tscn" id="11_qxfql"]
@@ -191,36 +192,41 @@ shape = SubResource("ConvexPolygonShape2D_ha31o")
 z_index = -1000
 texture = ExtResource("7_8c0lf")
 
-[node name="Border" type="StaticBody2D" parent="."]
+[node name="SolidBorder" type="StaticBody2D" parent="."]
 collision_layer = 2
 
-[node name="Sprite2D" type="Sprite2D" parent="Border"]
+[node name="Sprite2D" type="Sprite2D" parent="SolidBorder"]
 texture = ExtResource("8_754fn")
 
-[node name="up" type="CollisionShape2D" parent="Border"]
+[node name="up" type="CollisionShape2D" parent="SolidBorder"]
 position = Vector2(-0.5, -126.5)
 shape = SubResource("RectangleShape2D_bvt00")
 
-[node name="down" type="CollisionShape2D" parent="Border"]
+[node name="down" type="CollisionShape2D" parent="SolidBorder"]
 position = Vector2(0.5, 126.5)
 shape = SubResource("RectangleShape2D_754fn")
 
-[node name="right" type="CollisionShape2D" parent="Border"]
+[node name="right" type="CollisionShape2D" parent="SolidBorder"]
 position = Vector2(224.5, -0.5)
 shape = SubResource("RectangleShape2D_oqgf2")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Border"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SolidBorder"]
 position = Vector2(-224.5, 0.5)
 shape = SubResource("RectangleShape2D_qxfql")
 
+[node name="LeftDummy" parent="." instance=ExtResource("9_pa6b8")]
+
+[node name="Dummy" parent="." instance=ExtResource("9_pa6b8")]
+
 [node name="Boss" parent="." instance=ExtResource("10_qxfql")]
+visible = false
 dash_speed = 500.0
 spawn_shield_speed = 200.0
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="DecorativeBorder" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_0cmrb")
 autoplay = "default"
-frame_progress = 0.412735
+frame_progress = 0.829726
 speed_scale = 1.5
 
 [node name="PauseMenu" parent="." instance=ExtResource("11_qxfql")]
