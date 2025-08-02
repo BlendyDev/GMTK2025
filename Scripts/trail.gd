@@ -266,12 +266,13 @@ func handle_dead_mob():
 			mob.animation_player.play("ramiro_death")
 
 func handle_disabled_collisions():
-	if (float(trail_line.points.size())/float(last_points_count()) < min_ratio_max_points_to_current_final_points): 
-		cleared_points = true
 	var closest_point = find_closest_point(last_points_tolerance)
 	var distance = player.position.distance_to(closest_point)
-	if distance > min_distance_to_oldest_points * 3:
+	if (float(trail_line.points.size())/float(last_points_count()) < min_ratio_max_points_to_current_final_points): 
+		cleared_points = true
+	elif distance > min_distance_to_oldest_points * 3:
 		cleared_points = false
+	
 
 func _physics_process(delta: float) -> void:
 	if (Input.is_key_pressed(KEY_SPACE)):
