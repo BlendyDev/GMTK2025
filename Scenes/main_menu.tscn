@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://db0iuepgj8olx"]
+[gd_scene load_steps=38 format=3 uid="uid://db0iuepgj8olx"]
 
 [ext_resource type="Script" uid="uid://0mcwei50crlf" path="res://Scripts/main_menu.gd" id="1_ce3w2"]
 [ext_resource type="Texture2D" uid="uid://ct0q62raty2r7" path="res://Sprites/mousewheel.png" id="2_cp0ys"]
@@ -22,24 +22,14 @@
 [ext_resource type="Texture2D" uid="uid://djvtrpfdvpu78" path="res://Sprites/creditsbutton2.png" id="17_6dk6o"]
 [ext_resource type="Texture2D" uid="uid://bhxijn35ioub" path="res://Sprites/optionsbuttons1.png" id="19_6dk6o"]
 [ext_resource type="Texture2D" uid="uid://c57fyray2lekm" path="res://Sprites/optionsbuttons2.png" id="20_jr6u5"]
+[ext_resource type="AudioStream" uid="uid://db7ow537xqlaj" path="res://SFX/goofy ahh sound.mp3" id="23_jr6u5"]
 
 [sub_resource type="ImageTexture" id="ImageTexture_4nkqq"]
 
-[sub_resource type="Animation" id="Animation_ehtkc"]
-resource_name = "hover"
-length = 2.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture_hover")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6, 1.8, 2),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [ExtResource("6_4nkqq"), ExtResource("7_ehtkc"), ExtResource("8_6dk6o"), ExtResource("9_jr6u5"), ExtResource("10_6m47u"), ExtResource("11_84iac"), ExtResource("12_5n0dv"), ExtResource("13_ne6ao"), ExtResource("14_tt8ml"), ExtResource("15_fmarx"), ExtResource("15_fmarx")]
-}
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_6m47u"]
+random_pitch = 1.05
+streams_count = 1
+stream_0/stream = ExtResource("23_jr6u5")
 
 [sub_resource type="Animation" id="Animation_6dk6o"]
 length = 0.001
@@ -67,6 +57,46 @@ tracks/1/keys = {
 "update": 1,
 "values": [ExtResource("3_4nkqq")]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("GoofySFX:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_ehtkc"]
+resource_name = "hover"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture_hover")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6, 1.8, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("6_4nkqq"), ExtResource("7_ehtkc"), ExtResource("8_6dk6o"), ExtResource("9_jr6u5"), ExtResource("10_6m47u"), ExtResource("11_84iac"), ExtResource("12_5n0dv"), ExtResource("13_ne6ao"), ExtResource("14_tt8ml"), ExtResource("15_fmarx"), ExtResource("15_fmarx")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GoofySFX:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1.03333),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_jr6u5"]
 resource_name = "idle"
@@ -90,22 +120,6 @@ _data = {
 &"RESET": SubResource("Animation_6dk6o"),
 &"hover": SubResource("Animation_ehtkc"),
 &"idle": SubResource("Animation_jr6u5")
-}
-
-[sub_resource type="Animation" id="Animation_6m47u"]
-resource_name = "idle"
-length = 0.01
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture_normal")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("16_ehtkc")]
 }
 
 [sub_resource type="Animation" id="Animation_84iac"]
@@ -139,14 +153,7 @@ tracks/0/keys = {
 "values": [ExtResource("17_6dk6o")]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_ne6ao"]
-_data = {
-&"RESET": SubResource("Animation_84iac"),
-&"credits": SubResource("Animation_5n0dv"),
-&"idle": SubResource("Animation_6m47u")
-}
-
-[sub_resource type="Animation" id="Animation_ne6ao"]
+[sub_resource type="Animation" id="Animation_6m47u"]
 resource_name = "idle"
 length = 0.01
 tracks/0/type = "value"
@@ -159,7 +166,14 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("19_6dk6o")]
+"values": [ExtResource("16_ehtkc")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ne6ao"]
+_data = {
+&"RESET": SubResource("Animation_84iac"),
+&"credits": SubResource("Animation_5n0dv"),
+&"idle": SubResource("Animation_6m47u")
 }
 
 [sub_resource type="Animation" id="Animation_tt8ml"]
@@ -192,6 +206,22 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [ExtResource("20_jr6u5")]
+}
+
+[sub_resource type="Animation" id="Animation_ne6ao"]
+resource_name = "idle"
+length = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture_normal")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("19_6dk6o")]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_hkdq0"]
@@ -242,6 +272,12 @@ grow_horizontal = 2
 grow_vertical = 2
 texture_normal = ExtResource("3_4nkqq")
 texture_hover = SubResource("ImageTexture_4nkqq")
+
+[node name="GoofySFX" type="AudioStreamPlayer" parent="Play"]
+stream = SubResource("AudioStreamRandomizer_6m47u")
+volume_db = -4.0
+pitch_scale = 1.6
+bus = &"SFX"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Play"]
 libraries = {

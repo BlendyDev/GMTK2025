@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://4otsh1wy31kg"]
+[gd_scene load_steps=21 format=3 uid="uid://4otsh1wy31kg"]
 
 [ext_resource type="Script" uid="uid://cxjw50s4jeh2y" path="res://Scripts/trail.gd" id="1_0f350"]
 [ext_resource type="Script" uid="uid://c26jmx7s0p0dr" path="res://Scripts/level.gd" id="1_ha31o"]
@@ -10,7 +10,6 @@
 [ext_resource type="Texture2D" uid="uid://cyeifbyapar62" path="res://Sprites/trueborder.png" id="8_754fn"]
 [ext_resource type="PackedScene" uid="uid://dd7jxb3adi5uf" path="res://Scenes/boss.tscn" id="10_qxfql"]
 [ext_resource type="PackedScene" uid="uid://d2cg3mbio7ehv" path="res://Scenes/pause_menu.tscn" id="11_qxfql"]
-[ext_resource type="PackedScene" uid="uid://dsc0qsqg2g7nq" path="res://Scenes/options_menu.tscn" id="13_pa6b8"]
 
 [sub_resource type="Curve" id="Curve_6phgx"]
 _data = [Vector2(0, 0.235955), 0.0, -0.151716, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -156,18 +155,5 @@ spawn_shield_speed = 200.0
 [node name="PauseMenu" parent="." instance=ExtResource("11_qxfql")]
 visible = false
 z_index = 4000
-
-[node name="OptionsMenu" parent="PauseMenu" instance=ExtResource("13_pa6b8")]
-visible = false
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -227.0
-offset_top = -127.0
-offset_right = -227.0
-offset_bottom = -127.0
 
 [connection signal="mouse_entered" from="Player/GrabDetector" to="Player" method="_on_mouse_entered"]

@@ -1,13 +1,14 @@
 extends Control
-@onready var level : Level = $".."
+#@onready var level : Level = $".."
 
 func _ready() -> void:
+	$AnimationPlayer.play("movetext")
 	$Loading.visible = false
 	await get_tree().create_timer(0.8, true, false, true).timeout
 
 func _on_resume_pressed() -> void:
 	AudioController.ui_click_sfx()
-	level.unpause()
+	#level.unpause()
 func _on_resume_mouse_entered() -> void:
 	AudioController.ui_hover_sfx()
 

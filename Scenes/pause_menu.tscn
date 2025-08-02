@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://d2cg3mbio7ehv"]
+[gd_scene load_steps=25 format=3 uid="uid://d2cg3mbio7ehv"]
 
 [ext_resource type="Script" uid="uid://doy504o3wwhr8" path="res://Scripts/pause_menu.gd" id="1_emv3i"]
 [ext_resource type="Shader" uid="uid://g6vj64km5x0h" path="res://Shaders/pause_menu.gdshader" id="2_k0w1u"]
@@ -6,6 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://n3x2l26iuekn" path="res://Sprites/pausemousegame2.png" id="4_vmyb1"]
 [ext_resource type="FontFile" uid="uid://ciygyfdhhcin5" path="res://Sprites/FONT1.png" id="5_myy0f"]
 [ext_resource type="PackedScene" uid="uid://7v6mu82w1o7g" path="res://Scenes/loading.tscn" id="5_vmyb1"]
+[ext_resource type="FontFile" uid="uid://n2exgpxs2fx5" path="res://Sprites/FONT2.png" id="7_u8tnp"]
+[ext_resource type="FontFile" uid="uid://bk5j57lgnqs3q" path="res://Sprites/FONT3.png" id="8_stj27"]
+[ext_resource type="PackedScene" uid="uid://dsc0qsqg2g7nq" path="res://Scenes/options_menu.tscn" id="9_stj27"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1och7"]
 shader = ExtResource("2_k0w1u")
@@ -41,6 +44,260 @@ _data = {
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0fi7f"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uscpe"]
+
+[sub_resource type="Animation" id="Animation_524vl"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("VBoxContainer/Label:theme_override_fonts/font")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("5_myy0f")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("VBoxContainer/Resume:theme_override_fonts/font")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("5_myy0f")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("VBoxContainer/Options:theme_override_fonts/font")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("5_myy0f")]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("VBoxContainer/Main Menu:theme_override_fonts/font")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("5_myy0f")]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("VBoxContainer/Quit:theme_override_fonts/font")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("5_myy0f")]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("VBoxContainer/Sure2:theme_override_fonts/font")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("5_myy0f")]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("VBoxContainer/HBoxContainer2/Yes2:theme_override_fonts/font")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("5_myy0f")]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("VBoxContainer/HBoxContainer2/No2:theme_override_fonts/font")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("5_myy0f")]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("VBoxContainer/Sure:theme_override_fonts/font")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("5_myy0f")]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("VBoxContainer/HBoxContainer/Yes:theme_override_fonts/font")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("5_myy0f")]
+}
+
+[sub_resource type="Animation" id="Animation_ix48p"]
+resource_name = "movetext"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("VBoxContainer/Label:theme_override_fonts/font")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [ExtResource("5_myy0f"), ExtResource("7_u8tnp"), ExtResource("8_stj27")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("VBoxContainer/Resume:theme_override_fonts/font")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [ExtResource("5_myy0f"), ExtResource("7_u8tnp"), ExtResource("8_stj27")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("VBoxContainer/Options:theme_override_fonts/font")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [ExtResource("5_myy0f"), ExtResource("7_u8tnp"), ExtResource("8_stj27")]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("VBoxContainer/Main Menu:theme_override_fonts/font")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [ExtResource("5_myy0f"), ExtResource("7_u8tnp"), ExtResource("8_stj27")]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("VBoxContainer/Quit:theme_override_fonts/font")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [ExtResource("5_myy0f"), ExtResource("7_u8tnp"), ExtResource("8_stj27")]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("VBoxContainer/Sure2:theme_override_fonts/font")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [ExtResource("5_myy0f"), ExtResource("7_u8tnp"), ExtResource("8_stj27")]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("VBoxContainer/HBoxContainer2/Yes2:theme_override_fonts/font")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [ExtResource("5_myy0f"), ExtResource("7_u8tnp"), ExtResource("8_stj27")]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("VBoxContainer/HBoxContainer2/No2:theme_override_fonts/font")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [ExtResource("5_myy0f"), ExtResource("7_u8tnp"), ExtResource("8_stj27")]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("VBoxContainer/Sure:theme_override_fonts/font")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [ExtResource("5_myy0f"), ExtResource("7_u8tnp"), ExtResource("8_stj27")]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("VBoxContainer/HBoxContainer/Yes:theme_override_fonts/font")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [ExtResource("5_myy0f"), ExtResource("7_u8tnp"), ExtResource("8_stj27")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0fi7f"]
+_data = {
+&"RESET": SubResource("Animation_524vl"),
+&"movetext": SubResource("Animation_ix48p")
+}
 
 [node name="PauseMenu" type="Control"]
 layout_mode = 3
@@ -196,6 +453,16 @@ flat = true
 
 [node name="Loading" parent="." instance=ExtResource("5_vmyb1")]
 visible = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_0fi7f")
+}
+speed_scale = 0.5
+
+[node name="OptionsMenu" parent="." instance=ExtResource("9_stj27")]
+layout_mode = 1
+metadata/_edit_use_anchors_ = true
 
 [connection signal="mouse_entered" from="VBoxContainer/Resume" to="." method="_on_resume_mouse_entered"]
 [connection signal="mouse_exited" from="VBoxContainer/Resume" to="." method="_on_resume_mouse_exited"]

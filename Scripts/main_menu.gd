@@ -73,6 +73,7 @@ func _on_options_mouse_entered() -> void:
 	$Options.pivot_offset = $Options.size / 2
 	$Options/AnimationPlayer.play("hover")
 	AudioController.ui_hover_sfx()
+	AudioController.swoosh_sfx()
 
 func _on_yes_mouse_entered() -> void:
 	AudioController.ui_hover_sfx()
