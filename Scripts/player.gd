@@ -3,12 +3,12 @@ extends CharacterBody2D
 class_name Player
 
 @onready var offset :Vector2 = (get_viewport().size/2) 
-@export var speed: float = 0.3
+@export var speed: float = 0.35
 var playing := false
 var mouse_motion:= Vector2.ZERO
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 var last_velocities: PackedVector2Array = [Vector2.ZERO]
-@export var stored_velocity_frames: int
+@export var stored_velocity_frames: int = 10
 @onready var trail: Trail = $"../Trail"
 @onready var boss: Boss = $"../Boss"
 
@@ -26,7 +26,11 @@ func _input(e: InputEvent):
 			if !playing: return
 			if Engine.time_scale == 0: return
 			mouse_motion = e.relative
-			
+		"InputEventMouseButton":
+			if (e as InputEventMouseButton).button_index == MOUSE_BUTTON_WHEEL_UP:
+				Global.sensitivity_boost = min(Global.sensitivity_boost + 0.02, 3)
+			elif (e as InputEventMouseButton).button_index == MOUSE_BUTTON_WHEEL_DOWN:
+				Global.sensitivity_boost = max(Global.sensitivity_boost - 0.02, 0.25)
 
 func animate_direction():
 	if (velocity.length() > 0):
@@ -67,7 +71,7 @@ func _process(delta: float) -> void:
 	if (Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) or Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT)):
 		trail.reset_trail()
 		AudioController.cut_tail_sfx()
-	velocity = mouse_motion*speed * (1/delta)
+	velocity = mouse_motion*speed * (1/delta) * Global.sensitivity_boost
 	animate_direction()
 	mouse_motion = Vector2.ZERO
 	move_and_slide()

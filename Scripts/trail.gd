@@ -175,7 +175,7 @@ func add_point():
 	time_since_last_point_sec = fmod(time_since_last_point_sec, 1.0/trail_points_per_second)
 	
 	var no_change = direction == Vector2.ZERO and trail_line.points.size() > 0
-	
+	if (trail_line.points.size() == 0): n= 1
 	for i in range(n):
 		if (trail_line.points.size() > max_trail_time_sec * trail_points_per_second or (no_change and trail_collisions.size()>0) ):
 			if (trail_line.points.size() > 1):
@@ -266,14 +266,15 @@ func handle_dead_mob():
 			mob.animation_player.play("ramiro_death")
 
 func handle_disabled_collisions():
-	if (float(trail_line.points.size())/float(last_points_count()) < min_ratio_max_points_to_current_final_points): 
-		cleared_points = true
 	var closest_point = find_closest_point(last_points_tolerance)
 	var distance = player.position.distance_to(closest_point)
-	if distance > min_distance_to_oldest_points * 3:
+	if (float(trail_line.points.size())/float(last_points_count()) < min_ratio_max_points_to_current_final_points): 
+		cleared_points = true
+	elif distance > min_distance_to_oldest_points:
 		cleared_points = false
+	
 
-func _physics_process(delta: float) -> void:
+func _process(delta: float) -> void:
 	if (Input.is_key_pressed(KEY_SPACE)):
 		pass
 	if (Engine.time_scale == 0): return

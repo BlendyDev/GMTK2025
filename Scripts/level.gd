@@ -14,6 +14,7 @@ func pause():
 	AudioController.applylowpass()
 	Engine.time_scale = 0
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+
 func unpause():
 	AudioController.tapestop2()
 	AudioController.choose_tutorial_music()

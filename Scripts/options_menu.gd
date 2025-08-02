@@ -10,8 +10,6 @@ func _process(delta: float) -> void:
 		#AudioController.circle_sfx()
 	pass
 
-func _on_sensitivity_slider_value_changed(value: float) -> void:
-	pass # Replace with function body.
 
 func _on_back_pressed() -> void:
 	AudioController.ui_back_sfx()
