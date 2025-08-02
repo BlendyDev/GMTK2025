@@ -17,6 +17,7 @@ var type: Type
 var base_speed = 250.0
 var speed_mult: float = 1.0
 var idle_time_mult: float = 1.0
+var loop := 0
 
 func init_basic():
 	type = Type.BASIC

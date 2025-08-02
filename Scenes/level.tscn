@@ -63,8 +63,6 @@ fit_content = true
 collision_layer = 256
 collision_mask = 4
 script = ExtResource("1_0f350")
-min_distance_to_oldest_points = 12.5
-circle_min_timeout_sec = 0.5
 
 [node name="Trail" type="Line2D" parent="Trail"]
 width = 4.0

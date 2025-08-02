@@ -22,6 +22,7 @@ var bodies_entered: Array[Node2D]
 
 enum Action {PRE, IDLE, MOVING, SPAWNING, SHIELD, SHIELD_MOVING, DYING}
 @export var action: Action
+@export var shield_threshold: int = 50
 var hp = 26
 var shield = 0
 @onready var snapped_pos = CENTER
@@ -42,7 +43,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if (Engine.time_scale == 0): return
-	debug_text.text ="lowpass resonance: " + str(effect.resonance) + "\naction: " + Action.keys()[action] + "\nspawned_mobs: " + str(spawned_mobs) + "\nmobs_alive: " + str(mobs_alive) + "\nhp: " + str(hp) + "\nshield: " + str(shield)
+	debug_text.text = "loop count: " + str(trail.loop_count) + "\nlowpass resonance: " + str(effect.resonance) + "\naction: " + Action.keys()[action] + "\nspawned_mobs: " + str(spawned_mobs) + "\nmobs_alive: " + str(mobs_alive) + "\nhp: " + str(hp) + "\nshield: " + str(shield)
 	if (action == Action.SHIELD and mobs_alive == 0):
 		start_spawning()
 

@@ -5,21 +5,24 @@ class Combo:
 	var count: int
 	var mobs: Array[Mob]
 	var indicator: ComboIndicator
+	var loop_count: int
 
 @onready var level: Level = $".."
 @onready var trail_line: Line2D = $Trail
 @onready var player: Player = $"../Player"
+@onready var boss: Boss = $"../Boss"
 @onready var loop_scene = preload("res://Scenes/loop.tscn")
 @onready var combo_scene = preload("res://Scenes/combo.tscn")
 
 @export var trail_points_per_second: int = 120
 @export var max_trail_time_sec: float = 1.15
-@export var min_distance_to_oldest_points: float
-@export var circle_min_timeout_sec: float
+@export var min_distance_to_oldest_points: float = 12.5
+@export var circle_min_timeout_sec: float = 0.35
 @export var last_points_tolerance := 0.2
 @export var freeze_time := 0.05
 @export var time_per_death_handle_sec: float = 0.1
 @export var circle_lifetime: float = 0.05
+
 
 var time_since_last_point_sec := 0.0
 var time_since_last_circle_sec := 0.0
@@ -29,6 +32,7 @@ var trail_collisions: Array[CollisionShape2D]
 var can_trail = true
 var dead_mobs: Array[Mob] = []
 var combos: Array[Combo] = []
+var loop_count := 0
 
 
 # Called when the node enters the scene tree for the first time.
@@ -77,6 +81,9 @@ func reset_trail():
 	trail_collisions.clear()
 	trail_line.clear_points()
 
+func area_entered_circle(area: Area2D):
+	if (area.collision_layer == pow(2, 3-1)): #mob
+		(area.get_parent() as Mob).loop = loop_count
 
 func try_spawn_circle(closest_point: Vector2):
 	if (player.velocity.length() < 20.0): 
@@ -101,7 +108,8 @@ func try_spawn_circle(closest_point: Vector2):
 	fade_out_trail.add_point(closest_point)
 	var area = Area2D.new()
 	area.collision_layer = pow(2, 10-1)
-	area.collision_mask = pow(2, 3-1)
+	area.collision_mask = pow(2, 3-1) + pow (2, 5-1)
+	area.area_entered.connect(area_entered_circle)
 	
 	var initial_polygon :PackedVector2Array = fade_out_trail.points.duplicate()
 	var polygons := simplify_polygon(initial_polygon)
@@ -109,7 +117,7 @@ func try_spawn_circle(closest_point: Vector2):
 		var collision = CollisionPolygon2D.new()
 		collision.polygon = polygon
 		area.add_child(collision)
-	var loop_count = polygons.size()
+	loop_count = polygons.size()
 	if (loop_count > 1):
 		var loop := loop_scene.instantiate() as Node2D
 		get_tree().current_scene.add_child(loop)
@@ -152,7 +160,6 @@ func add_point():
 			add_child(collision_shape)
 			trail_collisions.append(collision_shape)
 	time_since_last_point_sec = fmod(time_since_last_point_sec, 1.0/trail_points_per_second)
-	
 
 func handle_combo(mob: Mob) -> Combo:
 	for combo in combos:
@@ -160,6 +167,7 @@ func handle_combo(mob: Mob) -> Combo:
 	var combo = Combo.new()
 	combo.mobs = dead_mobs.duplicate()
 	combo.count = dead_mobs.size()
+	combo.loop_count = mob.loop
 	combos.append(combo)
 	return combo
 
@@ -183,6 +191,9 @@ func handle_dead_mob():
 		if (combo.indicator != null):
 			combo.indicator.animation_player.play("combo")
 		if (combo.count >= 3): AudioController.cheer_sfx()
+		var bonus = 0
+		if combo.loop_count > 1: bonus = 6+combo.loop_count
+		boss.shield += pow(combo.count, 2) + bonus
 		combos.remove_at(combos.rfind(combo))
 	dead_mobs.remove_at(dead_mobs.size()-1)
 	
