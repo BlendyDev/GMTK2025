@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://4otsh1wy31kg"]
+[gd_scene load_steps=32 format=3 uid="uid://4otsh1wy31kg"]
 
 [ext_resource type="Script" uid="uid://cxjw50s4jeh2y" path="res://Scripts/trail.gd" id="1_0f350"]
 [ext_resource type="Script" uid="uid://c26jmx7s0p0dr" path="res://Scripts/level.gd" id="1_ha31o"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://u8v7wxeolqad" path="res://Sprites/ocstaculoepicoup.png" id="6_qxfql"]
 [ext_resource type="Texture2D" uid="uid://c1yfhu6mq1mop" path="res://Sprites/fondo.png" id="7_8c0lf"]
 [ext_resource type="Texture2D" uid="uid://cyeifbyapar62" path="res://Sprites/trueborder.png" id="8_754fn"]
+[ext_resource type="Texture2D" uid="uid://dwgaupo44whxw" path="res://Sprites/bordes-Sheet.png" id="10_ha31o"]
 [ext_resource type="PackedScene" uid="uid://dd7jxb3adi5uf" path="res://Scenes/boss.tscn" id="10_qxfql"]
 [ext_resource type="PackedScene" uid="uid://d2cg3mbio7ehv" path="res://Scenes/pause_menu.tscn" id="11_qxfql"]
 [ext_resource type="PackedScene" uid="uid://dsc0qsqg2g7nq" path="res://Scenes/options_menu.tscn" id="13_pa6b8"]
@@ -44,6 +45,70 @@ size = Vector2(1, 253)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qxfql"]
 size = Vector2(1, 253)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pa6b8"]
+atlas = ExtResource("10_ha31o")
+region = Rect2(0, 0, 448, 252)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_crh0w"]
+atlas = ExtResource("10_ha31o")
+region = Rect2(448, 0, 448, 252)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c7le1"]
+atlas = ExtResource("10_ha31o")
+region = Rect2(896, 0, 448, 252)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2klc5"]
+atlas = ExtResource("10_ha31o")
+region = Rect2(1344, 0, 448, 252)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nngtn"]
+atlas = ExtResource("10_ha31o")
+region = Rect2(1792, 0, 448, 252)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vofx3"]
+atlas = ExtResource("10_ha31o")
+region = Rect2(2240, 0, 448, 252)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_00k4y"]
+atlas = ExtResource("10_ha31o")
+region = Rect2(2688, 0, 448, 252)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3a44l"]
+atlas = ExtResource("10_ha31o")
+region = Rect2(3136, 0, 448, 252)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0cmrb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pa6b8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_crh0w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c7le1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2klc5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nngtn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vofx3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_00k4y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3a44l")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_ha31o")
@@ -151,6 +216,12 @@ shape = SubResource("RectangleShape2D_qxfql")
 [node name="Boss" parent="." instance=ExtResource("10_qxfql")]
 dash_speed = 500.0
 spawn_shield_speed = 200.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_0cmrb")
+autoplay = "default"
+frame_progress = 0.412735
+speed_scale = 1.5
 
 [node name="PauseMenu" parent="." instance=ExtResource("11_qxfql")]
 visible = false
