@@ -6,6 +6,11 @@ var highest_loop: int = 0
 var damage_taken: int = 0
 var start_time: int
 
+var won_once : bool = false
+
+func get_won_once():
+	return won_once
+
 func get_highest_combo():
 	return highest_combo
 	

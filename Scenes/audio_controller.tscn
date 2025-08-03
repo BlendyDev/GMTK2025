@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=3 uid="uid://dsaaqh6r846s1"]
+[gd_scene load_steps=71 format=3 uid="uid://dsaaqh6r846s1"]
 
 [ext_resource type="Script" uid="uid://hgdeh6d4tsa2" path="res://Scripts/audio_controller.gd" id="1_t0xn5"]
 [ext_resource type="AudioStream" uid="uid://dapvn0ocg8s84" path="res://SFX/test_sfx_pickup.wav" id="2_nqcbu"]
@@ -42,6 +42,7 @@
 [ext_resource type="AudioStream" uid="uid://cyttnmllikpbs" path="res://SFX/swoosh sfx.wav" id="35_re00d"]
 [ext_resource type="AudioStream" uid="uid://4c33ebyshtv2" path="res://SFX/mouse hey sfx.wav" id="36_x26on"]
 [ext_resource type="AudioStream" uid="uid://dmhintedg1nty" path="res://SFX/water stream loop.wav" id="41_x26on"]
+[ext_resource type="AudioStream" uid="uid://bsqoiek4rfbih" path="res://Music/finalmusic ost demo.wav" id="43_uogm5"]
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ncnt2"]
 random_pitch = 1.13
@@ -374,3 +375,6 @@ bus = &"SFX"
 playback_type = 1
 
 [node name="WinMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("43_uogm5")
+volume_db = -80.0
+bus = &"Music"

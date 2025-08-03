@@ -134,3 +134,20 @@ func _on_back_mouse_entered() -> void:
 
 func _on_back_mouse_exited() -> void:
 	AudioController.ui_lookaway_sfx()
+
+
+func _on_trophy_pressed() -> void:
+	AudioController.menu_music_stop()
+	AudioController.ui_click_sfx()
+	get_tree().change_scene_to_file("res://Scenes/win_screen.tscn")
+
+
+func _on_trophy_mouse_entered() -> void:
+	$Trophy/AnimationPlayer.play("shine")
+	AudioController.ui_hover_sfx()
+	$Trophy/TrophySFX.play()
+
+
+func _on_trophy_mouse_exited() -> void:
+	$Trophy/AnimationPlayer.play("normal")
+	AudioController.ui_lookaway_sfx()

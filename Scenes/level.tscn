@@ -13,10 +13,10 @@
 [ext_resource type="PackedScene" uid="uid://dd7jxb3adi5uf" path="res://Scenes/boss.tscn" id="10_qxfql"]
 [ext_resource type="PackedScene" uid="uid://dtvjq0c7xnecv" path="res://Scenes/pause_menu.tscn" id="11_qxfql"]
 [ext_resource type="Texture2D" uid="uid://dj4jb10r2f8gr" path="res://Scripts/barradevida.png" id="12_c7le1"]
-[ext_resource type="Script" uid="uid://ousv1f8xfya" path="res://Scripts/hp.gd" id="12_crh0w"]
-[ext_resource type="Script" uid="uid://d38d20stw2p47" path="res://Scripts/vfx.gd" id="12_pa6b8"]
+[ext_resource type="Script" path="res://Scripts/hp.gd" id="12_crh0w"]
+[ext_resource type="Script" path="res://Scripts/vfx.gd" id="12_pa6b8"]
 [ext_resource type="Texture2D" uid="uid://cl7ptifj3tjfa" path="res://Sprites/barradeescudo.png" id="14_2klc5"]
-[ext_resource type="Script" uid="uid://b3d018vi6kaw3" path="res://Scripts/shield.gd" id="15_nngtn"]
+[ext_resource type="Script" path="res://Scripts/shield.gd" id="15_nngtn"]
 
 [sub_resource type="Curve" id="Curve_6phgx"]
 _data = [Vector2(0, 0.235955), 0.0, -0.151716, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
