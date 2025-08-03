@@ -19,6 +19,21 @@ var animation_data = {
 	Stage.PRE_RESET: ["pre_reset1", "pre_reset2", "pre_reset3_final"],
 	Stage.PRE_COMPLETED: ["pre_completed1_final"]
 }
+var lines = {
+	Stage.PRE: ["MOVE THY MOUSE TOWARDS THE MOUSE"],
+	Stage.PRE_SENSITIVITY: ["INCEPTION", "ADJUST YOUR MOUSE SENSITIVITY WITH THE MOUSE WHEEL"],
+	Stage.PRE_LEFT: ["GREETINGS YOUNG MOUSE
+I SEE THOU HAS ACHIEVED INCREDIBLE POWER!", "ALTHOUGH THY ENEMY HAS AS WELL
+PRACTICE ON THESE DUMMIES", "DRAW A CIRCLE AROUND THE FIRST ONE"],
+	Stage.PRE_RIGHT: ["STELLAR!", "NOW THE RIGHT ONE"],
+	Stage.PRE_BOTH: ["SIMPLY MARVELOUS!", "THIS IS THY MEANS TO ATTACK THY ENEMIES", "THE MORE ENEMIES THOU CAN FIT IN A SINGLE CIRCLE
+THE HIGHER THE COMBO WILL BE", "AND THE MORE DAMAGE THOU WILL DO TO THAT CATS SHIELD" , "TRY IT OUT ON BOTH THESE DUMMIES"],
+	Stage.PRE_LEMNISCATE: ["SPLENDID!", "BUT THATS NOT ALL!", "THERES ONLY ONE THING MORE SATISFYING THAN DRAWING A CIRCLE", "AND THATS DRAWING AN INFINITY SYMBOL", "A LEMNISCATE!", "A LOOP IF THOU WILL!", "THOU DO EVEN HIGHER DAMAGE IF THOU DO A LOOP INSTEAD OF A SINGLE CIRCLE", "THOU DO EVEN HIGHER DAMAGE IF THOU DO A LOOP INSTEAD OF A SINGLE CIRCLE"],
+	Stage.PRE_RESET: ["EXHILARATING RIGHT?", "YOURE ALMOST READY
+JUST ONE THING", "YOURE ALMOST READY
+JUST ONE THING"],
+	Stage.PRE_COMPLETED: ["ALWAYS TRY TO GET A HIGHER COMBO AND DONT FORGET ABOUT THE LOOPS!"]
+}
 var comboed_dummies: Array[Dummy]
 
 
@@ -92,9 +107,9 @@ func _on_animation_finished(anim_name: StringName) -> void:
 			tween.tween_property(right_dummy, "modulate", Color.from_rgba8(255, 255, 255, 0), 1.0)
 			tween.tween_callback(finish_tutorial)
 	else:
+		var delay = 0.05 * lines.get(stage)[subanimation].length()
 		subanimation += 1
-		var delay = 1.0
-		if (Input.is_action_pressed("Space")): delay = 0.5
+		if (Input.is_action_pressed("Space")): delay = min( 0.5, delay/4.0)
 		await get_tree().create_timer(delay, true, false, true).timeout
 		play(animation_data.get(stage)[subanimation])
 	pass # Replace with function body.
