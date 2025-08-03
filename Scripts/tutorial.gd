@@ -52,6 +52,11 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	if (Input.is_action_pressed("Space")):
+		speed_scale = 5.0
+	else:
+		speed_scale = 0.6
+		
 	if (stage == Stage.PRE): return
 	if (comboed_dummies.size() > 1 and stage == Stage.PRE_BOTH and !transitioning):
 		stage = Stage.PRE_LEMNISCATE
@@ -87,7 +92,9 @@ func _on_animation_finished(anim_name: StringName) -> void:
 			tween.tween_property(right_dummy, "modulate", Color.from_rgba8(255, 255, 255, 0), 1.0)
 			tween.tween_callback(finish_tutorial)
 	else:
-		await get_tree().create_timer(1, true, false, true).timeout
 		subanimation += 1
+		var delay = 1.0
+		if (Input.is_action_pressed("Space")): delay = 0.5
+		await get_tree().create_timer(delay, true, false, true).timeout
 		play(animation_data.get(stage)[subanimation])
 	pass # Replace with function body.
