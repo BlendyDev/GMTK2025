@@ -28,6 +28,7 @@ func _input(e: InputEvent):
 		"InputEventMouseMotion":
 			if !playing: return
 			if get_tree().paused: return
+			if boss.action == Boss.Action.PRE_DYING or boss.action == Boss.Action.DYING: return
 			mouse_motion = e.relative
 		"InputEventMouseButton":
 			if (e as InputEventMouseButton).button_index == MOUSE_BUTTON_WHEEL_UP:
