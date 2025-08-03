@@ -1,4 +1,4 @@
-[gd_scene load_steps=75 format=3 uid="uid://4otsh1wy31kg"]
+[gd_scene load_steps=76 format=3 uid="uid://4otsh1wy31kg"]
 
 [ext_resource type="Script" uid="uid://cxjw50s4jeh2y" path="res://Scripts/trail.gd" id="1_0f350"]
 [ext_resource type="Script" uid="uid://c26jmx7s0p0dr" path="res://Scripts/level.gd" id="1_ha31o"]
@@ -593,34 +593,6 @@ tracks/1/keys = {
 "values": [0.0, 1.0]
 }
 
-[sub_resource type="Animation" id="Animation_fq0f7"]
-resource_name = "pre_both4_final"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("RichTextLabel:text")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": ["AND THE MORE DAMAGE THOU WILL DO TO THAT CATS SHIELD
-TRY IT OUT ON BOTH THESE DUMMIES"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("RichTextLabel:visible_ratio")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0.0, 1.0]
-}
-
 [sub_resource type="Animation" id="Animation_bp4cd"]
 resource_name = "pre_lemniscate1"
 length = 0.4
@@ -954,6 +926,61 @@ tracks/1/keys = {
 "values": [0.0, 1.0]
 }
 
+[sub_resource type="Animation" id="Animation_fq0f7"]
+resource_name = "pre_both4"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RichTextLabel:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["AND THE MORE DAMAGE THOU WILL DO TO THAT CATS SHIELD"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("RichTextLabel:visible_ratio")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="Animation" id="Animation_jmchl"]
+resource_name = "pre_both5_final"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RichTextLabel:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["TRY IT OUT ON BOTH THESE DUMMIES"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("RichTextLabel:visible_ratio")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_hcs0j"]
 _data = {
 &"RESET": SubResource("Animation_1cgv8"),
@@ -961,7 +988,8 @@ _data = {
 &"pre_both1": SubResource("Animation_dw52x"),
 &"pre_both2": SubResource("Animation_ais7f"),
 &"pre_both3": SubResource("Animation_re0q2"),
-&"pre_both4_final": SubResource("Animation_fq0f7"),
+&"pre_both4": SubResource("Animation_fq0f7"),
+&"pre_both5_final": SubResource("Animation_jmchl"),
 &"pre_completed1_final": SubResource("Animation_gx30c"),
 &"pre_left1": SubResource("Animation_gf56v"),
 &"pre_left2": SubResource("Animation_53r2q"),
@@ -1098,7 +1126,6 @@ id = 1
 
 [node name="LeftDummy" parent="." instance=ExtResource("9_pa6b8")]
 position = Vector2(-100, 0)
-id = 0
 
 [node name="DecorativeBorder" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_0cmrb")
@@ -1207,4 +1234,4 @@ libraries = {
 script = ExtResource("23_24uko")
 
 [connection signal="mouse_entered" from="Player/GrabDetector" to="Player" method="_on_mouse_entered"]
-[connection signal="animation_finished" from="TutorialAnimations" to="LeftDummy" method="_on_tutorial_animations_animation_finished"]
+[connection signal="animation_finished" from="TutorialAnimations" to="TutorialAnimations" method="_on_animation_finished"]

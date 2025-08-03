@@ -27,6 +27,7 @@ func bind_to_player():
 	playing = true
 	if (tutorial.stage == Tutorial.Stage.PRE):
 		tutorial.stage = Tutorial.Stage.PRE_SENSITIVITY
+		tutorial.start_segment()
 
 func _input(e: InputEvent):
 	match e.get_class():
