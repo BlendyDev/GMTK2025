@@ -41,6 +41,8 @@ func _on_play_mouse_entered() -> void:
 	AudioController.hey_sfx()
 
 func _on_credits_pressed() -> void:
+	$Credits/CreditsMenu.play()
+	AudioController.applylowpass()
 	$CreditsScene.visible = true
 	AudioController.ui_click_sfx()
 	start_tween($CreditsScene, "modulate", Color(1.0, 1.0, 1.0), 0.5 )
@@ -126,6 +128,8 @@ func _on_back_pressed() -> void:
 	start_tween($CreditsScene, "modulate", Color(1.0, 1.0, 1.0, 0.0), 0.5)
 	$CreditsScene.visible = false
 	AudioController.ui_back_sfx()
+	AudioController.removelowpass()
+	$Credits/CreditsMenu.stop()
 
 
 func _on_back_mouse_entered() -> void:
@@ -139,7 +143,7 @@ func _on_back_mouse_exited() -> void:
 func _on_trophy_pressed() -> void:
 	AudioController.menu_music_stop()
 	AudioController.ui_click_sfx()
-	get_tree().change_scene_to_file("res://Scenes/win_screen.tscn")
+	get_tree().change_scene_to_file("res://Scenes/stats_screen.tscn")
 
 
 func _on_trophy_mouse_entered() -> void:

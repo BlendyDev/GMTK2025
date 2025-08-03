@@ -1,4 +1,4 @@
-[gd_scene load_steps=74 format=3 uid="uid://db0iuepgj8olx"]
+[gd_scene load_steps=76 format=3 uid="uid://db0iuepgj8olx"]
 
 [ext_resource type="Script" uid="uid://0mcwei50crlf" path="res://Scripts/main_menu.gd" id="1_ce3w2"]
 [ext_resource type="Texture2D" uid="uid://rc0e0h2kk7xn" path="res://Sprites/fondo2.png" id="2_xcoo4"]
@@ -27,6 +27,7 @@
 [ext_resource type="Texture2D" uid="uid://dn7xhht2jglrr" path="res://Sprites/exit2.png" id="20_84iac"]
 [ext_resource type="Texture2D" uid="uid://c57fyray2lekm" path="res://Sprites/optionsbuttons2.png" id="20_jr6u5"]
 [ext_resource type="AudioStream" uid="uid://dhosxqp777m4w" path="res://SFX/light sfx loop.wav" id="21_tt8ml"]
+[ext_resource type="AudioStream" uid="uid://dxy346hw7g1r" path="res://SFX/credits sound loop.wav" id="22_43km2"]
 [ext_resource type="AudioStream" uid="uid://db7ow537xqlaj" path="res://SFX/goofy ahh sound.mp3" id="23_jr6u5"]
 [ext_resource type="FontFile" uid="uid://ciygyfdhhcin5" path="res://Sprites/FONT1.png" id="23_ne6ao"]
 [ext_resource type="FontFile" uid="uid://n2exgpxs2fx5" path="res://Sprites/FONT2.png" id="26_tt8ml"]
@@ -196,6 +197,12 @@ _data = {
 &"credits": SubResource("Animation_5n0dv"),
 &"idle": SubResource("Animation_6m47u")
 }
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_dp8uv"]
+random_pitch = 1.15
+random_volume_offset_db = 1.0
+streams_count = 1
+stream_0/stream = ExtResource("22_43km2")
 
 [sub_resource type="Animation" id="Animation_xcoo4"]
 length = 0.001
@@ -687,6 +694,11 @@ flip_h = true
 libraries = {
 &"": SubResource("AnimationLibrary_ne6ao")
 }
+
+[node name="CreditsMenu" type="AudioStreamPlayer" parent="Credits"]
+stream = SubResource("AudioStreamRandomizer_dp8uv")
+bus = &"SFX"
+playback_type = 1
 
 [node name="Quit" type="TextureButton" parent="."]
 layout_mode = 0

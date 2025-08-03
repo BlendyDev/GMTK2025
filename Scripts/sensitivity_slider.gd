@@ -17,3 +17,18 @@ func _process(delta: float) -> void:
 func _on_value_changed(value: float) -> void:
 	adjust_size()
 	Global.sensitivity_boost = (11.0*value + 1.0)/4.0
+
+func _on_mouse_entered() -> void:
+	AudioController.ui_hover_sfx()
+
+
+func _on_mouse_exited() -> void:
+	AudioController.ui_lookaway_sfx()
+
+
+func _on_drag_started() -> void:
+	AudioController.ui_sliderclick_sfx()
+
+
+func _on_drag_ended(value_changed: bool) -> void:
+	AudioController.ui_sliderendclick_sfx()

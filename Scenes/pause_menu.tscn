@@ -1,7 +1,7 @@
 [gd_scene load_steps=31 format=3 uid="uid://dtvjq0c7xnecv"]
 
 [ext_resource type="Script" uid="uid://doy504o3wwhr8" path="res://Scripts/pause_menu.gd" id="1_emv3i"]
-[ext_resource type="Shader" path="res://Shaders/scroll.gdshader" id="2_524vl"]
+[ext_resource type="Shader" uid="uid://ckg8b2a2owe7x" path="res://Shaders/scroll.gdshader" id="2_524vl"]
 [ext_resource type="Shader" uid="uid://g6vj64km5x0h" path="res://Shaders/pause_menu.gdshader" id="2_k0w1u"]
 [ext_resource type="Texture2D" uid="uid://bh4o3s6y06jjc" path="res://Sprites/pausemousegame1.png" id="3_bpi0q"]
 [ext_resource type="Texture2D" uid="uid://bhq27f2bu7lml" path="res://Sprites/zzz.png" id="4_524vl"]
@@ -358,6 +358,7 @@ _data = {
 
 [node name="PauseMenu" type="Control"]
 process_mode = 3
+visible = false
 z_index = 4000
 layout_mode = 3
 anchors_preset = 15

@@ -38,3 +38,15 @@ func _on_quit_mouse_entered() -> void:
 
 func _on_quit_mouse_exited() -> void:
 	AudioController.ui_lookaway_sfx()
+
+
+func _on_back_pressed() -> void:
+	pass # Replace with function body.
+
+
+func _on_back_mouse_entered() -> void:
+	pass # Replace with function body.
+
+
+func _on_back_mouse_exited() -> void:
+	pass # Replace with function body.
