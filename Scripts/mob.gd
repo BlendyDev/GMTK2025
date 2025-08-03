@@ -10,7 +10,6 @@ class_name Mob
 @onready var boss: Boss = $"../Boss"
 @onready var vfx: VFX = $"../VFX"
 
-
 enum Action {IDLE, MOVING, DYING}
 enum Type {BASIC, CAT, SLIME, RAMIRO}
 var action: Action
@@ -82,6 +81,7 @@ func _on_body_entered(body: Node2D) -> void:
 		trail.can_trail = false
 		trail.animate_fail_trail()
 		trail.reset_trail()
+		Stats.damage_taken += 1
 		vfx.trail_reset()
 		AudioController.fail_circle_sfx()
 	pass # Replace with function body.

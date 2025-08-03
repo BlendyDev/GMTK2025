@@ -128,7 +128,9 @@ func try_spawn_circle(closest_point: Vector2):
 		collision.polygon = polygon
 		area.add_child(collision)
 	loop_count = polygons.size()
+	if (loop_count > Stats.highest_loop): Stats.highest_loop = loop_count
 	if (loop_count > 1):
+		Stats.loops_drawn += 1
 		var loop := loop_scene.instantiate() as Node2D
 		get_tree().current_scene.add_child(loop)
 		loop.position = player.position
@@ -225,6 +227,7 @@ func combo_end(combo : Combo):
 		await get_tree().create_timer(0.7, true, false, true).timeout
 		AudioController.combo_sfx()
 		combo.indicator.animation_player.play("combo")
+		if (combo.count > Stats.highest_combo): Stats.highest_combo = combo.count
 		if (combo.count >= combo.max_mobs):
 			AudioController.cheer_sfx(combo.count)
 			

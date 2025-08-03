@@ -3,14 +3,16 @@ extends CharacterBody2D
 class_name Player
 
 @onready var offset :Vector2 = (get_viewport().size/2) 
-@export var speed: float = 0.35
-var playing := false
-var mouse_motion:= Vector2.ZERO
-@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
-var last_velocities: PackedVector2Array = [Vector2.ZERO]
-@export var stored_velocity_frames: int = 10
 @onready var trail: Trail = $"../Trail"
 @onready var boss: Boss = $"../Boss"
+@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
+
+@export var speed: float = 0.35
+@export var stored_velocity_frames: int = 10
+
+var playing := false
+var mouse_motion:= Vector2.ZERO
+var last_velocities: PackedVector2Array = [Vector2.ZERO]
 
 
 func _ready() -> void:
@@ -18,6 +20,7 @@ func _ready() -> void:
 
 func bind_to_player():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	Stats.start_time = Time.get_ticks_msec()
 	print("playing!")
 	playing = true
 	if (Dummy.stage == Dummy.Stage.PRE):
