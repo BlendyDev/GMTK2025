@@ -1051,7 +1051,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": ["YOU CAN ADJUST YOUR MOUSE SENSITIVITY WITH THE MOUSE WHEEL"]
+"values": ["ADJUST YOUR MOUSE SENSITIVITY WITH THE MOUSE WHEEL"]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -1328,7 +1328,7 @@ autoplay = "movetext"
 libraries = {
 &"": SubResource("AnimationLibrary_hcs0j")
 }
-speed_scale = 0.6
+speed_scale = 0.8
 script = ExtResource("23_24uko")
 
 [connection signal="mouse_entered" from="Player/GrabDetector" to="Player" method="_on_mouse_entered"]
