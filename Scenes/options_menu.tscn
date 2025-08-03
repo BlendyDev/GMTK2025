@@ -356,8 +356,10 @@ horizontal_alignment = 1
 
 [node name="MasterSlider" parent="VBoxContainer" instance=ExtResource("2_uj0ok")]
 z_index = 2
+texture_filter = 0
 layout_mode = 2
 theme_override_icons/grabber = ExtResource("4_qfavn")
+value = 0.75
 bus_name = "Master"
 
 [node name="Label2" type="Label" parent="VBoxContainer"]
@@ -368,7 +370,9 @@ horizontal_alignment = 1
 
 [node name="MusicSlider" parent="VBoxContainer" instance=ExtResource("2_uj0ok")]
 z_index = 2
+texture_filter = 0
 layout_mode = 2
+value = 0.75
 bus_name = "Music"
 
 [node name="Label3" type="Label" parent="VBoxContainer"]
@@ -379,7 +383,9 @@ horizontal_alignment = 1
 
 [node name="SFXSlider" parent="VBoxContainer" instance=ExtResource("2_uj0ok")]
 z_index = 2
+texture_filter = 0
 layout_mode = 2
+value = 0.75
 bus_name = "SFX"
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="."]
@@ -489,6 +495,10 @@ libraries = {
 }
 autoplay = "movemouses"
 
+[connection signal="drag_ended" from="VBoxContainer2/SensitivitySlider" to="VBoxContainer2/SensitivitySlider" method="_on_drag_ended"]
+[connection signal="drag_started" from="VBoxContainer2/SensitivitySlider" to="VBoxContainer2/SensitivitySlider" method="_on_drag_started"]
+[connection signal="mouse_entered" from="VBoxContainer2/SensitivitySlider" to="VBoxContainer2/SensitivitySlider" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="VBoxContainer2/SensitivitySlider" to="VBoxContainer2/SensitivitySlider" method="_on_mouse_exited"]
 [connection signal="value_changed" from="VBoxContainer2/SensitivitySlider" to="VBoxContainer2/SensitivitySlider" method="_on_value_changed"]
 [connection signal="mouse_entered" from="Back" to="." method="_on_back_mouse_entered"]
 [connection signal="mouse_exited" from="Back" to="." method="_on_back_mouse_exited"]
