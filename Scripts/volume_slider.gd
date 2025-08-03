@@ -9,11 +9,10 @@ func adjust_size():
 	bg.size = Vector2(27.0 + value*(152.0-27.0), bg.size.y)
 
 func _ready() -> void:
-	adjust_size()
 	bus_index = AudioServer.get_bus_index(bus_name)
 	value_changed.connect(_on_value_changed)
 	value = db_to_linear(AudioServer.get_bus_volume_db(bus_index))
-
+	adjust_size()
 
 func _on_value_changed(value: float) -> void:
 	adjust_size()

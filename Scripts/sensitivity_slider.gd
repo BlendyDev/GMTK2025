@@ -4,9 +4,8 @@ extends HSlider
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	adjust_size()
 	value = (Global.sensitivity_boost*4.0-1.0)/11.0
-	pass # Replace with function body.
+	adjust_size()
 
 func adjust_size():
 	bg.size = Vector2(22 + value*(310-22.0), bg.size.y)
