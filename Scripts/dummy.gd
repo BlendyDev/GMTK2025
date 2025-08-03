@@ -36,7 +36,6 @@ func _process(delta: float) -> void:
 	if (comboed_dummies.size() > 1 and loop > 1 and stage == Stage.PRE_LEMNISCATE):
 		stage = Stage.PRE_RESET
 	if (stage == Stage.COMPLETED and boss.action == Boss.Action.PRE):
-		print("activating!")
 		boss.activate()
 	comboed_dummies.clear()
 	

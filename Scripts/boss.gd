@@ -35,7 +35,7 @@ enum Action {PRE, APPEAR, IDLE, MOVING, SPAWNING, SHIELD, SHIELD_MOVING, DYING}
 var available_locations := [UP_LEFT, LEFT, DOWN_LEFT, DOWN, DOWN_RIGHT, RIGHT, UP_RIGHT, UP]
 
 
-var hp := 30
+var hp := 1
 var shield := 0
 var spawned_mobs := 0
 var mobs_alive := 0
@@ -77,12 +77,10 @@ func activate():
 	#Engine.time_scale = .1
 	visible = true
 	action = Action.APPEAR
-	print("playing appear:")
 	animation_player.queue("appear")
 
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
-	print("xd")
 	if (anim_name == "appear" and action == Action.APPEAR):
 		action = Action.IDLE
 		animation_player.play("dashing")
@@ -218,7 +216,10 @@ func _on_player_detect_area_entered(area: Area2D) -> void:
 		if (action == Action.MOVING or action == Action.IDLE):
 			AudioController.cat_hit_sfx()
 			hp -= 1
-			if (hp%5 == 0):
+			if (hp <= 0):
+				action = Action.DYING
+				animation_player.queue("death")
+			elif (hp%5 == 0):
 				if (action == Action.IDLE):
 					trail_to_random_pos(spawn_shield_speed)
 					timer.wait_time = 1.5
@@ -234,5 +235,4 @@ func _on_player_detect_area_entered(area: Area2D) -> void:
 
 
 func _on_animation_player_current_animation_changed(name: String) -> void:
-	print("popbob " + name)
 	pass # Replace with function body.
