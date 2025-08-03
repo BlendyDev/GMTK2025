@@ -11,13 +11,13 @@ const RIGHT := Vector2(197, 0)
 const UP_RIGHT := Vector2(197, -97)
 const UP := Vector2(0, -97)
 
-enum Action {PRE, APPEAR, IDLE, MOVING, SPAWNING, SHIELD, SHIELD_MOVING, DYING}
+enum Action {PRE, APPEAR, IDLE, MOVING, SPAWNING, SHIELD, SHIELD_MOVING, PRE_DYING, DYING}
 
 @onready var player: Player = $"../Player"
 @onready var trail: Trail = $"../Trail"
 @onready var debug_text: RichTextLabel = $"../DebugText"
 @onready var timer = $SwitchAction
-@onready var animation_player := $AnimationPlayer
+@onready var animation_player :AnimationPlayer= $AnimationPlayer
 
 @onready var effect = AudioServer.get_bus_effect(1, 0)
 @onready var rng = RandomNumberGenerator.new()
@@ -26,16 +26,18 @@ enum Action {PRE, APPEAR, IDLE, MOVING, SPAWNING, SHIELD, SHIELD_MOVING, DYING}
 
 @onready var trail_curve = preload("res://Templates/boss_trail_curve.tres")
 @onready var mob_scene = preload("res://Scenes/mob.tscn")
+@onready var boss_death_scene = preload("res://Scenes/boss_death.tscn")
 
 @export var action: Action
-@export var shield_threshold: int = 1
+@export var shield_threshold: int
 @export var dash_speed := 500.0
 @export var spawn_shield_speed := 200.0
+@export var max_hp := 30
 
 var available_locations := [UP_LEFT, LEFT, DOWN_LEFT, DOWN, DOWN_RIGHT, RIGHT, UP_RIGHT, UP]
 
 
-var hp := 1
+var hp := max_hp
 var shield := 0
 var spawned_mobs := 0
 var mobs_alive := 0
@@ -50,7 +52,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if get_tree().paused: return
-	debug_text.text = "animation: " + str(animation_player.current_animation) + "\ntutorial stage" + str(Dummy.Stage.keys()[Dummy.stage]) + "\nfps: " + str(Engine.get_frames_per_second()) + "\nsensitivity boost: " + str(Global.sensitivity_boost) + "\ncircle cooldown: " + str(max(0, trail.circle_min_timeout_sec - trail.time_since_last_circle_sec)) + "\ncleared points: " + str(trail.cleared_points) + "\nloop count: " + str(trail.loop_count) + "\nlowpass resonance: " + str(effect.resonance) + "\naction: " + Action.keys()[action] + "\nspawned_mobs: " + str(spawned_mobs) + "\nmobs_alive: " + str(mobs_alive) + "\nhp: " + str(hp) + "\nshield: " + str(shield)
+	debug_text.text = "highest combo: " + str(Stats.get_highest_combo()) + "\nloops drawn: " + str(Stats.get_loops_drawn()) + "\nhighest loop: " + str(Stats.get_highest_loop()) + "\ndamage taken: " + str(Stats.get_damage_taken()) + "\ntotal time: " + str(Stats.get_total_time()) + "\nshield threshold: " + str(shield_threshold) + "\nanimation: " + str(animation_player.current_animation) + "\ntutorial stage" + str(Dummy.Stage.keys()[Dummy.stage]) + "\nfps: " + str(Engine.get_frames_per_second()) + "\nsensitivity boost: " + str(Global.sensitivity_boost) + "\ncircle cooldown: " + str(max(0, trail.circle_min_timeout_sec - trail.time_since_last_circle_sec)) + "\ncleared points: " + str(trail.cleared_points) + "\nloop count: " + str(trail.loop_count) + "\nlowpass resonance: " + str(effect.resonance) + "\naction: " + Action.keys()[action] + "\nspawned_mobs: " + str(spawned_mobs) + "\nmobs_alive: " + str(mobs_alive) + "\nhp: " + str(hp) + "\nshield: " + str(shield)
 	
 	if (action == Action.SHIELD and mobs_alive == 0):
 		if (shield < shield_threshold): start_spawning()
@@ -63,6 +65,9 @@ func _process(delta: float) -> void:
 
 func max_spawns()->int:
 	return 8-hp/5 
+
+func calculate_shield_threshold():
+	return -4 * hp + 150
 
 func start_spawning():
 	action = Action.SPAWNING
@@ -86,16 +91,23 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 		animation_player.play("dashing")
 		timer.wait_time = 1.0
 		timer.start()
+	if (anim_name == "death" and action == Action.DYING):
+		var boss_death: Node2D = boss_death_scene.instantiate()
+		boss_death.position = position
+		get_tree().current_scene.add_child(boss_death)
+		visible = false
+		
 
 func _on_body_entered(body: Node2D) -> void:
 	if !trail.can_trail: return
 	if action == Action.PRE: return
-	if action == Action.DYING: return
+	if action == Action.DYING or action == Action.PRE_DYING: return
 	if body is Player or body is Trail:
 		if !trail.bodies_entered.has(body): trail.bodies_entered.append(body)
 		trail.can_trail = false
 		trail.animate_fail_trail()
 		trail.reset_trail()
+		Stats.damage_taken += 1
 		AudioController.fail_circle_sfx()
 	pass # Replace with function body.
 
@@ -185,6 +197,9 @@ func finish_move():
 						action = Action.MOVING
 						animation_player.play("dashing")
 						pick_location_and_move()
+		elif (action == Action.PRE_DYING):
+			action = Action.DYING
+			animation_player.play("death")
 		return
 	action = Action.IDLE
 	timer.wait_time = 1.0
@@ -217,8 +232,8 @@ func _on_player_detect_area_entered(area: Area2D) -> void:
 			AudioController.cat_hit_sfx()
 			hp -= 1
 			if (hp <= 0):
-				action = Action.DYING
-				animation_player.queue("death")
+				action = Action.PRE_DYING
+				trail_to_move(CENTER)
 			elif (hp%5 == 0):
 				if (action == Action.IDLE):
 					trail_to_random_pos(spawn_shield_speed)
@@ -226,6 +241,8 @@ func _on_player_detect_area_entered(area: Area2D) -> void:
 					timer.start()
 				animation_player.play("spawning")
 				action = Action.SPAWNING
+				shield = 0
+				shield_threshold = calculate_shield_threshold()
 				spawned_mobs = 0
 				timer.wait_time = 0.8
 				timer.start()

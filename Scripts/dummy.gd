@@ -10,6 +10,7 @@ static var comboed_dummies: Array[Dummy]
 @export var id: int
 @onready var trail: Trail = $"../Trail"
 @onready var boss: Boss = $"../Boss"
+@onready var vfx: VFX = $"../VFX"
 
 var loop:= 0
 
@@ -48,6 +49,7 @@ func _on_body_entered(body: Node2D) -> void:
 		trail.can_trail = false
 		trail.animate_fail_trail()
 		trail.reset_trail()
+		vfx.trail_reset()
 		AudioController.fail_circle_sfx()
 
 func _on_body_exited(body: Node2D) -> void:

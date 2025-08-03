@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://cwq7bfq1rrmcp"]
 
 [ext_resource type="Script" uid="uid://c3qgesexkjs6c" path="res://Scripts/intro_cutscene.gd" id="1_ln4th"]
-[ext_resource type="VideoStream" uid="uid://dtlk3i7ccqua0" path="res://Cutscenes/0001-1005(1).mkv" id="2_7iewc"]
+[ext_resource type="VideoStream" path="res://Cutscenes/0001-1005(1).mkv" id="2_7iewc"]
 [ext_resource type="Texture2D" uid="uid://x16ohik3qxsv" path="res://Sprites/holdtoskip1.png" id="3_0ghf5"]
 [ext_resource type="Texture2D" uid="uid://lt2pp65qg47j" path="res://Sprites/holdtoskip2.png" id="4_gj3kt"]
 [ext_resource type="Texture2D" uid="uid://0vrc3n5wn2t6" path="res://Sprites/holdtoskip3.png" id="5_7pcux"]
