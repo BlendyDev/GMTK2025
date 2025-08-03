@@ -23,7 +23,6 @@
 [ext_resource type="AudioStream" uid="uid://c81tp600uhg5l" path="res://SFX/cat hit sfx 1.wav" id="16_vsytd"]
 [ext_resource type="AudioStream" uid="uid://cac878v1b4lwn" path="res://SFX/cat hit sfx 2.wav" id="17_itbot"]
 [ext_resource type="AudioStream" uid="uid://br0u0ep4e02p0" path="res://SFX/cat hit sfx 3.wav" id="18_up6cg"]
-[ext_resource type="AudioStream" uid="uid://t4myabqgn6fu" path="res://Music/ost test mousewheel 2 LOOPABLE.wav" id="19_8tkq0"]
 [ext_resource type="AudioStream" uid="uid://djkf0qn5klu0h" path="res://SFX/cat hit sfx 4.wav" id="19_snmij"]
 [ext_resource type="AudioStream" uid="uid://3s3lh4rhak4d" path="res://SFX/slime spawn sfx.wav" id="20_v21vt"]
 [ext_resource type="AudioStream" uid="uid://bft4m6yb1nuuv" path="res://SFX/spawn cat sfx.wav" id="21_4qxby"]
@@ -31,7 +30,6 @@
 [ext_resource type="AudioStream" uid="uid://kp4cfxgoeidc" path="res://SFX/ramiro spawn sfx.wav" id="23_bjnqe"]
 [ext_resource type="AudioStream" uid="uid://cndhigy2adi5" path="res://SFX/combo sfx test.wav" id="24_4qxby"]
 [ext_resource type="AudioStream" uid="uid://b4kr81kcb835k" path="res://SFX/tapestop sfx.wav" id="25_cbcmf"]
-[ext_resource type="AudioStream" uid="uid://dxhooo3lqf4d4" path="res://Music/menu music loop test.wav" id="25_up6cg"]
 [ext_resource type="AudioStream" uid="uid://bi5dxmtbfaxx2" path="res://SFX/loop sfx.wav" id="25_xb1yp"]
 [ext_resource type="AudioStream" uid="uid://dpu3h4uujiwu8" path="res://SFX/tape sfx 2.wav" id="26_3cpba"]
 [ext_resource type="AudioStream" uid="uid://bkia5a2awjvqg" path="res://SFX/teleport sfx.wav" id="26_ib0e2"]
@@ -41,8 +39,10 @@
 [ext_resource type="AudioStream" uid="uid://darji31e1teqe" path="res://SFX/circle cancel sfx.wav" id="28_r0vj5"]
 [ext_resource type="AudioStream" uid="uid://cyttnmllikpbs" path="res://SFX/swoosh sfx.wav" id="35_re00d"]
 [ext_resource type="AudioStream" uid="uid://4c33ebyshtv2" path="res://SFX/mouse hey sfx.wav" id="36_x26on"]
+[ext_resource type="AudioStream" uid="uid://c7splienguwc1" path="res://Music/menumusicloopfinal.wav" id="38_uogm5"]
+[ext_resource type="AudioStream" uid="uid://dsx0viicsqsr6" path="res://Music/tutorial ost loop final.wav" id="39_fo00n"]
 [ext_resource type="AudioStream" uid="uid://dmhintedg1nty" path="res://SFX/water stream loop.wav" id="41_x26on"]
-[ext_resource type="AudioStream" uid="uid://bsqoiek4rfbih" path="res://Music/finalmusic ost demo.wav" id="43_uogm5"]
+[ext_resource type="AudioStream" uid="uid://db54uyaqvf3an" path="res://Music/winmusic loop final.wav" id="43_jhpkq"]
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ncnt2"]
 random_pitch = 1.13
@@ -346,13 +346,13 @@ stream = SubResource("AudioStreamRandomizer_jhpkq")
 volume_db = -10.0
 
 [node name="MenuMusic" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("25_up6cg")
+stream = ExtResource("38_uogm5")
 volume_db = -2.0
 bus = &"Music"
 playback_type = 1
 
 [node name="TutorialMusic" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("19_8tkq0")
+stream = ExtResource("39_fo00n")
 volume_db = 1.0
 bus = &"Music"
 playback_type = 1
@@ -375,7 +375,7 @@ bus = &"SFX"
 playback_type = 1
 
 [node name="WinMusic" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("43_uogm5")
+stream = ExtResource("43_jhpkq")
 volume_db = -80.0
 bus = &"Music"
 playback_type = 1
