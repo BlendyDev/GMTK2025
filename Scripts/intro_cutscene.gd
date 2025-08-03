@@ -4,10 +4,10 @@ extends Node2D
 @onready var spaced = false
 @onready var total = 0
 
-@export
-var bus_name: String
+@export var bus_name: String
 
 var bus_index: int
+var switching := false
 
 func _ready() -> void:
 	AudioController.cutscene()
@@ -26,9 +26,9 @@ func _process(delta: float) -> void:
 		total = 0
 		spaced = false
 		$TextureProgressBar.visible = false
-	if total > 1.5:
+	if total > 1.5 and switching == false:
+		switching = true
 		AudioController.cut_tail_sfx()
-		total = 0
 		spaced = false
 		AudioController.cutscene_stop()
 		$AnimationPlayer.play("switch_scene")
