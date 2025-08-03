@@ -12,6 +12,7 @@ func start_tween(object: Object, property: String, final_val: Variant, duration:
 	tween.tween_property(object, property, final_val, duration)
 
 func _ready() -> void:
+	AudioController.level_music_stop()
 	AudioController.removelowpass()
 	AudioController.makeclickloudagain()
 	AudioController.menu_music()
@@ -20,6 +21,10 @@ func _ready() -> void:
 	$Play/AnimationPlayer.play("idle")
 	$Credits/AnimationPlayer.play("idle")
 	$Options/AnimationPlayer.play("idle")
+	if (Stats.best_damage_taken == -1):
+		$Trophy/AnimationPlayer.play("blocked")
+	else:
+		$Trophy/AnimationPlayer.play("normal")
 
 
 
@@ -150,11 +155,13 @@ func _on_trophy_pressed() -> void:
 
 
 func _on_trophy_mouse_entered() -> void:
-	$Trophy/AnimationPlayer.play("shine")
+	if (Stats.best_damage_taken != -1):
+		$Trophy/AnimationPlayer.play("shine")
 	AudioController.ui_hover_sfx()
 	$Trophy/TrophySFX.play()
 
 
 func _on_trophy_mouse_exited() -> void:
-	$Trophy/AnimationPlayer.play("normal")
+	if (Stats.best_damage_taken != -1):
+		$Trophy/AnimationPlayer.play("normal")
 	AudioController.ui_lookaway_sfx()

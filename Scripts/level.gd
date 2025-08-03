@@ -2,6 +2,7 @@ extends Node2D
 class_name Level
 
 @onready var player: Player = $Player
+@onready var tutorial: Tutorial = $TutorialAnimations
  
 func _ready() -> void:
 	AudioController.choose_tutorial_music()
@@ -10,7 +11,10 @@ func _ready() -> void:
 func pause():
 	AudioController.tapestop1()
 	$PauseMenu.visible = true
-	AudioController.choose_tutorial_drums()
+	if tutorial.stage == Tutorial.Stage.COMPLETED:
+		AudioController.choose_level_drums()
+	else:
+		AudioController.choose_tutorial_drums()
 	AudioController.applylowpass()
 	get_tree().paused = true
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
@@ -19,7 +23,11 @@ func pause():
 func unpause():
 	AudioController.waterstreamstop_sfx()
 	AudioController.tapestop2()
-	AudioController.choose_tutorial_music()
+	if tutorial.stage == Tutorial.Stage.COMPLETED:
+		print("ÑEEEEEEEEEEEEEEEEEEEEEEEEe")
+		AudioController.choose_level_music()
+	else:
+		AudioController.choose_tutorial_music()
 	AudioController.removelowpass()
 	$PauseMenu.visible = false
 	$PauseMenu/OptionsMenu.visible = false

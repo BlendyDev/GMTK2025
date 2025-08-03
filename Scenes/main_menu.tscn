@@ -1,4 +1,4 @@
-[gd_scene load_steps=76 format=3 uid="uid://db0iuepgj8olx"]
+[gd_scene load_steps=78 format=3 uid="uid://db0iuepgj8olx"]
 
 [ext_resource type="Script" uid="uid://0mcwei50crlf" path="res://Scripts/main_menu.gd" id="1_ce3w2"]
 [ext_resource type="Texture2D" uid="uid://rc0e0h2kk7xn" path="res://Sprites/fondo2.png" id="2_xcoo4"]
@@ -35,6 +35,7 @@
 [ext_resource type="Texture2D" uid="uid://u2tvo51ys52o" path="res://Sprites/trofeo1.png" id="27_pddej"]
 [ext_resource type="AudioStream" uid="uid://btmmvcff52x2l" path="res://SFX/shine sfx.wav" id="28_43km2"]
 [ext_resource type="Texture2D" uid="uid://cbyka1dm6llu5" path="res://Sprites/trofeo2.png" id="28_ko05x"]
+[ext_resource type="Texture2D" uid="uid://dhdvdw25jxlbl" path="res://Sprites/trofeovacio3.png" id="31_3533h"]
 [ext_resource type="Texture2D" uid="uid://bkwdi8m4v271i" path="res://Sprites/pause1.png" id="32_jw7lb"]
 [ext_resource type="FontFile" uid="uid://dshoo2jsk1ijo" path="res://Sprites/FONT5.png" id="33_aylim"]
 [ext_resource type="Texture2D" uid="uid://daxpanbewww1i" path="res://Sprites/pause2.png" id="33_msuys"]
@@ -368,9 +369,26 @@ tracks/0/keys = {
 "values": [ExtResource("28_ko05x")]
 }
 
+[sub_resource type="Animation" id="Animation_uu0lx"]
+resource_name = "blocked"
+length = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture_normal")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("31_3533h")]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_uu0lx"]
 _data = {
 &"RESET": SubResource("Animation_3533h"),
+&"blocked": SubResource("Animation_uu0lx"),
 &"normal": SubResource("Animation_dp8uv"),
 &"shine": SubResource("Animation_43km2")
 }
