@@ -11,7 +11,7 @@ const RIGHT := Vector2(197, 0)
 const UP_RIGHT := Vector2(197, -97)
 const UP := Vector2(0, -97)
 
-enum Action {PRE, IDLE, MOVING, SPAWNING, SHIELD, SHIELD_MOVING, DYING}
+enum Action {PRE, APPEAR, IDLE, MOVING, SPAWNING, SHIELD, SHIELD_MOVING, DYING}
 
 @onready var player: Player = $"../Player"
 @onready var trail: Trail = $"../Trail"
@@ -29,13 +29,13 @@ enum Action {PRE, IDLE, MOVING, SPAWNING, SHIELD, SHIELD_MOVING, DYING}
 
 @export var action: Action
 @export var shield_threshold: int = 1
-@export var dash_speed := 300.0
-@export var spawn_shield_speed := 100.0
+@export var dash_speed := 500.0
+@export var spawn_shield_speed := 200.0
 
 var available_locations := [UP_LEFT, LEFT, DOWN_LEFT, DOWN, DOWN_RIGHT, RIGHT, UP_RIGHT, UP]
 
 
-var hp := 26
+var hp := 30
 var shield := 0
 var spawned_mobs := 0
 var mobs_alive := 0
@@ -50,7 +50,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if get_tree().paused: return
-	debug_text.text = "tutorial stage" + str(Dummy.Stage.keys()[Dummy.stage]) + "\nfps: " + str(Engine.get_frames_per_second()) + "\nsensitivity boost: " + str(Global.sensitivity_boost) + "\ncircle cooldown: " + str(max(0, trail.circle_min_timeout_sec - trail.time_since_last_circle_sec)) + "\ncleared points: " + str(trail.cleared_points) + "\nloop count: " + str(trail.loop_count) + "\nlowpass resonance: " + str(effect.resonance) + "\naction: " + Action.keys()[action] + "\nspawned_mobs: " + str(spawned_mobs) + "\nmobs_alive: " + str(mobs_alive) + "\nhp: " + str(hp) + "\nshield: " + str(shield)
+	debug_text.text = "animation: " + str(animation_player.current_animation) + "\ntutorial stage" + str(Dummy.Stage.keys()[Dummy.stage]) + "\nfps: " + str(Engine.get_frames_per_second()) + "\nsensitivity boost: " + str(Global.sensitivity_boost) + "\ncircle cooldown: " + str(max(0, trail.circle_min_timeout_sec - trail.time_since_last_circle_sec)) + "\ncleared points: " + str(trail.cleared_points) + "\nloop count: " + str(trail.loop_count) + "\nlowpass resonance: " + str(effect.resonance) + "\naction: " + Action.keys()[action] + "\nspawned_mobs: " + str(spawned_mobs) + "\nmobs_alive: " + str(mobs_alive) + "\nhp: " + str(hp) + "\nshield: " + str(shield)
 	
 	if (action == Action.SHIELD and mobs_alive == 0):
 		if (shield < shield_threshold): start_spawning()
@@ -73,10 +73,21 @@ func start_spawning():
 func is_shielding()-> bool: return action == Action.SHIELD or action == Action.SHIELD_MOVING
 
 func activate():
-	animation_player.play("dashing")
-	action = Action.IDLE
-	timer.wait_time = 1.0
-	timer.start()
+	if (action != Action.PRE): return
+	#Engine.time_scale = .1
+	visible = true
+	action = Action.APPEAR
+	print("playing appear:")
+	animation_player.queue("appear")
+
+
+func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+	print("xd")
+	if (anim_name == "appear" and action == Action.APPEAR):
+		action = Action.IDLE
+		animation_player.play("dashing")
+		timer.wait_time = 1.0
+		timer.start()
 
 func _on_body_entered(body: Node2D) -> void:
 	if !trail.can_trail: return
@@ -220,3 +231,8 @@ func _on_player_detect_area_entered(area: Area2D) -> void:
 			else:
 				if (timer.wait_time > 0.1):
 					timer.start(0.1)
+
+
+func _on_animation_player_current_animation_changed(name: String) -> void:
+	print("popbob " + name)
+	pass # Replace with function body.

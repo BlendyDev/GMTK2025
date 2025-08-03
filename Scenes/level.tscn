@@ -168,6 +168,9 @@ shape = SubResource("RectangleShape2D_ha31o")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
+[node name="Boss" parent="." instance=ExtResource("10_qxfql")]
+visible = false
+
 [node name="DownSpike" type="StaticBody2D" parent="."]
 position = Vector2(130, -111)
 collision_layer = 2
@@ -219,11 +222,6 @@ id = 1
 
 [node name="LeftDummy" parent="." instance=ExtResource("9_pa6b8")]
 position = Vector2(-100, 0)
-
-[node name="Boss" parent="." instance=ExtResource("10_qxfql")]
-visible = false
-dash_speed = 500.0
-spawn_shield_speed = 200.0
 
 [node name="DecorativeBorder" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_0cmrb")

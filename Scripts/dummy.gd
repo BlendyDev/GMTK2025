@@ -9,6 +9,7 @@ static var comboed_dummies: Array[Dummy]
 
 @export var id: int
 @onready var trail: Trail = $"../Trail"
+@onready var boss: Boss = $"../Boss"
 
 var loop:= 0
 
@@ -22,18 +23,21 @@ static func reset_trail():
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	stage = Stage.PRE
+	stage = Stage.PRE_RESET
 	comboed_dummies = []
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if (stage == Stage.PRE or stage == Stage.COMPLETED): return
+	if (stage == Stage.PRE): return
 	if (id != 0): return # make leftmost dummy handle processing
 	if (comboed_dummies.size() > 1 and stage == Stage.PRE_BOTH):
 		stage = Stage.PRE_LEMNISCATE
 	if (comboed_dummies.size() > 1 and loop > 1 and stage == Stage.PRE_LEMNISCATE):
 		stage = Stage.PRE_RESET
+	if (stage == Stage.COMPLETED and boss.action == Boss.Action.PRE):
+		print("activating!")
+		boss.activate()
 	comboed_dummies.clear()
 	
 	pass

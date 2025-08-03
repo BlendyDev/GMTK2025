@@ -20,7 +20,8 @@ func bind_to_player():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	print("playing!")
 	playing = true
-	Dummy.stage = Dummy.Stage.PRE_SENSITIVITY
+	if (Dummy.stage == Dummy.Stage.PRE):
+		Dummy.stage = Dummy.Stage.PRE_SENSITIVITY
 
 func _input(e: InputEvent):
 	match e.get_class():

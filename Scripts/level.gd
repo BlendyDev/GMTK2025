@@ -2,7 +2,7 @@ extends Node2D
 class_name Level
 
 @onready var player: Player = $Player
-
+ 
 func _ready() -> void:
 	AudioController.choose_tutorial_music()
 	AudioController.tutorial_music()
