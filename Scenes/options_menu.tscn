@@ -1,15 +1,14 @@
-[gd_scene load_steps=19 format=3 uid="uid://bxyvs55u3pfiy"]
+[gd_scene load_steps=18 format=3 uid="uid://bxyvs55u3pfiy"]
 
 [ext_resource type="Script" uid="uid://cqme1fyl5r23p" path="res://Scripts/options_menu.gd" id="1_plplt"]
 [ext_resource type="FontFile" uid="uid://ciygyfdhhcin5" path="res://Sprites/FONT1.png" id="2_tqe32"]
 [ext_resource type="PackedScene" uid="uid://dj2sj4rurva0x" path="res://Scenes/volume_slider.tscn" id="2_uj0ok"]
-[ext_resource type="Shader" path="res://Shaders/scroll.gdshader" id="2_wbndg"]
+[ext_resource type="Shader" uid="uid://ckg8b2a2owe7x" path="res://Shaders/scroll.gdshader" id="2_wbndg"]
 [ext_resource type="Texture2D" uid="uid://dxjy3ej3scaqg" path="res://Sprites/optionsmouseitems-export.png" id="3_uyb61"]
 [ext_resource type="Texture2D" uid="uid://veujwf2k3btk" path="res://Sprites/mousemc-Sheet-1.png.png" id="4_qfavn"]
 [ext_resource type="Texture2D" uid="uid://c8l5slruu5ljl" path="res://Sprites/mousemc-Sheet-1.png(1).png" id="5_syw6n"]
 [ext_resource type="Texture2D" uid="uid://dcbglvnmwn7ui" path="res://Sprites/mousemc-Sheet-2.png(1).png" id="6_cvaji"]
 [ext_resource type="Texture2D" uid="uid://cbascitrtggix" path="res://Sprites/optionsmouse1.png" id="6_wbndg"]
-[ext_resource type="FontFile" uid="uid://dshoo2jsk1ijo" path="res://Sprites/FONT5.png" id="7_uyb61"]
 [ext_resource type="Script" path="res://Scripts/sensitivity_slider.gd" id="8_uyb61"]
 [ext_resource type="FontFile" uid="uid://n2exgpxs2fx5" path="res://Sprites/FONT2.png" id="10_064ll"]
 [ext_resource type="FontFile" uid="uid://bk5j57lgnqs3q" path="res://Sprites/FONT3.png" id="11_a6r4q"]
@@ -309,12 +308,13 @@ offset_bottom = 255.0
 color = Color(0.18, 0.18, 0.18, 0)
 
 [node name="Label4" type="Label" parent="."]
+modulate = Color(1, 1, 1, 0.686275)
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
-anchor_top = 0.519841
+anchor_top = 0.507936
 anchor_right = 0.5
-anchor_bottom = 0.519841
+anchor_bottom = 0.507936
 offset_left = -169.0
 offset_top = -78.0
 offset_right = 71.0
@@ -417,23 +417,26 @@ mouse_filter = 2
 texture = ExtResource("6_wbndg")
 metadata/_edit_use_anchors_ = true
 
-[node name="Label" type="Label" parent="."]
-modulate = Color(0, 0, 0, 1)
-layout_mode = 0
-offset_left = 116.0
-offset_top = 218.0
-offset_right = 180.0
-offset_bottom = 234.0
-theme_override_fonts/font = ExtResource("7_uyb61")
-text = "BACK"
+[node name="ColorRect2" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0647321
+anchor_top = -0.031746
+anchor_right = 0.0691964
+anchor_bottom = -0.031746
+offset_left = 104.0
+offset_top = 225.0
+offset_right = 163.0
+offset_bottom = 243.0
+color = Color(1, 1, 1, 0.0980392)
 metadata/_edit_use_anchors_ = true
 
 [node name="Back" type="Button" parent="."]
 layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
+anchors_preset = -1
+anchor_left = 1.03348
 anchor_top = 1.0
-anchor_right = 1.0
+anchor_right = 1.03348
 anchor_bottom = 1.0
 offset_left = -336.0
 offset_top = -41.0

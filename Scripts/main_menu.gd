@@ -41,7 +41,9 @@ func _on_play_mouse_entered() -> void:
 	AudioController.hey_sfx()
 
 func _on_credits_pressed() -> void:
+	$CreditsScene.visible = true
 	AudioController.ui_click_sfx()
+	start_tween($CreditsScene, "modulate", Color(1.0, 1.0, 1.0), 0.5 )
 
 func _on_credits_mouse_entered() -> void:
 	$Credits/AnimationPlayer.play("credits")
@@ -51,11 +53,15 @@ func _on_credits_mouse_entered() -> void:
 func _on_exit_pressed() -> void:
 	AudioController.ui_click_sfx()
 	$VBoxContainer.visible = true
+	$YesBG.visible = true
+	$NoBG.visible = true
+	$AnimationPlayer.play("movetext")
 	
 func _on_exit_mouse_entered() -> void:
 	AudioController.ui_hover_sfx()
 	$Quit/AnimationPlayer.play("lightflicker")
-	$Quit/LightSFX.play()
+	if !$Quit/LightSFX.playing:
+		$Quit/LightSFX.play()
 
 
 func _on_yes_pressed() -> void:
@@ -64,9 +70,13 @@ func _on_yes_pressed() -> void:
 func _on_no_pressed() -> void:
 	AudioController.ui_back_sfx()
 	$VBoxContainer.visible = false
+	$YesBG.visible = false
+	$NoBG.visible = false
+	$AnimationPlayer.stop()
 
 
 func _on_options_pressed() -> void:
+	AudioController.waterstream_sfx()
 	AudioController.ui_click_sfx()
 	AudioController.applylowpass()
 	$OptionsMenu.visible = true
@@ -109,4 +119,18 @@ func _on_no_mouse_entered() -> void:
 
 
 func _on_no_mouse_exited() -> void:
+	AudioController.ui_lookaway_sfx()
+
+
+func _on_back_pressed() -> void:
+	start_tween($CreditsScene, "modulate", Color(1.0, 1.0, 1.0, 0.0), 0.5)
+	$CreditsScene.visible = false
+	AudioController.ui_back_sfx()
+
+
+func _on_back_mouse_entered() -> void:
+	AudioController.ui_hover_sfx()
+
+
+func _on_back_mouse_exited() -> void:
 	AudioController.ui_lookaway_sfx()
