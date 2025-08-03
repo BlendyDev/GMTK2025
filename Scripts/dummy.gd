@@ -16,8 +16,6 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-
-	
 	pass
 
 func _on_body_entered(body: Node2D) -> void:
@@ -36,16 +34,13 @@ func _on_body_exited(body: Node2D) -> void:
 	if (trail.bodies_entered.is_empty()): trail.can_trail = true
 
 func _on_area_entered(area: Area2D) -> void:
+	pass
 	if (area.collision_layer == pow(2, 10-1)): #traced circle
 		tutorial.comboed_dummies.append(self)
 		if (tutorial.stage == Tutorial.Stage.PRE_LEFT and !tutorial.transitioning): 
 			tutorial.stage = Tutorial.Stage.PRE_RIGHT
+			tutorial.start_segment()
 		if (tutorial.stage == Tutorial.Stage.PRE_RIGHT and !tutorial.transitioning): 
 			tutorial.stage = Tutorial.Stage.PRE_BOTH
+			tutorial.start_segment()
 		pass
-
-
-func _on_tutorial_animations_animation_finished(anim_name: StringName) -> void:
-	if (anim_name.contains("_final")):
-		tutorial.transitioning = false
-	pass # Replace with function body.

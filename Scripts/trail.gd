@@ -12,6 +12,7 @@ class Combo:
 @onready var trail_line: Line2D = $Trail
 @onready var player: Player = $"../Player"
 @onready var boss: Boss = $"../Boss"
+@onready var tutorial: Tutorial = $"../TutorialAnimations"
 
 @onready var loop_scene = preload("res://Scenes/loop.tscn")
 @onready var combo_scene = preload("res://Scenes/combo.tscn")
@@ -92,7 +93,7 @@ func area_entered_circle(area: Area2D):
 	if (area.collision_layer == pow(2, 3-1)): #mob
 		(area.get_parent() as Mob).loop = loop_count
 	if (area.collision_layer == pow(2, 11-1)): #dummy
-		(area as Dummy).loop = loop_count
+		tutorial.loop = loop_count
 		
 
 func try_spawn_circle(closest_point: Vector2):
