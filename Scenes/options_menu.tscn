@@ -347,9 +347,6 @@ horizontal_alignment = 1
 [node name="MasterSlider" parent="VBoxContainer" instance=ExtResource("2_uj0ok")]
 layout_mode = 2
 theme_override_icons/grabber = ExtResource("4_qfavn")
-theme_override_icons/grabber_highlight = ExtResource("5_syw6n")
-theme_override_icons/grabber_disabled = ExtResource("5_syw6n")
-theme_override_icons/tick = ExtResource("5_syw6n")
 bus_name = "Master"
 
 [node name="Label2" type="Label" parent="VBoxContainer"]
@@ -360,9 +357,6 @@ horizontal_alignment = 1
 
 [node name="MusicSlider" parent="VBoxContainer" instance=ExtResource("2_uj0ok")]
 layout_mode = 2
-theme_override_icons/grabber_highlight = ExtResource("5_syw6n")
-theme_override_icons/grabber_disabled = ExtResource("5_syw6n")
-theme_override_icons/tick = ExtResource("5_syw6n")
 bus_name = "Music"
 
 [node name="Label3" type="Label" parent="VBoxContainer"]
@@ -373,9 +367,6 @@ horizontal_alignment = 1
 
 [node name="SFXSlider" parent="VBoxContainer" instance=ExtResource("2_uj0ok")]
 layout_mode = 2
-theme_override_icons/grabber_highlight = ExtResource("5_syw6n")
-theme_override_icons/grabber_disabled = ExtResource("5_syw6n")
-theme_override_icons/tick = ExtResource("5_syw6n")
 bus_name = "SFX"
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="."]
