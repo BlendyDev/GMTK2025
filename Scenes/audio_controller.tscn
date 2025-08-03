@@ -293,7 +293,7 @@ bus = &"SFX"
 
 [node name="HitCancelSFX" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_bqsbb")
-volume_db = 4.0
+volume_db = 8.758
 bus = &"SFX"
 
 [node name="UISliderClickSFX" type="AudioStreamPlayer" parent="."]

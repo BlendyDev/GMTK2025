@@ -228,6 +228,8 @@ func trail_to_random_pos(move_speed: float = dash_speed):
 
 func _on_player_detect_area_entered(area: Area2D) -> void:
 	if (area.collision_layer == pow(2, 10-1)): #traced circle
+		if (action == Action.SHIELD or action == Action.SHIELD_MOVING or action == Action.SPAWNING):
+			AudioController.hit_cancel_sfx()
 		if (action == Action.MOVING or action == Action.IDLE):
 			AudioController.cat_hit_sfx()
 			hp -= 1
