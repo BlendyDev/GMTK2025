@@ -5,6 +5,7 @@ enum Stage {PRE, PRE_SENSITIVITY, PRE_LEFT, PRE_RIGHT, PRE_BOTH, PRE_LEMNISCATE,
 @onready var left_dummy: Node2D = $"../LeftDummy"
 @onready var right_dummy: Node2D = $"../RightDummy"
 @onready var text: RichTextLabel = $"../RichTextLabel"
+@onready var tutorial_bg = $"../TutoBG"
 
 var stage: Stage
 var transitioning: bool = false
@@ -64,8 +65,12 @@ func _process(delta: float) -> void:
 	pass
 
 func finish_tutorial():
+
 	AudioController.tutorial_music_stop()
 	AudioController.level_music()
+	var tween = get_tree().create_tween()
+	tween.tween_property(tutorial_bg, "modulate", Color.from_rgba8(255, 255, 255, 0), 1)
+
 	boss.activate()
 	left_dummy.queue_free()
 	right_dummy.queue_free()
@@ -82,7 +87,7 @@ func _on_animation_finished(anim_name: StringName) -> void:
 			tween.tween_property(right_dummy, "modulate", Color.from_rgba8(255, 255, 255, 0), 1.0)
 			tween.tween_callback(finish_tutorial)
 	else:
-		await get_tree().create_timer(0.4, true, false, true).timeout
+		await get_tree().create_timer(1, true, false, true).timeout
 		subanimation += 1
 		play(animation_data.get(stage)[subanimation])
 	pass # Replace with function body.
