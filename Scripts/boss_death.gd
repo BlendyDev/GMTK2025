@@ -35,4 +35,4 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 		get_tree().paused = false
 		loading.visible = false
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-		get_tree().change_scene_to_file("res://Scenes/main_menu.tscn")
+		get_tree().change_scene_to_file("res://Scenes/win_screen.tscn")

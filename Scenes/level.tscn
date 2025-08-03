@@ -1,4 +1,4 @@
-[gd_scene load_steps=76 format=3 uid="uid://4otsh1wy31kg"]
+[gd_scene load_steps=83 format=3 uid="uid://4otsh1wy31kg"]
 
 [ext_resource type="Script" uid="uid://cxjw50s4jeh2y" path="res://Scripts/trail.gd" id="1_0f350"]
 [ext_resource type="Script" uid="uid://c26jmx7s0p0dr" path="res://Scripts/level.gd" id="1_ha31o"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://u8v7wxeolqad" path="res://Sprites/ocstaculoepicoup.png" id="6_qxfql"]
 [ext_resource type="Texture2D" uid="uid://c1yfhu6mq1mop" path="res://Sprites/fondo.png" id="7_8c0lf"]
 [ext_resource type="Texture2D" uid="uid://cyeifbyapar62" path="res://Sprites/trueborder.png" id="8_754fn"]
+[ext_resource type="Texture2D" uid="uid://biqrn6y5hcv3h" path="res://Sprites/tutorialbg-Sheet.png" id="9_24uko"]
 [ext_resource type="PackedScene" uid="uid://drhmfihvu5x4o" path="res://Scenes/dummy.tscn" id="9_pa6b8"]
 [ext_resource type="Texture2D" uid="uid://dwgaupo44whxw" path="res://Sprites/bordes-Sheet.png" id="10_ha31o"]
 [ext_resource type="PackedScene" uid="uid://dd7jxb3adi5uf" path="res://Scenes/boss.tscn" id="10_qxfql"]
@@ -44,6 +45,90 @@ points = PackedVector2Array(-13, -15, 15, -15, 3, 14)
 
 [sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_ha31o"]
 points = PackedVector2Array(0, -15, -11, 16, 11, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gf56v"]
+atlas = ExtResource("9_24uko")
+region = Rect2(0, 0, 448, 252)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6y3s5"]
+atlas = ExtResource("9_24uko")
+region = Rect2(448, 0, 448, 252)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_u0did"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gf56v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6y3s5")
+}],
+"loop": true,
+"name": &"tutorial",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_s14gf"]
+resource_name = "tutorial"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"tutorial"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="Animation" id="Animation_cpxpw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"tutorial"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wbq00"]
+_data = {
+&"RESET": SubResource("Animation_cpxpw"),
+&"tutorial": SubResource("Animation_s14gf")
+}
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bvt00"]
 size = Vector2(449, 1)
@@ -222,7 +307,6 @@ _data = {
 &"trail_reset": SubResource("Animation_c7le1")
 }
 
-
 [sub_resource type="Animation" id="Animation_u0did"]
 length = 0.001
 tracks/0/type = "value"
@@ -237,7 +321,6 @@ tracks/0/keys = {
 "update": 1,
 "values": [ExtResource("20_pnhnk")]
 }
-
 
 [sub_resource type="Animation" id="Animation_6y3s5"]
 resource_name = "movetext"
@@ -267,15 +350,12 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-
 tracks/0/path = NodePath("RichTextLabel:visible_ratio")
-
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-
 "update": 0,
 "values": [0.0]
 }
@@ -307,7 +387,6 @@ tracks/0/keys = {
 "update": 0,
 "values": [0.0, 1.0]
 }
-
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
@@ -333,7 +412,6 @@ tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-
 "update": 1,
 "values": ["SIMPLY MARVELOUS!"]
 }
@@ -991,7 +1069,6 @@ tracks/1/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_hcs0j"]
 _data = {
 &"RESET": SubResource("Animation_1cgv8"),
-
 &"pre1_final": SubResource("Animation_luodc"),
 &"pre_both1": SubResource("Animation_dw52x"),
 &"pre_both2": SubResource("Animation_ais7f"),
@@ -1102,8 +1179,19 @@ texture = ExtResource("6_qxfql")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="UpSpike"]
 shape = SubResource("ConvexPolygonShape2D_ha31o")
 
-[node name="BG" type="Sprite2D" parent="."]
+[node name="TutoBG" type="AnimatedSprite2D" parent="."]
 z_index = -1000
+sprite_frames = SubResource("SpriteFrames_u0did")
+animation = &"tutorial"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="TutoBG"]
+libraries = {
+&"": SubResource("AnimationLibrary_wbq00")
+}
+autoplay = "tutorial"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -1001
 texture = ExtResource("7_8c0lf")
 
 [node name="SolidBorder" type="StaticBody2D" parent="."]
@@ -1221,7 +1309,6 @@ color = Color(0, 0, 0, 0)
 visible = false
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
-
 offset_left = -203.0
 offset_top = -92.0
 offset_right = 100.0
@@ -1241,7 +1328,7 @@ autoplay = "movetext"
 libraries = {
 &"": SubResource("AnimationLibrary_hcs0j")
 }
-
+speed_scale = 0.6
 script = ExtResource("23_24uko")
 
 [connection signal="mouse_entered" from="Player/GrabDetector" to="Player" method="_on_mouse_entered"]
