@@ -1,7 +1,8 @@
-[gd_scene load_steps=17 format=3 uid="uid://d2r7735j3jf76"]
+[gd_scene load_steps=18 format=3 uid="uid://d2r7735j3jf76"]
 
 [ext_resource type="Texture2D" uid="uid://3av3tve7mwuj" path="res://Sprites/catmaligno-Sheet.png" id="1_0xwb3"]
 [ext_resource type="Script" uid="uid://8camenh11g2d" path="res://Scripts/boss_death.gd" id="1_1x0a2"]
+[ext_resource type="AudioStream" uid="uid://crye4isnquioa" path="res://SFX/boss land.wav" id="3_fjngm"]
 
 [sub_resource type="Animation" id="Animation_n8jfa"]
 length = 0.001
@@ -83,6 +84,18 @@ tracks/6/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [0]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("AudioStreamPlayer:playing")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_j52ka"]
@@ -166,6 +179,18 @@ tracks/6/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [0, 0, 1, 1, 2, 2, 3, 4, 5]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("AudioStreamPlayer:playing")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(2.13, 2.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_yhmkg"]
@@ -284,5 +309,8 @@ sprite_frames = SubResource("SpriteFrames_ynr16")
 
 [node name="Tunica" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_vu1wo")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_fjngm")
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

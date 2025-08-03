@@ -1,8 +1,10 @@
-[gd_scene load_steps=46 format=3 uid="uid://dd7jxb3adi5uf"]
+[gd_scene load_steps=48 format=3 uid="uid://dd7jxb3adi5uf"]
 
 [ext_resource type="Script" uid="uid://dl360of7mit5t" path="res://Scripts/boss.gd" id="1_wwfse"]
 [ext_resource type="Texture2D" uid="uid://b2ssbxxgb7kcy" path="res://Sprites/catlightning-Sheet.png" id="2_cxrok"]
 [ext_resource type="Texture2D" uid="uid://3av3tve7mwuj" path="res://Sprites/catmaligno-Sheet.png" id="2_wwfse"]
+[ext_resource type="AudioStream" uid="uid://15kqr71he2a1" path="res://SFX/boss spawn.wav" id="4_ukjjc"]
+[ext_resource type="AudioStream" uid="uid://crye4isnquioa" path="res://SFX/boss land.wav" id="5_n725y"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qtle2"]
 atlas = ExtResource("2_cxrok")
@@ -347,6 +349,18 @@ tracks/6/keys = {
 "points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0)
 }
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("AudioStreamPlayer:playing")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_ewv5o"]
 resource_name = "appear"
@@ -410,6 +424,18 @@ tracks/4/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [true, true, false, false, true, true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("AudioStreamPlayer:playing")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_qtle2"]
@@ -513,6 +539,18 @@ tracks/3/keys = {
 "handle_modes": PackedInt32Array(0, 2, 2),
 "points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, -0.32561, 0, 0.0521677, 0, 0.99975, -0.0521677, 0, 0, 0),
 "times": PackedFloat32Array(0, 0.97683, 1.1)
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("AudioStreamPlayer:playing")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.9),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_q76ad"]
@@ -671,6 +709,16 @@ offset_top = -252.0
 offset_right = 448.0
 offset_bottom = 252.0
 mouse_filter = 2
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_ukjjc")
+volume_db = -5.51
+bus = &"SFX"
+
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_n725y")
+volume_db = -3.444
+bus = &"SFX"
 
 [connection signal="area_entered" from="PlayerDetect" to="." method="_on_player_detect_area_entered"]
 [connection signal="body_entered" from="PlayerDetect" to="." method="_on_body_entered"]
