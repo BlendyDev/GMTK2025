@@ -20,6 +20,7 @@ func _ready() -> void:
 
 func bind_to_player():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	Stats.reset_stats()
 	Stats.start_time = Time.get_ticks_msec()
 	print("playing!")
 	playing = true

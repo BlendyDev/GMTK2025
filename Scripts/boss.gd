@@ -32,7 +32,7 @@ enum Action {PRE, APPEAR, IDLE, MOVING, SPAWNING, SHIELD, SHIELD_MOVING, PRE_DYI
 @export var shield_threshold: int
 @export var dash_speed := 500.0
 @export var spawn_shield_speed := 200.0
-@export var max_hp := 30
+@export var max_hp := 1
 
 var available_locations := [UP_LEFT, LEFT, DOWN_LEFT, DOWN, DOWN_RIGHT, RIGHT, UP_RIGHT, UP]
 
@@ -66,6 +66,7 @@ func max_spawns()->int:
 	return 8-hp/5 
 
 func calculate_shield_threshold():
+	return 1
 	return -4 * hp + 150
 
 func start_spawning():

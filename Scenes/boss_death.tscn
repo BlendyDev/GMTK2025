@@ -1,6 +1,7 @@
-[gd_scene load_steps=16 format=3 uid="uid://d2r7735j3jf76"]
+[gd_scene load_steps=17 format=3 uid="uid://d2r7735j3jf76"]
 
 [ext_resource type="Texture2D" uid="uid://3av3tve7mwuj" path="res://Sprites/catmaligno-Sheet.png" id="1_0xwb3"]
+[ext_resource type="Script" uid="uid://8camenh11g2d" path="res://Scripts/boss_death.gd" id="1_1x0a2"]
 
 [sub_resource type="Animation" id="Animation_n8jfa"]
 length = 0.001
@@ -254,6 +255,7 @@ animations = [{
 }]
 
 [node name="BossDeath" type="Node2D"]
+script = ExtResource("1_1x0a2")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -282,3 +284,5 @@ sprite_frames = SubResource("SpriteFrames_ynr16")
 
 [node name="Tunica" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_vu1wo")
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

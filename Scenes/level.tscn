@@ -404,5 +404,6 @@ libraries = {
 }
 
 [node name="PauseMenu" parent="." instance=ExtResource("11_qxfql")]
+visible = false
 
 [connection signal="mouse_entered" from="Player/GrabDetector" to="Player" method="_on_mouse_entered"]
