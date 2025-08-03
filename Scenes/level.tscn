@@ -1,9 +1,9 @@
-[gd_scene load_steps=41 format=3 uid="uid://4otsh1wy31kg"]
+[gd_scene load_steps=42 format=3 uid="uid://4otsh1wy31kg"]
 
 [ext_resource type="Script" uid="uid://cxjw50s4jeh2y" path="res://Scripts/trail.gd" id="1_0f350"]
 [ext_resource type="Script" uid="uid://c26jmx7s0p0dr" path="res://Scripts/level.gd" id="1_ha31o"]
 [ext_resource type="Script" uid="uid://cd8k0h68k4a8g" path="res://Scripts/player.gd" id="1_tumq0"]
-[ext_resource type="Script" uid="uid://hfqfqyxf5edg" path="res://Scripts/debug_text.gd" id="2_vofx3"]
+[ext_resource type="Script" path="res://Scripts/debug_text.gd" id="2_vofx3"]
 [ext_resource type="SpriteFrames" uid="uid://brjoepnckupck" path="res://Animation/mouseFrames.tres" id="4_0f350"]
 [ext_resource type="Texture2D" uid="uid://dmos112huldh2" path="res://Sprites/ocstaculoepicodown.png" id="5_oqgf2"]
 [ext_resource type="Texture2D" uid="uid://u8v7wxeolqad" path="res://Sprites/ocstaculoepicoup.png" id="6_qxfql"]
@@ -14,10 +14,11 @@
 [ext_resource type="PackedScene" uid="uid://dd7jxb3adi5uf" path="res://Scenes/boss.tscn" id="10_qxfql"]
 [ext_resource type="PackedScene" uid="uid://dtvjq0c7xnecv" path="res://Scenes/pause_menu.tscn" id="11_qxfql"]
 [ext_resource type="Texture2D" uid="uid://dj4jb10r2f8gr" path="res://Scripts/barradevida.png" id="12_c7le1"]
-[ext_resource type="Script" uid="uid://ousv1f8xfya" path="res://Scripts/hp.gd" id="12_crh0w"]
-[ext_resource type="Script" uid="uid://d38d20stw2p47" path="res://Scripts/vfx.gd" id="12_pa6b8"]
+[ext_resource type="Script" path="res://Scripts/hp.gd" id="12_crh0w"]
+[ext_resource type="Script" path="res://Scripts/vfx.gd" id="12_pa6b8"]
 [ext_resource type="Texture2D" uid="uid://cl7ptifj3tjfa" path="res://Sprites/barradeescudo.png" id="14_2klc5"]
-[ext_resource type="Script" uid="uid://b3d018vi6kaw3" path="res://Scripts/shield.gd" id="15_nngtn"]
+[ext_resource type="Script" path="res://Scripts/shield.gd" id="15_nngtn"]
+[ext_resource type="PackedScene" uid="uid://7v6mu82w1o7g" path="res://Scenes/loading.tscn" id="19_00k4y"]
 
 [sub_resource type="Curve" id="Curve_6phgx"]
 _data = [Vector2(0, 0.235955), 0.0, -0.151716, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -404,6 +405,17 @@ libraries = {
 }
 
 [node name="PauseMenu" parent="." instance=ExtResource("11_qxfql")]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = 4095
+offset_left = -243.0
+offset_top = -141.0
+offset_right = 478.0
+offset_bottom = 279.0
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+
+[node name="Loading" parent="." instance=ExtResource("19_00k4y")]
 visible = false
 
 [connection signal="mouse_entered" from="Player/GrabDetector" to="Player" method="_on_mouse_entered"]

@@ -200,6 +200,7 @@ func finish_move():
 		elif (action == Action.PRE_DYING):
 			action = Action.DYING
 			animation_player.play("death")
+			AudioController.tutorial_music_stop()
 		return
 	action = Action.IDLE
 	timer.wait_time = 1.0

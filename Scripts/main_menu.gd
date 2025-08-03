@@ -141,6 +141,9 @@ func _on_back_mouse_exited() -> void:
 
 
 func _on_trophy_pressed() -> void:
+	if (Stats.best_damage_taken == -1):
+		AudioController.hit_cancel_sfx()
+		return
 	AudioController.menu_music_stop()
 	AudioController.ui_click_sfx()
 	get_tree().change_scene_to_file("res://Scenes/stats_screen.tscn")
