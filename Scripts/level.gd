@@ -17,6 +17,7 @@ func pause():
 	$PauseMenu/AnimationPlayer.play("movetext")
 
 func unpause():
+	AudioController.waterstreamstop_sfx()
 	AudioController.tapestop2()
 	AudioController.choose_tutorial_music()
 	AudioController.removelowpass()

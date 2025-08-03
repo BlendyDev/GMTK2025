@@ -12,6 +12,7 @@ func _process(delta: float) -> void:
 
 
 func _on_back_pressed() -> void:
+	AudioController.waterstreamstop_sfx()
 	AudioController.ui_back_sfx()
 	if get_tree().current_scene.name == "Level":
 		self.visible = false

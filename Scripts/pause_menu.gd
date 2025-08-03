@@ -19,6 +19,7 @@ func _on_resume_mouse_entered() -> void:
 func _on_options_pressed() -> void:
 	AudioController.ui_click_sfx()
 	$OptionsMenu.visible = true
+	AudioController.waterstream_sfx()
 
 func _on_options_mouse_entered() -> void:
 	AudioController.ui_hover_sfx()
@@ -29,6 +30,8 @@ func _on_quit_pressed() -> void:
 	$VBoxContainer/Sure.visible = true
 	$VBoxContainer/HBoxContainer2.visible = false
 	$VBoxContainer/Sure2.visible = false
+	$YesBG2.visible = true
+	$NoBG2.visible = true
 
 func _on_quit_mouse_entered() -> void:
 	AudioController.ui_hover_sfx()
@@ -42,6 +45,8 @@ func _on_no_pressed() -> void:
 	AudioController.ui_back_sfx()
 	$VBoxContainer/HBoxContainer.visible = false
 	$VBoxContainer/Sure.visible = false
+	$YesBG2.visible = false
+	$NoBG2.visible = false
 
 
 func _on_main_menu_pressed() -> void:
@@ -50,6 +55,8 @@ func _on_main_menu_pressed() -> void:
 	$VBoxContainer/Sure2.visible = true
 	$VBoxContainer/HBoxContainer.visible = false
 	$VBoxContainer/Sure.visible = false
+	$YesBG.visible = true
+	$NoBG.visible = true
 
 func _on_main_menu_mouse_entered() -> void:
 	AudioController.ui_hover_sfx()
@@ -57,6 +64,8 @@ func _on_main_menu_mouse_entered() -> void:
 
 
 func _on_yes_2_pressed() -> void:
+	$YesBG.visible = false
+	$NoBG.visible = false
 	AudioController.ui_back_sfx()
 	AudioController.tutorial_music_stop()
 	$Loading.visible = true
@@ -71,6 +80,8 @@ func _on_no_2_pressed() -> void:
 	AudioController.ui_back_sfx()
 	$VBoxContainer/HBoxContainer2.visible = false
 	$VBoxContainer/Sure2.visible = false
+	$YesBG.visible = false
+	$NoBG.visible = false
 
 
 func _on_yes_mouse_entered() -> void:

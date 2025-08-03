@@ -1,9 +1,9 @@
-[gd_scene load_steps=56 format=3 uid="uid://db0iuepgj8olx"]
+[gd_scene load_steps=65 format=3 uid="uid://db0iuepgj8olx"]
 
 [ext_resource type="Script" uid="uid://0mcwei50crlf" path="res://Scripts/main_menu.gd" id="1_ce3w2"]
 [ext_resource type="Texture2D" uid="uid://rc0e0h2kk7xn" path="res://Sprites/fondo2.png" id="2_xcoo4"]
 [ext_resource type="Texture2D" uid="uid://lhlq250l8db8" path="res://Sprites/hamsterwheel1.png" id="3_4nkqq"]
-[ext_resource type="Shader" path="res://Shaders/scroll.gdshader" id="3_jw7lb"]
+[ext_resource type="Shader" uid="uid://ckg8b2a2owe7x" path="res://Shaders/scroll.gdshader" id="3_jw7lb"]
 [ext_resource type="Texture2D" uid="uid://hif4qmsh42us" path="res://Sprites/fondo1.png" id="4_6vfk8"]
 [ext_resource type="Texture2D" uid="uid://bcgh6pkvu6752" path="res://Sprites/hamsterwheel2.png" id="4_ehtkc"]
 [ext_resource type="Texture2D" uid="uid://bbwxalk61bbj0" path="res://Sprites/logo.png" id="5_1xund"]
@@ -31,6 +31,11 @@
 [ext_resource type="FontFile" uid="uid://ciygyfdhhcin5" path="res://Sprites/FONT1.png" id="23_ne6ao"]
 [ext_resource type="FontFile" uid="uid://n2exgpxs2fx5" path="res://Sprites/FONT2.png" id="26_tt8ml"]
 [ext_resource type="FontFile" uid="uid://bk5j57lgnqs3q" path="res://Sprites/FONT3.png" id="27_fmarx"]
+[ext_resource type="Texture2D" uid="uid://bkwdi8m4v271i" path="res://Sprites/pause1.png" id="32_jw7lb"]
+[ext_resource type="FontFile" uid="uid://dshoo2jsk1ijo" path="res://Sprites/FONT5.png" id="33_aylim"]
+[ext_resource type="Texture2D" uid="uid://daxpanbewww1i" path="res://Sprites/pause2.png" id="33_msuys"]
+[ext_resource type="Texture2D" uid="uid://dakcqcueya6yh" path="res://Sprites/pause3.png" id="34_aylim"]
+[ext_resource type="FontFile" uid="uid://ccyg5mf6t31v0" path="res://Sprites/FONT6.png" id="36_y82t1"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_msuys"]
 shader = ExtResource("3_jw7lb")
@@ -389,6 +394,142 @@ _data = {
 &"movetext": SubResource("Animation_msuys")
 }
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_msuys"]
+
+[sub_resource type="Animation" id="Animation_pddej"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RichTextLabel:theme_override_fonts/normal_font")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("23_ne6ao")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Back:theme_override_fonts/font")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("23_ne6ao")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:texture")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("32_jw7lb")]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Outline:theme_override_fonts/normal_font")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("33_aylim")]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Outline:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_bmhhk"]
+resource_name = "textandstars"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RichTextLabel:theme_override_fonts/normal_font")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [ExtResource("23_ne6ao"), ExtResource("26_tt8ml"), ExtResource("27_fmarx")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Back:theme_override_fonts/font")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [ExtResource("23_ne6ao"), ExtResource("26_tt8ml"), ExtResource("27_fmarx")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:texture")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [ExtResource("32_jw7lb"), ExtResource("33_msuys"), ExtResource("34_aylim")]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Outline:theme_override_fonts/normal_font")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("33_aylim"), ExtResource("36_y82t1")]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Outline:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ko05x"]
+_data = {
+&"RESET": SubResource("Animation_pddej"),
+&"textandstars": SubResource("Animation_bmhhk")
+}
+
 [node name="MainMenu" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -525,6 +666,38 @@ libraries = {
 }
 autoplay = "idle"
 
+[node name="NoBG" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 115.0
+offset_top = 102.0
+offset_right = 145.0
+offset_bottom = 117.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.0980392)
+
+[node name="YesBG" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 56.0
+offset_top = 102.0
+offset_right = 99.0
+offset_bottom = 117.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.0980392)
+
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 visible = false
 layout_mode = 0
@@ -568,7 +741,90 @@ position = Vector2(224, 126)
 libraries = {
 &"": SubResource("AnimationLibrary_y82t1")
 }
-autoplay = "movetext"
+
+[node name="CreditsScene" type="TextureRect" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("32_jw7lb")
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect" type="ColorRect" parent="CreditsScene"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.00223214
+offset_left = 104.0
+offset_top = 225.0
+offset_right = 163.0
+offset_bottom = 243.0
+color = Color(1, 1, 1, 0.0980392)
+metadata/_edit_use_anchors_ = true
+
+[node name="Back" type="Button" parent="CreditsScene"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.966518
+anchor_top = 1.03175
+anchor_right = 0.966518
+anchor_bottom = 1.03175
+offset_left = -336.0
+offset_top = -41.0
+offset_right = -264.0
+offset_bottom = -10.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("23_ne6ao")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_msuys")
+text = "BACK"
+flat = true
+metadata/_edit_use_anchors_ = true
+
+[node name="Outline" type="RichTextLabel" parent="CreditsScene"]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_left = 35.0
+offset_top = 2.0
+offset_right = 259.0
+offset_bottom = 230.0
+theme_override_fonts/normal_font = ExtResource("33_aylim")
+text = "BLENDYDEV
+
+PROGRAMMING
+
+TATOOO
+
+MUSIC SFX AND PROGRAMMING
+
+RAMIROGAMERO
+
+VISUALS  ANIMATION  "
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CreditsScene"]
+layout_mode = 0
+offset_left = 35.0
+offset_top = 2.0
+offset_right = 259.0
+offset_bottom = 230.0
+theme_override_fonts/normal_font = ExtResource("23_ne6ao")
+text = "BLENDYDEV
+
+PROGRAMMING
+
+TATOOO
+
+MUSIC SFX AND PROGRAMMING
+
+RAMIROGAMERO
+
+VISUALS  ANIMATION  "
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CreditsScene"]
+libraries = {
+&"": SubResource("AnimationLibrary_ko05x")
+}
+autoplay = "textandstars"
 
 [connection signal="mouse_entered" from="Play" to="." method="_on_play_mouse_entered"]
 [connection signal="mouse_exited" from="Play" to="." method="_on_play_mouse_exited"]
@@ -588,3 +844,6 @@ autoplay = "movetext"
 [connection signal="mouse_entered" from="VBoxContainer/HBoxContainer/No" to="." method="_on_no_mouse_entered"]
 [connection signal="mouse_exited" from="VBoxContainer/HBoxContainer/No" to="." method="_on_no_mouse_exited"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/No" to="." method="_on_no_pressed"]
+[connection signal="mouse_entered" from="CreditsScene/Back" to="." method="_on_back_mouse_entered"]
+[connection signal="mouse_exited" from="CreditsScene/Back" to="." method="_on_back_mouse_exited"]
+[connection signal="pressed" from="CreditsScene/Back" to="." method="_on_back_pressed"]

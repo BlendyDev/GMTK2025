@@ -47,6 +47,11 @@ func ui_sliderendclick_sfx():
 
 func arpeggio_sfx():
 	$ArpeggioSFX.play()
+
+func waterstream_sfx():
+	$WaterStreamSFX.play()
+func waterstreamstop_sfx():
+	$WaterStreamSFX.stop()
 	
 func cut_tail_sfx():
 	
