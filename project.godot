@@ -14,7 +14,7 @@ config/name="MOUSEWHEEL"
 config/version="1.0"
 run/main_scene="uid://cwq7bfq1rrmcp"
 config/features=PackedStringArray("4.4", "GL Compatibility")
-config/icon="uid://bk4vytwg467yo"
+config/icon="uid://wdrioeo66tdk"
 
 [autoload]
 
