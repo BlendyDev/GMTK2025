@@ -1,7 +1,13 @@
 extends Control
 
 func _ready() -> void:
+	AudioController.win_music()
 	$Loading.visible = false
+	$Stat1.text = str(Stats.get_highest_combo())
+	$Stat2.text = str(Stats.get_loops_drawn())
+	$Stat3.text = str(Stats.get_highest_loop())
+	$Stat4.text = str(Stats.get_damage_taken())
+	$Stat5.text = str(int(roundf(Stats.get_total_time())))
 
 func _on_main_menu_pressed() -> void:
 	AudioController.ui_back_sfx()

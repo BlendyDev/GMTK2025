@@ -9,12 +9,13 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("Esc") and self.visible:
 		level.unpause()
-	$BgCutre.pivot_offset.x = 0.0
-	$BgCutre.pivot_offset.y = 0.0
-	$BgCutre.size.x = $VBoxContainer.size.x + 5
-	$BgCutre.position.x = $VBoxContainer.position.x - 5
-	$BgCutre.size.y = $VBoxContainer.size.y + 5
-	$BgCutre.position.y = $VBoxContainer.position.y - 5
+	$LabelOutline.pivot_offset.x = 0.0
+	$LabelOutline.pivot_offset.y = 0.0
+	#$LabelOutline.size.x = $VBoxContainer.size.x + 5
+	$LabelOutline.position.x = $VBoxContainer.position.x
+	#$LabelOutline.size.y = $VBoxContainer.size.y + 5
+	$LabelOutline.position.y = $VBoxContainer.position.y
+	
 
 func _on_resume_pressed() -> void:
 	AudioController.ui_click_sfx()
@@ -38,6 +39,8 @@ func _on_quit_pressed() -> void:
 	$VBoxContainer/Sure2.visible = false
 	$YesBG2.visible = true
 	$NoBG2.visible = true
+	$YesBG.visible = false
+	$NoBG.visible = false
 
 func _on_quit_mouse_entered() -> void:
 	AudioController.ui_hover_sfx()
@@ -63,6 +66,8 @@ func _on_main_menu_pressed() -> void:
 	$VBoxContainer/Sure.visible = false
 	$YesBG.visible = true
 	$NoBG.visible = true
+	$YesBG2.visible = false
+	$NoBG2.visible = false
 
 func _on_main_menu_mouse_entered() -> void:
 	AudioController.ui_hover_sfx()

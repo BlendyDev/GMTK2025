@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://dtvjq0c7xnecv"]
+[gd_scene load_steps=31 format=3 uid="uid://dtvjq0c7xnecv"]
 
 [ext_resource type="Script" uid="uid://doy504o3wwhr8" path="res://Scripts/pause_menu.gd" id="1_emv3i"]
 [ext_resource type="Shader" path="res://Shaders/scroll.gdshader" id="2_524vl"]
@@ -8,9 +8,12 @@
 [ext_resource type="Texture2D" uid="uid://n3x2l26iuekn" path="res://Sprites/pausemousegame2.png" id="4_vmyb1"]
 [ext_resource type="FontFile" uid="uid://ciygyfdhhcin5" path="res://Sprites/FONT1.png" id="5_myy0f"]
 [ext_resource type="PackedScene" uid="uid://7v6mu82w1o7g" path="res://Scenes/loading.tscn" id="5_vmyb1"]
+[ext_resource type="FontFile" uid="uid://cxmqi3idgqme2" path="res://Sprites/letraspuntos4.png" id="7_0fi7f"]
 [ext_resource type="FontFile" uid="uid://n2exgpxs2fx5" path="res://Sprites/FONT2.png" id="7_u8tnp"]
 [ext_resource type="FontFile" uid="uid://bk5j57lgnqs3q" path="res://Sprites/FONT3.png" id="8_stj27"]
 [ext_resource type="PackedScene" uid="uid://bxyvs55u3pfiy" path="res://Scenes/options_menu.tscn" id="9_stj27"]
+[ext_resource type="FontFile" uid="uid://detrbshohjte4" path="res://Sprites/letraspuntos5.png" id="12_taale"]
+[ext_resource type="FontFile" uid="uid://bosi8gah47g5h" path="res://Sprites/letraspuntos6.png" id="13_q7fiq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1och7"]
 shader = ExtResource("2_k0w1u")
@@ -185,6 +188,18 @@ tracks/10/keys = {
 "update": 1,
 "values": [ExtResource("5_myy0f")]
 }
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("LabelOutline:theme_override_fonts/font")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("7_0fi7f")]
+}
 
 [sub_resource type="Animation" id="Animation_ix48p"]
 resource_name = "movetext"
@@ -322,6 +337,18 @@ tracks/10/keys = {
 "update": 1,
 "values": [ExtResource("5_myy0f"), ExtResource("7_u8tnp"), ExtResource("8_stj27")]
 }
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("LabelOutline:theme_override_fonts/font")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [ExtResource("7_0fi7f"), ExtResource("12_taale"), ExtResource("13_q7fiq")]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_0fi7f"]
 _data = {
@@ -331,7 +358,6 @@ _data = {
 
 [node name="PauseMenu" type="Control"]
 process_mode = 3
-visible = false
 z_index = 4000
 layout_mode = 3
 anchors_preset = 15
@@ -363,7 +389,7 @@ offset_right = 2322.0
 offset_bottom = 953.0
 
 [node name="Parallax" type="TextureRect" parent="."]
-modulate = Color(0.3008, 0.39386, 0.47, 0.772549)
+modulate = Color(1, 1, 1, 0.0980392)
 texture_repeat = 2
 material = SubResource("ShaderMaterial_uscpe")
 layout_mode = 0
@@ -372,6 +398,7 @@ offset_bottom = 252.0
 texture = ExtResource("4_524vl")
 
 [node name="BgCutre" type="ColorRect" parent="."]
+visible = false
 layout_mode = 0
 offset_left = 535.0
 offset_top = 212.0
@@ -455,6 +482,27 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 1, 1, 0.0980392)
 
+[node name="LabelOutline" type="Label" parent="."]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 28.0
+offset_top = -81.0
+offset_right = 196.0
+offset_bottom = -57.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("7_0fi7f")
+theme_override_font_sizes/font_size = 24
+text = "PAUSED!"
+horizontal_alignment = 1
+
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 8
@@ -485,6 +533,15 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_myy0f")
 text = "RESUME"
 flat = true
 
+[node name="ColorRect" type="ColorRect" parent="VBoxContainer/Resume"]
+layout_mode = 0
+offset_left = 37.0
+offset_top = 3.0
+offset_right = 130.0
+offset_bottom = 20.0
+mouse_filter = 2
+color = Color(1, 1, 1, 0.054902)
+
 [node name="Options" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_myy0f")
@@ -492,12 +549,28 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_sjs17")
 text = "OPTIONS"
 flat = true
 
+[node name="ColorRect" type="ColorRect" parent="VBoxContainer/Options"]
+offset_left = 28.0
+offset_top = 3.0
+offset_right = 138.0
+offset_bottom = 21.0
+mouse_filter = 2
+color = Color(1, 1, 1, 0.054902)
+
 [node name="Main Menu" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_myy0f")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_u8tnp")
 text = "MENU"
 flat = true
+
+[node name="ColorRect" type="ColorRect" parent="VBoxContainer/Main Menu"]
+offset_left = 52.0
+offset_top = 4.0
+offset_right = 114.0
+offset_bottom = 20.0
+mouse_filter = 2
+color = Color(1, 1, 1, 0.054902)
 
 [node name="Sure2" type="Label" parent="VBoxContainer"]
 visible = false
@@ -532,6 +605,14 @@ theme_override_fonts/font = ExtResource("5_myy0f")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_524vl")
 text = "QUIT"
 flat = true
+
+[node name="ColorRect" type="ColorRect" parent="VBoxContainer/Quit"]
+offset_left = 53.0
+offset_top = 4.0
+offset_right = 116.0
+offset_bottom = 20.0
+mouse_filter = 2
+color = Color(1, 1, 1, 0.054902)
 
 [node name="Sure" type="Label" parent="VBoxContainer"]
 visible = false
