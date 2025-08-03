@@ -15,6 +15,7 @@ config/version="1.0"
 run/main_scene="uid://cwq7bfq1rrmcp"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="uid://wdrioeo66tdk"
+config/windows_native_icon="res://Sprites/iconmouse.ico"
 
 [autoload]
 
