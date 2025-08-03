@@ -65,6 +65,8 @@ func _process(delta: float) -> void:
 
 func finish_tutorial():
 	boss.activate()
+	left_dummy.queue_free()
+	right_dummy.queue_free()
 	pass
 
 func _on_animation_finished(anim_name: StringName) -> void:
