@@ -1,45 +1,21 @@
 extends Area2D
 class_name Dummy
 
-enum Stage {PRE, PRE_SENSITIVITY, PRE_LEFT, PRE_RIGHT, PRE_BOTH, PRE_LEMNISCATE, PRE_RESET, COMPLETED}
-
-static var stage: Stage
-static var transitioning: bool = false
-static var comboed_dummies: Array[Dummy]
 
 @export var id: int
 @onready var trail: Trail = $"../Trail"
 @onready var boss: Boss = $"../Boss"
 @onready var vfx: VFX = $"../VFX"
-
-var loop:= 0
-
-static func changed_sensitivity():
-	if (stage == Stage.PRE_SENSITIVITY and !transitioning): 
-		stage = Stage.PRE_LEFT
-
-static func reset_trail():
-	if (stage == Stage.PRE_RESET and !transitioning):
-		stage = Stage.COMPLETED
+@onready var tutorial_animations:AnimationPlayer = $"../TutorialAnimations"
+@onready var tutorial: Tutorial = $"../TutorialAnimations"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	stage = Stage.PRE_RESET
-	comboed_dummies = []
+	
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if (stage == Stage.PRE): return
-	if (id != 0): return # make leftmost dummy handle processing
-	if (comboed_dummies.size() > 1 and stage == Stage.PRE_BOTH and !transitioning):
-		stage = Stage.PRE_LEMNISCATE
-	if (comboed_dummies.size() > 1 and loop > 1 and stage == Stage.PRE_LEMNISCATE and !transitioning):
-		stage = Stage.PRE_RESET
-	if (stage == Stage.COMPLETED and boss.action == Boss.Action.PRE and !transitioning):
-		boss.activate()
-	comboed_dummies.clear()
-	
 	pass
 
 func _on_body_entered(body: Node2D) -> void:
@@ -58,10 +34,13 @@ func _on_body_exited(body: Node2D) -> void:
 	if (trail.bodies_entered.is_empty()): trail.can_trail = true
 
 func _on_area_entered(area: Area2D) -> void:
+	pass
 	if (area.collision_layer == pow(2, 10-1)): #traced circle
-		comboed_dummies.append(self)
-		if (id == 0 and stage == Stage.PRE_LEFT and !transitioning): 
-			stage = Stage.PRE_RIGHT
-		if (id == 1 and stage == Stage.PRE_RIGHT and !transitioning): 
-			stage = Stage.PRE_BOTH
+		tutorial.comboed_dummies.append(self)
+		if (tutorial.stage == Tutorial.Stage.PRE_LEFT and !tutorial.transitioning): 
+			tutorial.stage = Tutorial.Stage.PRE_RIGHT
+			tutorial.start_segment()
+		if (tutorial.stage == Tutorial.Stage.PRE_RIGHT and !tutorial.transitioning): 
+			tutorial.stage = Tutorial.Stage.PRE_BOTH
+			tutorial.start_segment()
 		pass

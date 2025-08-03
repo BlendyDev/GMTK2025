@@ -18,6 +18,7 @@ enum Action {PRE, APPEAR, IDLE, MOVING, SPAWNING, SHIELD, SHIELD_MOVING, PRE_DYI
 @onready var debug_text: RichTextLabel = $"../DebugText"
 @onready var timer = $SwitchAction
 @onready var animation_player :AnimationPlayer= $AnimationPlayer
+@onready var health_bar: Sprite2D = $"../HP"
 
 @onready var effect = AudioServer.get_bus_effect(1, 0)
 @onready var rng = RandomNumberGenerator.new()
@@ -32,7 +33,7 @@ enum Action {PRE, APPEAR, IDLE, MOVING, SPAWNING, SHIELD, SHIELD_MOVING, PRE_DYI
 @export var shield_threshold: int
 @export var dash_speed := 500.0
 @export var spawn_shield_speed := 200.0
-@export var max_hp := 1
+@export var max_hp := 30
 
 var available_locations := [UP_LEFT, LEFT, DOWN_LEFT, DOWN, DOWN_RIGHT, RIGHT, UP_RIGHT, UP]
 
@@ -66,7 +67,6 @@ func max_spawns()->int:
 	return 8-hp/5 
 
 func calculate_shield_threshold():
-	return 1
 	return -4 * hp + 150
 
 func start_spawning():
@@ -79,7 +79,7 @@ func is_shielding()-> bool: return action == Action.SHIELD or action == Action.S
 
 func activate():
 	if (action != Action.PRE): return
-	#Engine.time_scale = .1
+	health_bar.visible = true
 	visible = true
 	action = Action.APPEAR
 	animation_player.queue("appear")

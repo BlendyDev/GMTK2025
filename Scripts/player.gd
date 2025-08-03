@@ -6,6 +6,7 @@ class_name Player
 @onready var trail: Trail = $"../Trail"
 @onready var boss: Boss = $"../Boss"
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var tutorial: Tutorial = $"../TutorialAnimations"
 
 @export var speed: float = 0.35
 @export var stored_velocity_frames: int = 10
@@ -24,8 +25,9 @@ func bind_to_player():
 	Stats.start_time = Time.get_ticks_msec()
 	print("playing!")
 	playing = true
-	if (Dummy.stage == Dummy.Stage.PRE):
-		Dummy.stage = Dummy.Stage.PRE_SENSITIVITY
+	if (tutorial.stage == Tutorial.Stage.PRE):
+		tutorial.stage = Tutorial.Stage.PRE_SENSITIVITY
+		tutorial.start_segment()
 
 func _input(e: InputEvent):
 	match e.get_class():
@@ -36,10 +38,10 @@ func _input(e: InputEvent):
 			mouse_motion = e.relative
 		"InputEventMouseButton":
 			if (e as InputEventMouseButton).button_index == MOUSE_BUTTON_WHEEL_UP:
-				Dummy.changed_sensitivity()
+				tutorial.changed_sensitivity()
 				Global.sensitivity_boost = min(Global.sensitivity_boost + 0.02, 3)
 			elif (e as InputEventMouseButton).button_index == MOUSE_BUTTON_WHEEL_DOWN:
-				Dummy.changed_sensitivity()
+				tutorial.changed_sensitivity()
 				Global.sensitivity_boost = max(Global.sensitivity_boost - 0.02, 0.25)
 
 func animate_direction():
@@ -77,7 +79,7 @@ func _process(delta: float) -> void:
 	if !playing:
 		return
 	if (Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) or Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT)):
-		Dummy.reset_trail()
+		tutorial.reset_trail()
 		trail.reset_trail()
 		AudioController.cut_tail_sfx()
 	velocity = mouse_motion*speed * (1/delta) * Global.sensitivity_boost
