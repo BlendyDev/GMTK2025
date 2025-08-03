@@ -683,12 +683,11 @@ anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 71.0
-offset_top = -130.0
+offset_top = -134.0
 offset_right = 137.0
-offset_bottom = -64.0
+offset_bottom = -68.0
 grow_vertical = 0
 texture_normal = ExtResource("16_ehtkc")
-flip_h = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Credits"]
 libraries = {
@@ -697,6 +696,7 @@ libraries = {
 
 [node name="CreditsMenu" type="AudioStreamPlayer" parent="Credits"]
 stream = SubResource("AudioStreamRandomizer_dp8uv")
+volume_db = -6.75
 bus = &"SFX"
 playback_type = 1
 
@@ -753,6 +753,7 @@ texture_normal = ExtResource("27_pddej")
 
 [node name="TrophySFX" type="AudioStreamPlayer" parent="Trophy"]
 stream = SubResource("AudioStreamRandomizer_3533h")
+volume_db = 2.5
 bus = &"SFX"
 playback_type = 1
 
