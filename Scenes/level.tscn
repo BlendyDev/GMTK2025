@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://4otsh1wy31kg"]
+[gd_scene load_steps=36 format=3 uid="uid://4otsh1wy31kg"]
 
 [ext_resource type="Script" uid="uid://cxjw50s4jeh2y" path="res://Scripts/trail.gd" id="1_0f350"]
 [ext_resource type="Script" uid="uid://c26jmx7s0p0dr" path="res://Scripts/level.gd" id="1_ha31o"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://dwgaupo44whxw" path="res://Sprites/bordes-Sheet.png" id="10_ha31o"]
 [ext_resource type="PackedScene" uid="uid://dd7jxb3adi5uf" path="res://Scenes/boss.tscn" id="10_qxfql"]
 [ext_resource type="PackedScene" uid="uid://dtvjq0c7xnecv" path="res://Scenes/pause_menu.tscn" id="11_qxfql"]
+[ext_resource type="Script" uid="uid://d38d20stw2p47" path="res://Scripts/vfx.gd" id="12_pa6b8"]
 
 [sub_resource type="Curve" id="Curve_6phgx"]
 _data = [Vector2(0, 0.235955), 0.0, -0.151716, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -110,6 +111,107 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="Animation" id="Animation_crh0w"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color:r")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0.68, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:color:g")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0.2312, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:color:b")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0.27608, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:color:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_c7le1"]
+resource_name = "trail_reset"
+length = 0.15
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color:r")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0.678431, -0.25, 0, 0.25, 0, 0.678431, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.5625)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:color:g")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0.227451, -0.25, 0, 0.25, 0, 0.227451, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.5625)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:color:b")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0.270588, -0.25, 0, 0.25, 0, 0.270588, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.5625)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:color:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 2, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0, 0.0551839, 0.115773, -0.0202111, 0.0160461, 0.0666667, -0.0529283, 0, -0.0166667, 0.0294162, 0.25, 0),
+"times": PackedFloat32Array(0, 0.0666667, 0.15)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2klc5"]
+_data = {
+&"RESET": SubResource("Animation_crh0w"),
+&"trail_reset": SubResource("Animation_c7le1")
+}
+
 [node name="Level" type="Node2D"]
 script = ExtResource("1_ha31o")
 
@@ -182,7 +284,7 @@ texture = ExtResource("5_oqgf2")
 shape = SubResource("ConvexPolygonShape2D_qxfql")
 
 [node name="UpSpike" type="StaticBody2D" parent="."]
-position = Vector2(-138, 108)
+position = Vector2(-138, 111)
 
 [node name="Sprite2D" type="Sprite2D" parent="UpSpike"]
 texture = ExtResource("6_qxfql")
@@ -228,6 +330,38 @@ sprite_frames = SubResource("SpriteFrames_0cmrb")
 autoplay = "default"
 frame_progress = 0.829726
 speed_scale = 1.5
+
+[node name="VFX" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_right = 448.0
+offset_bottom = 252.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("12_pa6b8")
+
+[node name="TrailReset" type="ColorRect" parent="VFX"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -224.0
+offset_top = -126.0
+offset_right = -224.0
+offset_bottom = -126.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.68, 0.2312, 0.27608, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="VFX/TrailReset"]
+libraries = {
+&"": SubResource("AnimationLibrary_2klc5")
+}
 
 [node name="PauseMenu" parent="." instance=ExtResource("11_qxfql")]
 

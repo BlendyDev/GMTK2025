@@ -8,6 +8,8 @@ class_name Mob
 @onready var sprite = $Sprite2D
 @onready var animation_player = $AnimationPlayer
 @onready var boss: Boss = $"../Boss"
+@onready var vfx: VFX = $"../VFX"
+
 
 enum Action {IDLE, MOVING, DYING}
 enum Type {BASIC, CAT, SLIME, RAMIRO}
@@ -80,6 +82,7 @@ func _on_body_entered(body: Node2D) -> void:
 		trail.can_trail = false
 		trail.animate_fail_trail()
 		trail.reset_trail()
+		vfx.trail_reset()
 		AudioController.fail_circle_sfx()
 	pass # Replace with function body.
 
