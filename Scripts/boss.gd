@@ -28,14 +28,15 @@ enum Action {PRE, APPEAR, IDLE, MOVING, SPAWNING, SHIELD, SHIELD_MOVING, DYING}
 @onready var mob_scene = preload("res://Scenes/mob.tscn")
 
 @export var action: Action
-@export var shield_threshold: int = 1
+@export var shield_threshold: int
 @export var dash_speed := 500.0
 @export var spawn_shield_speed := 200.0
+@export var max_hp := 30
 
 var available_locations := [UP_LEFT, LEFT, DOWN_LEFT, DOWN, DOWN_RIGHT, RIGHT, UP_RIGHT, UP]
 
 
-var hp := 1
+var hp := max_hp
 var shield := 0
 var spawned_mobs := 0
 var mobs_alive := 0
@@ -50,7 +51,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if get_tree().paused: return
-	debug_text.text = "animation: " + str(animation_player.current_animation) + "\ntutorial stage" + str(Dummy.Stage.keys()[Dummy.stage]) + "\nfps: " + str(Engine.get_frames_per_second()) + "\nsensitivity boost: " + str(Global.sensitivity_boost) + "\ncircle cooldown: " + str(max(0, trail.circle_min_timeout_sec - trail.time_since_last_circle_sec)) + "\ncleared points: " + str(trail.cleared_points) + "\nloop count: " + str(trail.loop_count) + "\nlowpass resonance: " + str(effect.resonance) + "\naction: " + Action.keys()[action] + "\nspawned_mobs: " + str(spawned_mobs) + "\nmobs_alive: " + str(mobs_alive) + "\nhp: " + str(hp) + "\nshield: " + str(shield)
+	debug_text.text = "shield threshold: " + str(shield_threshold) + "\nanimation: " + str(animation_player.current_animation) + "\ntutorial stage" + str(Dummy.Stage.keys()[Dummy.stage]) + "\nfps: " + str(Engine.get_frames_per_second()) + "\nsensitivity boost: " + str(Global.sensitivity_boost) + "\ncircle cooldown: " + str(max(0, trail.circle_min_timeout_sec - trail.time_since_last_circle_sec)) + "\ncleared points: " + str(trail.cleared_points) + "\nloop count: " + str(trail.loop_count) + "\nlowpass resonance: " + str(effect.resonance) + "\naction: " + Action.keys()[action] + "\nspawned_mobs: " + str(spawned_mobs) + "\nmobs_alive: " + str(mobs_alive) + "\nhp: " + str(hp) + "\nshield: " + str(shield)
 	
 	if (action == Action.SHIELD and mobs_alive == 0):
 		if (shield < shield_threshold): start_spawning()
@@ -63,6 +64,10 @@ func _process(delta: float) -> void:
 
 func max_spawns()->int:
 	return 8-hp/5 
+
+func calculate_shield_threshold():
+	return 1
+	return -4 * hp + 150
 
 func start_spawning():
 	action = Action.SPAWNING
@@ -226,6 +231,8 @@ func _on_player_detect_area_entered(area: Area2D) -> void:
 					timer.start()
 				animation_player.play("spawning")
 				action = Action.SPAWNING
+				shield = 0
+				shield_threshold = calculate_shield_threshold()
 				spawned_mobs = 0
 				timer.wait_time = 0.8
 				timer.start()

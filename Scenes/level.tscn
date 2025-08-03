@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://4otsh1wy31kg"]
+[gd_scene load_steps=40 format=3 uid="uid://4otsh1wy31kg"]
 
 [ext_resource type="Script" uid="uid://cxjw50s4jeh2y" path="res://Scripts/trail.gd" id="1_0f350"]
 [ext_resource type="Script" uid="uid://c26jmx7s0p0dr" path="res://Scripts/level.gd" id="1_ha31o"]
@@ -12,7 +12,11 @@
 [ext_resource type="Texture2D" uid="uid://dwgaupo44whxw" path="res://Sprites/bordes-Sheet.png" id="10_ha31o"]
 [ext_resource type="PackedScene" uid="uid://dd7jxb3adi5uf" path="res://Scenes/boss.tscn" id="10_qxfql"]
 [ext_resource type="PackedScene" uid="uid://dtvjq0c7xnecv" path="res://Scenes/pause_menu.tscn" id="11_qxfql"]
+[ext_resource type="Texture2D" uid="uid://dj4jb10r2f8gr" path="res://Scripts/barradevida.png" id="12_c7le1"]
+[ext_resource type="Script" uid="uid://ousv1f8xfya" path="res://Scripts/hp.gd" id="12_crh0w"]
 [ext_resource type="Script" uid="uid://d38d20stw2p47" path="res://Scripts/vfx.gd" id="12_pa6b8"]
+[ext_resource type="Texture2D" uid="uid://cl7ptifj3tjfa" path="res://Sprites/barradeescudo.png" id="14_2klc5"]
+[ext_resource type="Script" uid="uid://b3d018vi6kaw3" path="res://Scripts/shield.gd" id="15_nngtn"]
 
 [sub_resource type="Curve" id="Curve_6phgx"]
 _data = [Vector2(0, 0.235955), 0.0, -0.151716, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -274,7 +278,7 @@ shape = SubResource("RectangleShape2D_ha31o")
 visible = false
 
 [node name="DownSpike" type="StaticBody2D" parent="."]
-position = Vector2(130, -111)
+position = Vector2(-130, -111)
 collision_layer = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="DownSpike"]
@@ -284,7 +288,8 @@ texture = ExtResource("5_oqgf2")
 shape = SubResource("ConvexPolygonShape2D_qxfql")
 
 [node name="UpSpike" type="StaticBody2D" parent="."]
-position = Vector2(-138, 111)
+z_index = 2000
+position = Vector2(130, 111)
 
 [node name="Sprite2D" type="Sprite2D" parent="UpSpike"]
 texture = ExtResource("6_qxfql")
@@ -330,6 +335,38 @@ sprite_frames = SubResource("SpriteFrames_0cmrb")
 autoplay = "default"
 frame_progress = 0.829726
 speed_scale = 1.5
+
+[node name="HP" type="Sprite2D" parent="."]
+z_index = 2000
+position = Vector2(146, -105)
+texture = ExtResource("12_c7le1")
+script = ExtResource("12_crh0w")
+
+[node name="Line2D" type="Line2D" parent="HP"]
+z_index = -1
+position = Vector2(-50, 1)
+points = PackedVector2Array(0, 0, 92, 0)
+width = 8.0
+default_color = Color(0.356863, 0.2, 0.454902, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="Shield" type="Sprite2D" parent="."]
+z_index = 2000
+position = Vector2(163, -84)
+texture = ExtResource("14_2klc5")
+script = ExtResource("15_nngtn")
+
+[node name="Line2D" type="Line2D" parent="Shield"]
+z_index = -1
+position = Vector2(-32, 1)
+points = PackedVector2Array(0, 0, 62, 0)
+width = 8.0
+default_color = Color(0.713726, 0.960784, 0.858824, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
 
 [node name="VFX" type="Control" parent="."]
 layout_mode = 3
