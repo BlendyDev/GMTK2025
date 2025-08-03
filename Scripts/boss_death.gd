@@ -30,7 +30,6 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 		await get_tree().create_timer(1, true, false, true).timeout
 		loading.visible = true
 		await get_tree().create_timer(0.4, true, false, true).timeout
-		AudioController.ui_click_sfx()
 		await get_tree().create_timer(0.4, true, false, true).timeout
 		get_tree().paused = false
 		loading.visible = false

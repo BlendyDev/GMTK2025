@@ -111,6 +111,7 @@ func menu_music_stop():
 	$MenuMusic.stop()
 
 func level_music():
+	$LevelMusic.volume_db = 0
 	$LevelMusic.play()
 func level_music_stop():
 	tween = get_tree().create_tween()
@@ -123,7 +124,7 @@ func level_music_stop():
 	if $LevelMusic.volume_db == -80:
 		$LevelMusic.stop()
 func level_music_pause():
-	$LevelMusic.volume_db = -80.0
+	$LevelMusic.volume_db = -80
 func level_music_resume():
 	$LevelMusic.volume_db = 0
 	
@@ -154,7 +155,18 @@ func choose_tutorial_drums():
 	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	tween.tween_property($TutorialMusic, "volume_db", -80, 0.25)
 	tween.tween_property($TutorialDrums, "volume_db", 8, 0.25)
-	$TutorialMusic.volume_db = -80.0
+	#$TutorialMusic.volume_db = -80.0
+
+func choose_level_drums():
+	tween = get_tree().create_tween()
+	tween.set_process_mode(Tween.TWEEN_PROCESS_IDLE)
+	tween.set_ease(Tween.EASE_OUT)
+	tween.set_trans(Tween.TRANS_LINEAR)
+	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+	tween.tween_property($LevelMusic, "volume_db", -80, 0.25)
+	tween.tween_property($TutorialDrums, "volume_db", 8, 0.25)
+	#$LevelMusic.volume_db = -80.0
+
 func choose_tutorial_music():
 	tween = get_tree().create_tween()
 	tween.set_process_mode(Tween.TWEEN_PROCESS_IDLE)
@@ -163,7 +175,16 @@ func choose_tutorial_music():
 	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	tween.tween_property($TutorialMusic, "volume_db", 0, 0.05)
 	tween.tween_property($TutorialDrums, "volume_db", -80, 0.05)
-	
+
+func choose_level_music():
+	tween = get_tree().create_tween()
+	tween.set_process_mode(Tween.TWEEN_PROCESS_IDLE)
+	tween.set_ease(Tween.EASE_OUT)
+	tween.set_trans(Tween.TRANS_LINEAR)
+	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+	tween.tween_property($LevelMusic, "volume_db", 0, 0.05)
+	tween.tween_property($TutorialDrums, "volume_db", -80, 0.05)
+
 func cutscene():
 	$Cutscene.play()
 func cutscene_stop():

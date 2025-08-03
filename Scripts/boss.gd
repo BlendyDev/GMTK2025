@@ -235,6 +235,7 @@ func _on_player_detect_area_entered(area: Area2D) -> void:
 			AudioController.cat_hit_sfx()
 			hp -= 1
 			if (hp <= 0):
+				AudioController.level_music_stop()
 				action = Action.PRE_DYING
 				trail_to_move(CENTER)
 			elif (hp%5 == 0):
