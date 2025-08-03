@@ -1,26 +1,54 @@
-[gd_scene load_steps=5 format=3 uid="uid://7v6mu82w1o7g"]
+[gd_scene load_steps=9 format=3 uid="uid://7v6mu82w1o7g"]
 
-[ext_resource type="Texture2D" uid="uid://et4tbju8rjqs" path="res://Sprites/loadingtimo1.png" id="1_1l04a"]
-[ext_resource type="Texture2D" uid="uid://b7i0umg7vn4tl" path="res://Sprites/loadingtimo2.png" id="2_ecfth"]
-[ext_resource type="Texture2D" uid="uid://cjykr8icusj8g" path="res://Sprites/loadingtimo3.png" id="3_wc73m"]
+[ext_resource type="Texture2D" uid="uid://bp84nx0md54aw" path="res://Sprites/loadingname1.png" id="1_dlcsm"]
+[ext_resource type="Texture2D" uid="uid://cd818br2cdjop" path="res://Sprites/loadingname2.png" id="2_qw0b6"]
+[ext_resource type="Texture2D" uid="uid://boij5460t8qc1" path="res://Sprites/loadingname3.png" id="3_hl3gf"]
+[ext_resource type="Texture2D" uid="uid://c7g80usui1c2f" path="res://Sprites/loadingcolor.png" id="4_1lxvg"]
+[ext_resource type="Shader" uid="uid://d2trwq8ludxkr" path="res://Shaders/loading.gdshader" id="4_4tbtc"]
+[ext_resource type="Texture2D" uid="uid://cvdtgsokk0t40" path="res://Sprites/loadingparallax.png" id="5_dlcsm"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_xvgud"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_1l04a")
+"texture": ExtResource("1_dlcsm")
 }, {
 "duration": 1.0,
-"texture": ExtResource("2_ecfth")
+"texture": ExtResource("2_qw0b6")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_wc73m")
+"texture": ExtResource("3_hl3gf")
 }],
 "loop": true,
 "name": &"default",
 "speed": 5.0
 }]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qw0b6"]
+shader = ExtResource("4_4tbtc")
+shader_parameter/speed = 0.5
+
 [node name="Loading" type="AnimatedSprite2D"]
+z_index = 4096
 sprite_frames = SubResource("SpriteFrames_xvgud")
 autoplay = "default"
+
+[node name="TextureRect" type="TextureRect" parent="."]
+z_index = -1
+offset_left = -224.0
+offset_top = -126.0
+offset_right = 224.0
+offset_bottom = 126.0
+texture = ExtResource("4_1lxvg")
+
+[node name="Parallax" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0.14902)
+z_index = -1
+texture_repeat = 2
+material = SubResource("ShaderMaterial_qw0b6")
+offset_left = -320.0
+offset_top = -305.0
+offset_right = 128.0
+offset_bottom = -53.0
+scale = Vector2(2, 2)
+texture = ExtResource("5_dlcsm")

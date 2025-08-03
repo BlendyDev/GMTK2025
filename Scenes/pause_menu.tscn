@@ -1,8 +1,10 @@
-[gd_scene load_steps=25 format=3 uid="uid://dtvjq0c7xnecv"]
+[gd_scene load_steps=28 format=3 uid="uid://dtvjq0c7xnecv"]
 
 [ext_resource type="Script" uid="uid://doy504o3wwhr8" path="res://Scripts/pause_menu.gd" id="1_emv3i"]
+[ext_resource type="Shader" uid="uid://ckg8b2a2owe7x" path="res://Shaders/scroll.gdshader" id="2_524vl"]
 [ext_resource type="Shader" uid="uid://g6vj64km5x0h" path="res://Shaders/pause_menu.gdshader" id="2_k0w1u"]
 [ext_resource type="Texture2D" uid="uid://bh4o3s6y06jjc" path="res://Sprites/pausemousegame1.png" id="3_bpi0q"]
+[ext_resource type="Texture2D" uid="uid://bhq27f2bu7lml" path="res://Sprites/zzz.png" id="4_524vl"]
 [ext_resource type="Texture2D" uid="uid://n3x2l26iuekn" path="res://Sprites/pausemousegame2.png" id="4_vmyb1"]
 [ext_resource type="FontFile" uid="uid://ciygyfdhhcin5" path="res://Sprites/FONT1.png" id="5_myy0f"]
 [ext_resource type="PackedScene" uid="uid://7v6mu82w1o7g" path="res://Scenes/loading.tscn" id="5_vmyb1"]
@@ -12,7 +14,11 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1och7"]
 shader = ExtResource("2_k0w1u")
-shader_parameter/amount = 2.0
+shader_parameter/amount = 4.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uscpe"]
+shader = ExtResource("2_524vl")
+shader_parameter/speed = 0.075
 
 [sub_resource type="AnimatedTexture" id="AnimatedTexture_bpi0q"]
 frames = 2
@@ -326,7 +332,7 @@ _data = {
 [node name="PauseMenu" type="Control"]
 process_mode = 3
 visible = false
-z_index = 4096
+z_index = 4000
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -355,6 +361,23 @@ offset_left = -2365.0
 offset_top = -1750.0
 offset_right = 2322.0
 offset_bottom = 953.0
+
+[node name="Parallax" type="TextureRect" parent="."]
+modulate = Color(0.3008, 0.39386, 0.47, 0.772549)
+texture_repeat = 2
+material = SubResource("ShaderMaterial_uscpe")
+layout_mode = 0
+offset_right = 448.0
+offset_bottom = 252.0
+texture = ExtResource("4_524vl")
+
+[node name="BgCutre" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 535.0
+offset_top = 212.0
+offset_right = 579.0
+offset_bottom = 252.0
+color = Color(0, 0, 0, 0.054902)
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
@@ -490,7 +513,6 @@ layout_mode = 2
 alignment = 1
 
 [node name="Yes2" type="Button" parent="VBoxContainer/HBoxContainer2"]
-modulate = Color(1, 1, 1, 0.784314)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_myy0f")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_stj27")
@@ -498,7 +520,6 @@ text = "YES"
 flat = true
 
 [node name="No2" type="Button" parent="VBoxContainer/HBoxContainer2"]
-modulate = Color(1, 1, 1, 0.784314)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_myy0f")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_ix48p")
@@ -531,7 +552,6 @@ layout_mode = 2
 alignment = 1
 
 [node name="Yes" type="Button" parent="VBoxContainer/HBoxContainer"]
-modulate = Color(1, 1, 1, 0.784314)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_myy0f")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_0fi7f")
@@ -539,7 +559,6 @@ text = "YES"
 flat = true
 
 [node name="No" type="Button" parent="VBoxContainer/HBoxContainer"]
-modulate = Color(1, 1, 1, 0.784314)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_myy0f")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_uscpe")

@@ -9,6 +9,12 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("Esc") and self.visible:
 		level.unpause()
+	$BgCutre.pivot_offset.x = 0.0
+	$BgCutre.pivot_offset.y = 0.0
+	$BgCutre.size.x = $VBoxContainer.size.x + 5
+	$BgCutre.position.x = $VBoxContainer.position.x - 5
+	$BgCutre.size.y = $VBoxContainer.size.y + 5
+	$BgCutre.position.y = $VBoxContainer.position.y - 5
 
 func _on_resume_pressed() -> void:
 	AudioController.ui_click_sfx()

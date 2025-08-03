@@ -82,6 +82,22 @@ func teleport_sfx():
 func preteleport_sfx():
 	$PreTeleportSFX.play()
 	
+func hit_cancel_sfx():
+	$HitCancelSFX.play()
+	
+func win_music():
+	$WinMusic.play()
+func win_music_stop():
+	tween = get_tree().create_tween()
+	tween.set_process_mode(Tween.TWEEN_PROCESS_IDLE)
+	tween.set_ignore_time_scale(true)
+	tween.set_ease(Tween.EASE_OUT)
+	tween.set_trans(Tween.TRANS_CUBIC)
+	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+	tween.tween_property($WinMusic, "volume_db", -80, 0.25)
+	if $WinMusic.volume_db == -80:
+		$WinMusic.stop()
+
 func menu_music():
 	$MenuMusic.play()
 func menu_music_stop():
@@ -157,4 +173,4 @@ func applylowpass():
 	tween.set_ease(Tween.EASE_OUT)
 	tween.set_trans(Tween.TRANS_CUBIC)
 	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
-	tween.tween_property(effect, "resonance", 0.75, 0.5)
+	tween.tween_property(effect, "resonance", 0.5, 0.5)
