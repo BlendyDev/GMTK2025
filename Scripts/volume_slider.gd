@@ -5,14 +5,18 @@ extends HSlider
 var bus_index: int
 @onready var bg: Control = $BG
 
+func adjust_size():
+	bg.size = Vector2(27.0 + value*(152.0-27.0), bg.size.y)
+
 func _ready() -> void:
+	adjust_size()
 	bus_index = AudioServer.get_bus_index(bus_name)
 	value_changed.connect(_on_value_changed)
 	value = db_to_linear(AudioServer.get_bus_volume_db(bus_index))
 
 
 func _on_value_changed(value: float) -> void:
-	bg.size = Vector2(10 + value*146.0, bg.size.y)
+	adjust_size()
 	AudioServer.set_bus_volume_db(bus_index, linear_to_db(value))
 
 

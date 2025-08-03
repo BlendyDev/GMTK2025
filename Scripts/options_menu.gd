@@ -1,5 +1,6 @@
 extends Control
 
+
 func _ready() -> void:
 	#effect.set_band_cutoff_hz(2000)
 	#AudioEffectBandPassFilter.

@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bxyvs55u3pfiy"]
+[gd_scene load_steps=23 format=3 uid="uid://bxyvs55u3pfiy"]
 
 [ext_resource type="Script" uid="uid://cqme1fyl5r23p" path="res://Scripts/options_menu.gd" id="1_plplt"]
 [ext_resource type="FontFile" uid="uid://ciygyfdhhcin5" path="res://Sprites/FONT1.png" id="2_tqe32"]
@@ -9,13 +9,23 @@
 [ext_resource type="Texture2D" uid="uid://c8l5slruu5ljl" path="res://Sprites/mousemc-Sheet-1.png(1).png" id="5_syw6n"]
 [ext_resource type="Texture2D" uid="uid://dcbglvnmwn7ui" path="res://Sprites/mousemc-Sheet-2.png(1).png" id="6_cvaji"]
 [ext_resource type="Texture2D" uid="uid://cbascitrtggix" path="res://Sprites/optionsmouse1.png" id="6_wbndg"]
-[ext_resource type="Script" path="res://Scripts/sensitivity_slider.gd" id="8_uyb61"]
+[ext_resource type="Texture2D" uid="uid://tgkigpmd3vo6" path="res://Sprites/tailsliderbig.png" id="8_064ll"]
+[ext_resource type="Script" uid="uid://mf3us5g1qsr1" path="res://Scripts/sensitivity_slider.gd" id="8_uyb61"]
+[ext_resource type="Texture2D" uid="uid://bncxaflkogsyf" path="res://Sprites/tailslider1.png" id="9_gesnm"]
 [ext_resource type="FontFile" uid="uid://n2exgpxs2fx5" path="res://Sprites/FONT2.png" id="10_064ll"]
 [ext_resource type="FontFile" uid="uid://bk5j57lgnqs3q" path="res://Sprites/FONT3.png" id="11_a6r4q"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wbndg"]
 shader = ExtResource("2_wbndg")
 shader_parameter/speed = 0.15
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_uyb61"]
+texture = ExtResource("8_064ll")
+texture_margin_top = 20.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_064ll"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_a6r4q"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1ndqe"]
 
@@ -333,7 +343,7 @@ anchor_left = 0.207589
 anchor_top = 0.297619
 anchor_right = 0.207589
 anchor_bottom = 0.297619
-offset_right = 154.0
+offset_right = 156.0
 offset_bottom = 164.0
 theme_override_constants/separation = 0
 metadata/_edit_use_anchors_ = true
@@ -345,6 +355,7 @@ text = "MASTER"
 horizontal_alignment = 1
 
 [node name="MasterSlider" parent="VBoxContainer" instance=ExtResource("2_uj0ok")]
+z_index = 2
 layout_mode = 2
 theme_override_icons/grabber = ExtResource("4_qfavn")
 bus_name = "Master"
@@ -356,6 +367,7 @@ text = "MUSIC"
 horizontal_alignment = 1
 
 [node name="MusicSlider" parent="VBoxContainer" instance=ExtResource("2_uj0ok")]
+z_index = 2
 layout_mode = 2
 bus_name = "Music"
 
@@ -366,6 +378,7 @@ text = "SOUNDS"
 horizontal_alignment = 1
 
 [node name="SFXSlider" parent="VBoxContainer" instance=ExtResource("2_uj0ok")]
+z_index = 2
 layout_mode = 2
 bus_name = "SFX"
 
@@ -378,7 +391,7 @@ anchor_right = 0.537946
 anchor_bottom = 0.00793651
 offset_left = -174.0
 offset_top = 7.0
-offset_right = 64.0
+offset_right = 104.0
 offset_bottom = 50.0
 grow_horizontal = 2
 theme_override_constants/separation = -2
@@ -391,14 +404,43 @@ text = "MOUSE SENSITIVITY"
 horizontal_alignment = 1
 
 [node name="SensitivitySlider" type="HSlider" parent="VBoxContainer2"]
+z_index = 2
 layout_mode = 2
 theme_override_icons/grabber = ExtResource("5_syw6n")
 theme_override_icons/grabber_highlight = ExtResource("5_syw6n")
 theme_override_icons/grabber_disabled = ExtResource("5_syw6n")
 theme_override_icons/tick = ExtResource("5_syw6n")
+theme_override_styles/slider = SubResource("StyleBoxTexture_uyb61")
+theme_override_styles/grabber_area = SubResource("StyleBoxEmpty_064ll")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxEmpty_a6r4q")
 max_value = 1.0
 step = 0.001
 script = ExtResource("8_uyb61")
+
+[node name="BG" type="Control" parent="VBoxContainer2/SensitivitySlider"]
+z_index = -1
+clip_contents = true
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -10.0
+offset_right = 310.0
+offset_bottom = 10.0
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer2/SensitivitySlider/BG"]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -10.0
+offset_right = 312.0
+offset_bottom = 10.0
+grow_vertical = 2
+texture = ExtResource("9_gesnm")
 
 [node name="TextureRect2" type="TextureRect" parent="."]
 layout_mode = 0
