@@ -52,7 +52,6 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if get_tree().paused: return
-	debug_text.text = "highest combo: " + str(Stats.get_highest_combo()) + "\nloops drawn: " + str(Stats.get_loops_drawn()) + "\nhighest loop: " + str(Stats.get_highest_loop()) + "\ndamage taken: " + str(Stats.get_damage_taken()) + "\ntotal time: " + str(Stats.get_total_time()) + "\nshield threshold: " + str(shield_threshold) + "\nanimation: " + str(animation_player.current_animation) + "\ntutorial stage" + str(Dummy.Stage.keys()[Dummy.stage]) + "\nfps: " + str(Engine.get_frames_per_second()) + "\nsensitivity boost: " + str(Global.sensitivity_boost) + "\ncircle cooldown: " + str(max(0, trail.circle_min_timeout_sec - trail.time_since_last_circle_sec)) + "\ncleared points: " + str(trail.cleared_points) + "\nloop count: " + str(trail.loop_count) + "\nlowpass resonance: " + str(effect.resonance) + "\naction: " + Action.keys()[action] + "\nspawned_mobs: " + str(spawned_mobs) + "\nmobs_alive: " + str(mobs_alive) + "\nhp: " + str(hp) + "\nshield: " + str(shield)
 	
 	if (action == Action.SHIELD and mobs_alive == 0):
 		if (shield < shield_threshold): start_spawning()

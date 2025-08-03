@@ -550,6 +550,7 @@ text = "OPTIONS"
 flat = true
 
 [node name="ColorRect" type="ColorRect" parent="VBoxContainer/Options"]
+layout_mode = 0
 offset_left = 28.0
 offset_top = 3.0
 offset_right = 138.0
@@ -565,6 +566,7 @@ text = "MENU"
 flat = true
 
 [node name="ColorRect" type="ColorRect" parent="VBoxContainer/Main Menu"]
+layout_mode = 0
 offset_left = 52.0
 offset_top = 4.0
 offset_right = 114.0
@@ -607,6 +609,7 @@ text = "QUIT"
 flat = true
 
 [node name="ColorRect" type="ColorRect" parent="VBoxContainer/Quit"]
+layout_mode = 0
 offset_left = 53.0
 offset_top = 4.0
 offset_right = 116.0

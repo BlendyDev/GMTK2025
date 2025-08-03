@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://0mcwei50crlf" path="res://Scripts/main_menu.gd" id="1_ce3w2"]
 [ext_resource type="Texture2D" uid="uid://rc0e0h2kk7xn" path="res://Sprites/fondo2.png" id="2_xcoo4"]
 [ext_resource type="Texture2D" uid="uid://lhlq250l8db8" path="res://Sprites/hamsterwheel1.png" id="3_4nkqq"]
-[ext_resource type="Shader" uid="uid://ckg8b2a2owe7x" path="res://Shaders/scroll.gdshader" id="3_jw7lb"]
+[ext_resource type="Shader" path="res://Shaders/scroll.gdshader" id="3_jw7lb"]
 [ext_resource type="Texture2D" uid="uid://hif4qmsh42us" path="res://Sprites/fondo1.png" id="4_6vfk8"]
 [ext_resource type="Texture2D" uid="uid://bcgh6pkvu6752" path="res://Sprites/hamsterwheel2.png" id="4_ehtkc"]
 [ext_resource type="Texture2D" uid="uid://bbwxalk61bbj0" path="res://Sprites/logo.png" id="5_1xund"]
@@ -314,22 +314,6 @@ random_volume_offset_db = 1.0
 streams_count = 1
 stream_0/stream = ExtResource("28_43km2")
 
-[sub_resource type="Animation" id="Animation_43km2"]
-resource_name = "shine"
-length = 0.01
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture_normal")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("28_ko05x")]
-}
-
 [sub_resource type="Animation" id="Animation_3533h"]
 length = 0.001
 tracks/0/type = "value"
@@ -359,6 +343,22 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [ExtResource("27_pddej")]
+}
+
+[sub_resource type="Animation" id="Animation_43km2"]
+resource_name = "shine"
+length = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture_normal")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("28_ko05x")]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_uu0lx"]
@@ -732,6 +732,7 @@ libraries = {
 autoplay = "idle"
 
 [node name="Trophy" type="TextureButton" parent="."]
+layout_mode = 0
 offset_left = 12.0
 offset_top = 177.0
 offset_right = 76.0
