@@ -14,7 +14,7 @@ enum Action {IDLE, MOVING, DYING}
 enum Type {BASIC, CAT, SLIME, RAMIRO}
 var action: Action
 var type: Type
-var base_speed = 250.0
+var base_speed = 200.0
 var speed_mult: float = 1.0
 var idle_time_mult: float = 1.0
 var loop := 0

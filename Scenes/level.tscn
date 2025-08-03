@@ -14,10 +14,10 @@
 [ext_resource type="PackedScene" uid="uid://dd7jxb3adi5uf" path="res://Scenes/boss.tscn" id="10_qxfql"]
 [ext_resource type="PackedScene" uid="uid://dtvjq0c7xnecv" path="res://Scenes/pause_menu.tscn" id="11_qxfql"]
 [ext_resource type="Texture2D" uid="uid://dj4jb10r2f8gr" path="res://Scripts/barradevida.png" id="12_c7le1"]
-[ext_resource type="Script" uid="uid://ousv1f8xfya" path="res://Scripts/hp.gd" id="12_crh0w"]
-[ext_resource type="Script" uid="uid://d38d20stw2p47" path="res://Scripts/vfx.gd" id="12_pa6b8"]
+[ext_resource type="Script" path="res://Scripts/hp.gd" id="12_crh0w"]
+[ext_resource type="Script" path="res://Scripts/vfx.gd" id="12_pa6b8"]
 [ext_resource type="Texture2D" uid="uid://cl7ptifj3tjfa" path="res://Sprites/barradeescudo.png" id="14_2klc5"]
-[ext_resource type="Script" uid="uid://b3d018vi6kaw3" path="res://Scripts/shield.gd" id="15_nngtn"]
+[ext_resource type="Script" path="res://Scripts/shield.gd" id="15_nngtn"]
 [ext_resource type="PackedScene" uid="uid://7v6mu82w1o7g" path="res://Scenes/loading.tscn" id="19_00k4y"]
 [ext_resource type="FontFile" uid="uid://ciygyfdhhcin5" path="res://Sprites/FONT1.png" id="20_pnhnk"]
 [ext_resource type="FontFile" uid="uid://n2exgpxs2fx5" path="res://Sprites/FONT2.png" id="21_24uko"]
@@ -222,7 +222,6 @@ _data = {
 &"trail_reset": SubResource("Animation_c7le1")
 }
 
-
 [sub_resource type="Animation" id="Animation_u0did"]
 length = 0.001
 tracks/0/type = "value"
@@ -237,7 +236,6 @@ tracks/0/keys = {
 "update": 1,
 "values": [ExtResource("20_pnhnk")]
 }
-
 
 [sub_resource type="Animation" id="Animation_6y3s5"]
 resource_name = "movetext"
@@ -267,15 +265,12 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-
 tracks/0/path = NodePath("RichTextLabel:visible_ratio")
-
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-
 "update": 0,
 "values": [0.0]
 }
@@ -307,7 +302,6 @@ tracks/0/keys = {
 "update": 0,
 "values": [0.0, 1.0]
 }
-
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
@@ -333,7 +327,6 @@ tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-
 "update": 1,
 "values": ["SIMPLY MARVELOUS!"]
 }
@@ -991,7 +984,6 @@ tracks/1/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_hcs0j"]
 _data = {
 &"RESET": SubResource("Animation_1cgv8"),
-
 &"pre1_final": SubResource("Animation_luodc"),
 &"pre_both1": SubResource("Animation_dw52x"),
 &"pre_both2": SubResource("Animation_ais7f"),
@@ -1043,9 +1035,9 @@ script = ExtResource("2_vofx3")
 collision_layer = 256
 collision_mask = 1028
 script = ExtResource("1_0f350")
+max_trail_time_sec = 1.35
 min_distance_to_oldest_points = 18.0
 circle_min_timeout_sec = 0.2
-last_points_tolerance = 0.1
 
 [node name="Trail" type="Line2D" parent="Trail"]
 width = 4.0
@@ -1221,7 +1213,6 @@ color = Color(0, 0, 0, 0)
 visible = false
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
-
 offset_left = -203.0
 offset_top = -92.0
 offset_right = 100.0
@@ -1241,7 +1232,6 @@ autoplay = "movetext"
 libraries = {
 &"": SubResource("AnimationLibrary_hcs0j")
 }
-
 script = ExtResource("23_24uko")
 
 [connection signal="mouse_entered" from="Player/GrabDetector" to="Player" method="_on_mouse_entered"]

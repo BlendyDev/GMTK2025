@@ -34,7 +34,7 @@ func _process(delta: float)  -> void:
 func freeze(duration):
 	if (duration == 0): return
 	Engine.time_scale = 0.05
-	AudioController.tutorial_music_pause()
+	AudioController.level_music_pause()
 	await get_tree().create_timer(duration, true, false, true).timeout
 	Engine.time_scale = 1.0
-	AudioController.tutorial_music_resume()
+	AudioController.level_music_resume()

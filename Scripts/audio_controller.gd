@@ -109,6 +109,24 @@ func menu_music():
 	$MenuMusic.play()
 func menu_music_stop():
 	$MenuMusic.stop()
+
+func level_music():
+	$LevelMusic.play()
+func level_music_stop():
+	tween = get_tree().create_tween()
+	tween.set_process_mode(Tween.TWEEN_PROCESS_IDLE)
+	tween.set_ignore_time_scale(true)
+	tween.set_ease(Tween.EASE_OUT)
+	tween.set_trans(Tween.TRANS_CUBIC)
+	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+	tween.tween_property($LevelMusic, "volume_db", -80, 0.25)
+	if $LevelMusic.volume_db == -80:
+		$LevelMusic.stop()
+func level_music_pause():
+	$LevelMusic.volume_db = -80.0
+func level_music_resume():
+	$LevelMusic.volume_db = 0
+	
 func tutorial_music():
 	$TutorialMusic.play()
 	$TutorialDrums.play()

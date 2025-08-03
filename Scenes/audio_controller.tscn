@@ -1,4 +1,4 @@
-[gd_scene load_steps=71 format=3 uid="uid://dsaaqh6r846s1"]
+[gd_scene load_steps=72 format=3 uid="uid://dsaaqh6r846s1"]
 
 [ext_resource type="Script" uid="uid://hgdeh6d4tsa2" path="res://Scripts/audio_controller.gd" id="1_t0xn5"]
 [ext_resource type="AudioStream" uid="uid://dapvn0ocg8s84" path="res://SFX/test_sfx_pickup.wav" id="2_nqcbu"]
@@ -43,6 +43,7 @@
 [ext_resource type="AudioStream" uid="uid://dsx0viicsqsr6" path="res://Music/tutorial ost loop final.wav" id="39_fo00n"]
 [ext_resource type="AudioStream" uid="uid://dmhintedg1nty" path="res://SFX/water stream loop.wav" id="41_x26on"]
 [ext_resource type="AudioStream" uid="uid://db54uyaqvf3an" path="res://Music/winmusic loop final.wav" id="43_jhpkq"]
+[ext_resource type="AudioStream" uid="uid://cpg88vnnpfimi" path="res://Music/ACABADO ost mouse level.wav" id="44_fo00n"]
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ncnt2"]
 random_pitch = 1.13
@@ -377,5 +378,10 @@ playback_type = 1
 [node name="WinMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("43_jhpkq")
 volume_db = -80.0
+bus = &"Music"
+playback_type = 1
+
+[node name="LevelMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("44_fo00n")
 bus = &"Music"
 playback_type = 1

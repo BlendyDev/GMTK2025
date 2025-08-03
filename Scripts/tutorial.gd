@@ -64,6 +64,8 @@ func _process(delta: float) -> void:
 	pass
 
 func finish_tutorial():
+	AudioController.tutorial_music_stop()
+	AudioController.level_music()
 	boss.activate()
 	left_dummy.queue_free()
 	right_dummy.queue_free()
